@@ -1,0 +1,75 @@
+<div class="line_bank_card_no_padding_child">
+  <div class="line_bank_form_header_title">債整拆分明細</div>
+  <nz-table id="box" #goUp nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="debtData"
+    [nzSimple]="true" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex">
+    <thead>
+      <tr>
+        <th nzWidth="10%"></th>
+        <th nzWidth="10%">產品別</th>
+        <th nzWidth="10%">銀行名稱</th>
+        <th nzWidth="10%">結清金額</th>
+        <th nzWidth="10%">匯款帳號</th>
+        <th nzWidth="10%">結清卡號</th>
+        <th nzWidth="10%">匯款戶名</th>
+        <th nzWidth="10%">匯款分行別</th>
+        <th nzWidth="10%">匯款附言</th>
+        <th nzWidth="10%"></th>
+        <th nzWidth="10%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let debt of debtData;let i = index">
+        <td><button *ngIf="i == 0" nz-button [nzSize]="'middle'" nzType="primary" (click)="add(debt)"
+            [disabled]="!searchDisabled">新增</button></td>
+        <td>{{ data.mergDebtProd }}</td>
+        <td>{{ debt.BANK_CODE }}&nbsp;{{ debt.BANK_NAME }}</td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.SETTLE_AMT" name="settleAmt"
+            style="text-align:right;" (keyup)="debt.SETTLE_AMT = f06004Service.toCurrency(toNumber2(debt.SETTLE_AMT))"
+            maxlength="17" (keypress)="numberOnly($event)" [disabled]="!searchDisabled">
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.ACCOUNT_NO" name="accountNo"
+            style="text-align:right;" (keyup)="debt.ACCOUNT_NO = toNumber2(debt.ACCOUNT_NO)" maxlength="16"
+            (keypress)="numberOnly($event)" [disabled]="!searchDisabled">
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.SETTLE_CARD_NO" name="settleCardNo"
+            style="text-align:right;" (keyup)="debt.SETTLE_CARD_NO = toNumber2(debt.SETTLE_CARD_NO)" maxlength="16"
+            (keypress)="numberOnly($event)" [disabled]="!searchDisabled || isUnsLoan">
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.ACCOUNT_NM" name="accountNm"
+            [ngStyle]="getStyle(debt.ACCOUNT_NM)" maxlength="38" [disabled]="!searchDisabled">
+        </td>
+        <td>
+          <ng-container *ngIf="!searchDisabled; else notLineBank">
+            <input matInput #input class="form-control" [(ngModel)]="debt.BRANCH_CD" name="branchCd"
+              [ngStyle]="getStyle(debt.BRANCH_CD)" maxlength="16" [disabled]="!searchDisabled">
+          </ng-container>
+          <ng-template #notLineBank>
+            <mat-select [(ngModel)]="debt.BRANCH_CD" name="branchCd">
+              <mat-option *ngFor="let code of branchCdCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </ng-template>
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.TRANS_MEMO" name="transMemo"
+            [ngStyle]="getStyle(debt.TRANS_MEMO)" maxlength="38">
+        </td>
+        <td><button *ngIf="i != 0" nz-button [nzSize]="'middle'" nzDanger (click)="remove(debt)">刪除</button></td>
+        <td>
+          <button *ngIf="!searchDisabled" nz-button [nzSize]="'middle'" nzType="primary"  nz-popover [nzPopoverTitle]="debt.TITLE" [nzPopoverContent]="debt.DETAIL">明細</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div style="padding:10px;text-align:center">
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="searchAmt()"
+      [disabled]="searchDisabled">查詢本行還款金額</button>&nbsp;
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>&nbsp;
+    <button nz-button [nzSize]="'middle'" nzDanger (click)="close()">離開</button>&nbsp;
+  </div>
+</div>

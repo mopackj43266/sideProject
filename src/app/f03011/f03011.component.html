@@ -1,0 +1,41 @@
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+
+  <!-- 最外層卡片包覆 -->
+  <br>
+  <div class="line_bank_card_no_padding" style="margin:0 auto">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="dssCalloutSource" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="DSS照會模組">
+      <thead>
+        <tr>
+          <th class="table-header">照會模組</th>
+          <th class="table-header">系統徵信比對</th>
+          <th class="table-header">案件等級</th>
+          <th class="table-header">編輯</th>
+          <th class="table-header">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of dssCalloutSource">
+          <td class="table-data">{{ getOptiontvNo( data.tvNo )}}</td>
+          <td class="table-data">{{ getOptionscklv( data.scklv )}}</td>
+          <td class="table-data">{{ getOptioncalv( data.calv ) }}</td>
+          <td class="table-data" style="text-align: center;">
+            <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
+              data.tvNo, data.scklv, data.calv)">編輯</button>
+          </td>
+          <td class="table-data" style="text-align: center;">
+            <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="delete(
+              data.tvNo, data.scklv, data.calv)">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div style="padding:10px;text-align: center;">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>
+    </div>
+  </div>
+
+</div>

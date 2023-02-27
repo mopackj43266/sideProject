@@ -1,0 +1,1485 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div *ngIf="getStepName23() && this.EL_INCOME_Source.data.length==7 && getSearch()!='Y' " style="padding-left: 50px; ">
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()">儲存</button>
+  </div>
+  <div *ngIf="!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') " style="padding-left: 50px; ">
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()" disabled>儲存</button>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table [nzData]="EL_INCOME_Source.data" nzSize="small" nzTitle="收入試算" [nzLoading]="loading" nzFrontPagination="true"
+      nzSimple="true">
+      <thead>
+        <tr>
+          <th class="table-header" style="width:1%">No</th>
+          <th class="table-header" style="width:10%">項目</th>
+          <th class="table-header" style="width:10%">數值</th>
+          <th class="table-header" style="width:5%">徵審確認後年收入</th>
+          <th class="table-header" style="width:30%">備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="EL_INCOME_Source.data.length==7">
+          <tr *ngFor="let item of EL_INCOME_Source.data;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{item.items}}</td>
+            <td class="data_right" *ngIf="i!=6" >{{toCurrency(item.checkIncome.toString())}}</td>
+            <td *ngIf="i==6">
+              <div style="padding:0px"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
+                  maxlength="11" [disabled]="(chkArray[6].completed) || (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" /></div>
+            </td>
+            <td *ngIf="i==6">
+              <nz-checkbox-wrapper  (nzOnChange)="calculate(chkArray[i].completed, item.income)">
+                <label [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}} ></label>
+              </nz-checkbox-wrapper>
+            </td>
+            <td *ngIf="i!=6">
+              <nz-checkbox-wrapper  (nzOnChange)="calculate(chkArray[i].completed, item.checkIncome)">
+                <label [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}} ></label>
+              </nz-checkbox-wrapper>
+            </td>
+            <td *ngIf="i==0" rowspan="7">
+              <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" [(ngModel)]="EL_INCOME_Source.data[6].mark" maxlength="199"
+                name="EL_INCOME_Source.data[6].mark" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>徵審後確認合計(打勾)</td>
+            <td>
+              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="checkTotaltring"
+                maxlength="11"  disabled /></div>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="EL_INCOME_Source.data.length!=7">
+          <tr>
+            <td>1</td>
+            <td>薪轉存褶合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nzDisabled  nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+            <td rowspan="7">
+              <textarea [disabled]="true" style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>薪資單合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nzDisabled  nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>所清/報稅合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nzDisabled  nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>扣繳憑單合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nzDisabled  nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>勞保/勞退合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nzDisabled  nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>行員年收入</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nzDisabled  nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>其他試算結果</td>
+            <td>
+              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="income" (keyup)="income=data_number(income)"
+                maxlength="16"  [disabled]="true" /></div>
+            </td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nzDisabled nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>徵審後確認合計(打勾)</td>
+            <td>
+              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="checkTotaltring"
+                maxlength="11"  disabled /></div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <div *ngIf="(getPage() == '1' || getPage() == '2') && getSearch()== 'N'" style="padding-left: 100px; padding-top: 20px;">
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save2()">儲存</button>
+  </div>
+  <div *ngIf="(getPage() != '2' && getPage() != '1') || ((getPage() == '2' || getPage() == '1') && getSearch()!= 'N')" style="padding-left: 100px; padding-top: 20px;">
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save2()" disabled>儲存</button>
+  </div>
+
+  <!-- 所得清單/報稅證明 -->
+  <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
+    <nz-collapse-panel [nzHeader]="'所得清單/報稅證明'" [nzActive]="false" >
+
+      <div class="line_bank_card_no_padding">
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="所得清單/報稅證明" nzFrontPagination="false"
+          nzSimple="false"  >
+          <thead>
+            <tr>
+              <th class="table-header" style="width:2%">序號</th>
+              <th class="table-header" style="width:5%">收入類型</th>
+              <th class="table-header" style="width:10%">身分分類</th>
+              <th class="table-header" style="width:10%">認列項目</th>
+              <th class="table-header" style="width:10%">輸入金額</th>
+              <th class="table-header" style="width:5%">輸入數值</th>
+              <th class="table-header" style="width:10%">認列年收入計算公式</th>
+              <th class="table-header" style="width:10%">認列年收入</th>
+              <th class="table-header" style="width:10%">認列年收入(徵審確認)</th>
+              <th class="table-header" style="width:18%">說明</th>
+            </tr>
+          </thead>
+          <tbody [ngClass]="getStepName() ? '' : getBlueClass()">
+            <!-- 1 -->
+            <tr>
+              <td rowspan="15">1</td>
+              <td rowspan="15">所得清單/報稅證明</td>
+              <td>(受雇)業務傭金制人員</td>
+              <td>現職 【50】薪資所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A1"
+                    (keyup)="INCOME_DETAILS_List[0].A1=data_number(INCOME_DETAILS_List[0].A1,INCOME_DETAILS_List[0].key,'A1')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*70%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D1}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C1"
+                    (keyup)="INCOME_DETAILS_List[0].C1=data_number(INCOME_DETAILS_List[0].C1,INCOME_DETAILS_List[0].key,'C1')"
+                    maxlength="11" /></div>
+              </td>
+              <td rowspan="2">1.若到職未滿一年者，得提供勞保明細佐證年資後可回推整年度收入。
+                2.需為近一個月申請資料，每年1~5月可認列前一年度所得清單，報稅結束後，則只能認列當年度資料。</td>
+            </tr>
+            <tr>
+              <td>(受雇)非業務傭金制人員</td>
+              <td>現職 【50】薪資所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A2"
+                    (keyup)="INCOME_DETAILS_List[0].A2=data_number(INCOME_DETAILS_List[0].A2,INCOME_DETAILS_List[0].key,'A2')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D2}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C2"
+                    (keyup)="INCOME_DETAILS_List[0].C2=data_number(INCOME_DETAILS_List[0].C2,INCOME_DETAILS_List[0].key,'C2')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>專業人士</td>
+              <td>【9A】執行業務所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A3"
+                    (keyup)="INCOME_DETAILS_List[0].A3=data_number(INCOME_DETAILS_List[0].A3,INCOME_DETAILS_List[0].key,'A3')"
+                    maxlength="11" /></div>
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].P1"
+                    (keyup)="INCOME_DETAILS_List[0].P1=data_number(INCOME_DETAILS_List[0].P1,INCOME_DETAILS_List[0].key,'P1')"
+                    maxlength="3" /></div>
+              </td>
+              <td>(輸入金額*70%)/執業人數</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D3}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C3"
+                    (keyup)="INCOME_DETAILS_List[0].C3=data_number(INCOME_DETAILS_List[0].C3,INCOME_DETAILS_List[0].key,'C3')"
+                    maxlength="11" /></div>
+              </td>
+              <td>1.專業人士:如醫師.律師,會計師….具專業證照者,依9A金額*70%認列年收
+                2.若醫師,藥師為診所醫院或藥局負責人,提供健保局開立扣憑且所得人為公司名義時,依扣繳金額*70%/執業人數後所得金額認列為年收
+              </td>
+            </tr>
+            <tr>
+              <td>保險業務員</td>
+              <td>【9A】執行業務所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A4"
+                    (keyup)="INCOME_DETAILS_List[0].A4=data_number(INCOME_DETAILS_List[0].A4,INCOME_DETAILS_List[0].key,'A4')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*70%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D4}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C4"
+                    (keyup)="INCOME_DETAILS_List[0].C4=data_number(INCOME_DETAILS_List[0].C4,INCOME_DETAILS_List[0].key,'C4')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>直銷業及其他行業</td>
+              <td>【9A】執行業務所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A5"
+                    (keyup)="INCOME_DETAILS_List[0].A5=data_number(INCOME_DETAILS_List[0].A5,INCOME_DETAILS_List[0].key,'A5')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>Min(輸入金額*50%, 70萬)</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D5}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C5"
+                    (keyup)="INCOME_DETAILS_List[0].C5=data_number(INCOME_DETAILS_List[0].C5,INCOME_DETAILS_List[0].key,'C5')"
+                    maxlength="11" /></div>
+              </td>
+              <td>直銷業年收認列上限70萬</td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【54】股利或盈餘所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].B1"
+                    (keyup)="INCOME_DETAILS_List[0].B1=data_number(INCOME_DETAILS_List[0].B1,INCOME_DETAILS_List[0].key,'B1')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td rowspan="7">受雇者: 其他部分加計不得超過本薪50%。</td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【5A】金融業利息</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].B2"
+                    (keyup)="INCOME_DETAILS_List[0].B2=data_number(INCOME_DETAILS_List[0].B2,INCOME_DETAILS_List[0].key,'B2')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【92】其他所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].B3"
+                    (keyup)="INCOME_DETAILS_List[0].B3=data_number(INCOME_DETAILS_List[0].B3,INCOME_DETAILS_List[0].key,'B3')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【94】員工認股所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].B4"
+                    (keyup)="INCOME_DETAILS_List[0].B4=data_number(INCOME_DETAILS_List[0].B4,INCOME_DETAILS_List[0].key,'B4')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【51】租賃所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].B5"
+                    (keyup)="INCOME_DETAILS_List[0].B5=data_number(INCOME_DETAILS_List[0].B5,INCOME_DETAILS_List[0].key,'B5')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>其他</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].B6"
+                    (keyup)="INCOME_DETAILS_List[0].B6=data_number(INCOME_DETAILS_List[0].B6,INCOME_DETAILS_List[0].key,'B6')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>小計</td>
+              <td>
+                <div style="padding:0px" class="data_right">{{INCOME_DETAILS_List[0].B}}</div>
+              </td>
+              <td class="display"></td>
+              <td>=Min(B, (A1+A2)*50%)</td>
+              <td>
+                <div style="padding:0px" class="data_right">{{INCOME_DETAILS_List[0].D}}</div>
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C"
+                    (keyup)="INCOME_DETAILS_List[0].C=data_number(INCOME_DETAILS_List[0].C,INCOME_DETAILS_List[0].key,'C')"
+                    maxlength="11" />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>公司負責人/股東</td>
+              <td>【54】股利或盈餘所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A6"
+                    (keyup)="INCOME_DETAILS_List[0].A6=data_number(INCOME_DETAILS_List[0].A6,INCOME_DETAILS_List[0].key,'A6')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D6}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C6"
+                    (keyup)="INCOME_DETAILS_List[0].C6=data_number(INCOME_DETAILS_List[0].C6,INCOME_DETAILS_List[0].key,'C6')"
+                    maxlength="11" /></div>
+              </td>
+              <td>經確認為公司負責人或公司股東,則54股利部分可全額加計認列</td>
+
+            </tr>
+            <tr>
+              <td>其他加計項</td>
+              <td>【93】退職所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A7"
+                    (keyup)="INCOME_DETAILS_List[0].A7=data_number(INCOME_DETAILS_List[0].A7,INCOME_DETAILS_List[0].key,'A7')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D7}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C7"
+                    (keyup)="INCOME_DETAILS_List[0].C7=data_number(INCOME_DETAILS_List[0].C7,INCOME_DETAILS_List[0].key,'C7')"
+                    maxlength="11" /></div>
+              </td>
+              <td>可全額加計，不受限本薪50%的規範。</td>
+            </tr>
+            <tr>
+              <td>其他加計項</td>
+              <td>
+                <div style="padding:0px"> <input [(ngModel)]="INCOME_DETAILS_List[0].Z1" maxlength="50" /></div>
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].A8"
+                    (keyup)="INCOME_DETAILS_List[0].A8=data_number(INCOME_DETAILS_List[0].A8,INCOME_DETAILS_List[0].key,'A8')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].D8}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[0].C8"
+                    (keyup)="INCOME_DETAILS_List[0].C8=data_number(INCOME_DETAILS_List[0].C8,INCOME_DETAILS_List[0].key,'C8')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td>合計</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].Dtotal}}</td>
+              <td class="data_right">{{INCOME_DETAILS_List[0].Ctotal}}</td>
+              <td class="display"></td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <!-- 扣繳憑單 -->
+  <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
+    <nz-collapse-panel [nzHeader]="'扣繳憑單'" [nzActive]="false" >
+
+      <div class="line_bank_card_no_padding">
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="扣繳憑單" nzFrontPagination="false"
+          nzSimple="false">
+          <thead>
+            <tr>
+              <th class="table-header" style="width:2%">序號</th>
+              <th class="table-header" style="width:5%">收入類型</th>
+              <th class="table-header" style="width:10%">身分分類</th>
+              <th class="table-header" style="width:10%">認列項目</th>
+              <th class="table-header" style="width:10%">輸入金額</th>
+              <th class="table-header" style="width:5%">輸入數值</th>
+              <th class="table-header" style="width:10%">認列年收入計算公式</th>
+              <th class="table-header" style="width:10%">認列年收入</th>
+              <th class="table-header" style="width:10%">認列年收入(徵審確認)</th>
+              <th class="table-header" style="width:18%">說明</th>
+            </tr>
+          </thead>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
+            <!-- 2 -->
+            <tr>
+              <td rowspan="14">2</td>
+              <td rowspan="14">扣繳憑單</td>
+              <td>(受雇)業務傭金制人員</td>
+              <td>現職 【50】薪資所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].A1"
+                    (keyup)="INCOME_DETAILS_List[1].A1=data_number(INCOME_DETAILS_List[1].A1,INCOME_DETAILS_List[1].key,'A1')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*70%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D1}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C1"
+                    (keyup)="INCOME_DETAILS_List[1].C1=data_number(INCOME_DETAILS_List[1].C1,INCOME_DETAILS_List[1].key,'C1')"
+                    maxlength="11" /></div>
+              </td>
+              <td rowspan="2">1.若到職未滿一年，得提供勞保明細佐證年資後回推整年度收入(但扣繳金額已有註明月份則可直接回推年收)。
+                2.每年1~5月可認列前一年度扣繳所得，報稅結束後，則只能認列當年度資料。
+                3.因扣繳比較容易偽造，如果僅提供扣繳，需在多方面比對確認(如比對聯徵BAM061、KRM043資訊，公司公開資訊查核)。</td>
+            </tr>
+            <tr>
+              <td>(受雇)非業務傭金制人員</td>
+              <td>現職 【50】薪資所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].A2"
+                    (keyup)="INCOME_DETAILS_List[1].A2=data_number(INCOME_DETAILS_List[1].A2,INCOME_DETAILS_List[1].key,'A2')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D2}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C2"
+                    (keyup)="INCOME_DETAILS_List[1].C2=data_number(INCOME_DETAILS_List[1].C2,INCOME_DETAILS_List[1].key,'C2')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>專業人士</td>
+              <td>【9A】執行業務所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].A3"
+                    (keyup)="INCOME_DETAILS_List[1].A3=data_number(INCOME_DETAILS_List[1].A3,INCOME_DETAILS_List[1].key,'A3')"
+                    maxlength="11" /></div>
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].P1"
+                    (keyup)="INCOME_DETAILS_List[1].P1=data_number(INCOME_DETAILS_List[1].P1,INCOME_DETAILS_List[1].key,'P1')"
+                    maxlength="3" /></div>
+              </td>
+              <td>(輸入金額*70%)/執業人數</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D3}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C3"
+                    (keyup)="INCOME_DETAILS_List[1].C3=data_number(INCOME_DETAILS_List[1].C3,INCOME_DETAILS_List[1].key,'C3')"
+                    maxlength="11" /></div>
+              </td>
+              <td>1.專業人士:如醫師.律師,會計師….具專業證照者,依9A金額*70%認列年收
+                2.若醫師,藥師為診所醫院或藥局負責人,提供健保局開立扣憑且所得人為公司名義時,依扣繳金額*70%/執業人數後所得金額認列為年收
+              </td>
+            </tr>
+            <tr>
+              <td>保險業務員</td>
+              <td>【9A】執行業務所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].A4"
+                    (keyup)="INCOME_DETAILS_List[1].A4=data_number(INCOME_DETAILS_List[1].A4,INCOME_DETAILS_List[1].key,'A4')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*70%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D4}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C4"
+                    (keyup)="INCOME_DETAILS_List[1].C4=data_number(INCOME_DETAILS_List[1].C4,INCOME_DETAILS_List[1].key,'C4')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>直銷業及其他行業</td>
+              <td>【9A】執行業務所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].A5"
+                    (keyup)="INCOME_DETAILS_List[1].A5=data_number(INCOME_DETAILS_List[1].A5,INCOME_DETAILS_List[1].key,'A5')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>Min(輸入金額*50%, 70萬)</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D5}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C5"
+                    (keyup)="INCOME_DETAILS_List[1].C5=data_number(INCOME_DETAILS_List[1].C5,INCOME_DETAILS_List[1].key,'C5')"
+                    maxlength="11" /></div>
+              </td>
+              <td>直銷業年收認列上限70萬</td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【54】股利或盈餘所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].B1"
+                    (keyup)="INCOME_DETAILS_List[1].B1=data_number(INCOME_DETAILS_List[1].B1,INCOME_DETAILS_List[1].key,'B1')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td rowspan="7">受雇者: 其他部分加計不得超過本薪50%。</td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【5A】金融業利息</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].B2"
+                    (keyup)="INCOME_DETAILS_List[1].B2=data_number(INCOME_DETAILS_List[1].B2,INCOME_DETAILS_List[1].key,'B2')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【92】其他所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].B3"
+                    (keyup)="INCOME_DETAILS_List[1].B3=data_number(INCOME_DETAILS_List[1].B3,INCOME_DETAILS_List[1].key,'B3')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【94】員工認股所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].B4"
+                    (keyup)="INCOME_DETAILS_List[1].B4=data_number(INCOME_DETAILS_List[1].B4,INCOME_DETAILS_List[1].key,'B4')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>【51】租賃所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].B5"
+                    (keyup)="INCOME_DETAILS_List[1].B5=data_number(INCOME_DETAILS_List[1].B5,INCOME_DETAILS_List[1].key,'B5')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td>(受雇)其他項目</td>
+              <td>其他</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].B6"
+                    (keyup)="INCOME_DETAILS_List[1].B6=data_number(INCOME_DETAILS_List[1].B6,INCOME_DETAILS_List[1].key,'B6')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>小計</td>
+              <td>
+                <div style="padding:0px" class="data_right">{{INCOME_DETAILS_List[1].B}}</div>
+              </td>
+              <td class="display"></td>
+              <td>=Min(B, (A1+A2)*50%)</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C"
+                    (keyup)="INCOME_DETAILS_List[1].C=data_number(INCOME_DETAILS_List[1].C,INCOME_DETAILS_List[1].key,'C')"
+                    maxlength="11" />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>其他加計項</td>
+              <td>【93】退職所得</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].A7"
+                    (keyup)="INCOME_DETAILS_List[1].A7=data_number(INCOME_DETAILS_List[1].A7,INCOME_DETAILS_List[1].key,'A7')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D7}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C7"
+                    (keyup)="INCOME_DETAILS_List[1].C7=data_number(INCOME_DETAILS_List[1].C7,INCOME_DETAILS_List[1].key,'C7')"
+                    maxlength="11" /></div>
+              </td>
+              <td>可全額加計，不受限本薪50%的規範。</td>
+            </tr>
+            <tr>
+              <td>其他加計項</td>
+              <td>
+                <div style="padding:0px"> <input [(ngModel)]="INCOME_DETAILS_List[1].Z1" maxlength="50" /></div>
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].A8"
+                    (keyup)="INCOME_DETAILS_List[1].A8=data_number(INCOME_DETAILS_List[1].A8,INCOME_DETAILS_List[1].key,'A8')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].D8}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[1].C8"
+                    (keyup)="INCOME_DETAILS_List[1].C8=data_number(INCOME_DETAILS_List[1].C8,INCOME_DETAILS_List[1].key,'C8')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+            </tr>
+            <tr>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td>合計</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].Dtotal}}</td>
+              <td class="data_right">{{INCOME_DETAILS_List[1].Ctotal}}</td>
+              <td class="display"></td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <!-- 薪轉存褶 -->
+  <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
+    <nz-collapse-panel [nzHeader]="'薪轉存褶'" [nzActive]="false" >
+
+      <div class="line_bank_card_no_padding">
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="薪轉存褶" nzFrontPagination="false"
+          nzSimple="false">
+          <thead>
+            <tr>
+              <th class="table-header" style="width:2%">序號</th>
+              <th class="table-header" style="width:5%">收入類型</th>
+              <th class="table-header" style="width:10%">身分分類</th>
+              <th class="table-header" style="width:10%">認列項目</th>
+              <th class="table-header" style="width:10%">輸入金額</th>
+              <th class="table-header" style="width:5%">系統計算</th>
+              <th class="table-header" style="width:10%">認列年收入計算公式</th>
+              <th class="table-header" style="width:10%">認列年收入</th>
+              <th class="table-header" style="width:10%">認列年收入(徵審確認)</th>
+              <th class="table-header" style="width:18%">說明</th>
+            </tr>
+          </thead>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
+            <!-- 3 -->
+            <tr>
+              <td rowspan="8">3</td>
+              <td rowspan="8">薪轉存褶</td>
+              <td rowspan="4">非業務傭收人員(近三個月)</td>
+              <td>固定本薪</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A11"
+                    (keyup)="INCOME_DETAILS_List[2].A11=data_number(INCOME_DETAILS_List[2].A11,INCOME_DETAILS_List[2].key,'A11')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A12"
+                    (keyup)="INCOME_DETAILS_List[2].A12=data_number(INCOME_DETAILS_List[2].A12,INCOME_DETAILS_List[2].key,'A12')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A13"
+                    (keyup)="INCOME_DETAILS_List[2].A13=data_number(INCOME_DETAILS_List[2].A13,INCOME_DETAILS_List[2].key,'A13')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A14"
+                    (keyup)="INCOME_DETAILS_List[2].A14=data_number(INCOME_DETAILS_List[2].A14,INCOME_DETAILS_List[2].key,'A14')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A15"
+                    (keyup)="INCOME_DETAILS_List[2].A15=data_number(INCOME_DETAILS_List[2].A15,INCOME_DETAILS_List[2].key,'A15')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A16"
+                    (keyup)="INCOME_DETAILS_List[2].A16=data_number(INCOME_DETAILS_List[2].A16,INCOME_DETAILS_List[2].key,'A16')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[2].P1}}
+              </td>
+              <td>系統計算平均值*100%*14</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[2].D1}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C1"
+                    (keyup)="INCOME_DETAILS_List[2].C1=data_number(INCOME_DETAILS_List[2].C1,INCOME_DETAILS_List[2].key,'C1')"
+                    maxlength="11" /></div>
+              </td>
+              <td rowspan="8">若是薪轉銀行為無存摺者,銀行月結單也可認列.
+
+                薪轉認列需注意事項:
+                1.帳號戶名部分皆需清楚完整可辨識
+                2.內頁帳號需與存封相同
+                3.日期需連續且為近三個月資料
+                4.內容部分需清晰可辨識
+                5.餘額部份需接續且有連續性
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(工作獎金、加班費)</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A21"
+                    (keyup)="INCOME_DETAILS_List[2].A21=data_number(INCOME_DETAILS_List[2].A21,INCOME_DETAILS_List[2].key,'A21')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A22"
+                    (keyup)="INCOME_DETAILS_List[2].A22=data_number(INCOME_DETAILS_List[2].A22,INCOME_DETAILS_List[2].key,'A22')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A23"
+                    (keyup)="INCOME_DETAILS_List[2].A23=data_number(INCOME_DETAILS_List[2].A23,INCOME_DETAILS_List[2].key,'A23')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A24"
+                    (keyup)="INCOME_DETAILS_List[2].A24=data_number(INCOME_DETAILS_List[2].A24,INCOME_DETAILS_List[2].key,'A24')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A25"
+                    (keyup)="INCOME_DETAILS_List[2].A25=data_number(INCOME_DETAILS_List[2].A25,INCOME_DETAILS_List[2].key,'A25')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A26"
+                    (keyup)="INCOME_DETAILS_List[2].A26=data_number(INCOME_DETAILS_List[2].A26,INCOME_DETAILS_List[2].key,'A26')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[2].P2}}
+              </td>
+              <td>系統計算平均值*70%*14</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[2].D2}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C2"
+                    (keyup)="INCOME_DETAILS_List[2].C2=data_number(INCOME_DETAILS_List[2].C2,INCOME_DETAILS_List[2].key,'C2')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(其他加計項-計入單筆)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].A3"
+                    (keyup)="INCOME_DETAILS_List[2].A3=data_number(INCOME_DETAILS_List[2].A3,INCOME_DETAILS_List[2].key,'A3')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].D3}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C3"
+                    (keyup)="INCOME_DETAILS_List[2].C3=data_number(INCOME_DETAILS_List[2].C3,INCOME_DETAILS_List[2].key,'C3')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(其他加計項-計入平均)
+                退休金收入/優存利息收入</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A41"
+                    (keyup)="INCOME_DETAILS_List[2].A41=data_number(INCOME_DETAILS_List[2].A41,INCOME_DETAILS_List[2].key,'A41')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A42"
+                    (keyup)="INCOME_DETAILS_List[2].A42=data_number(INCOME_DETAILS_List[2].A42,INCOME_DETAILS_List[2].key,'A42')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A43"
+                    (keyup)="INCOME_DETAILS_List[2].A43=data_number(INCOME_DETAILS_List[2].A43,INCOME_DETAILS_List[2].key,'A43')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].P4}}</td>
+              <td>系統計算平均值*100%*12</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].D4}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C4"
+                    (keyup)="INCOME_DETAILS_List[2].C4=data_number(INCOME_DETAILS_List[2].C4,INCOME_DETAILS_List[2].key,'C4')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="4">業務傭收人員(近六個月)</td>
+              <td>固定本薪</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A51"
+                    (keyup)="INCOME_DETAILS_List[2].A51=data_number(INCOME_DETAILS_List[2].A51,INCOME_DETAILS_List[2].key,'A51')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A52"
+                    (keyup)="INCOME_DETAILS_List[2].A52=data_number(INCOME_DETAILS_List[2].A52,INCOME_DETAILS_List[2].key,'A52')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A53"
+                    (keyup)="INCOME_DETAILS_List[2].A53=data_number(INCOME_DETAILS_List[2].A53,INCOME_DETAILS_List[2].key,'A53')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A54"
+                    (keyup)="INCOME_DETAILS_List[2].A54=data_number(INCOME_DETAILS_List[2].A54,INCOME_DETAILS_List[2].key,'A54')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A55"
+                    (keyup)="INCOME_DETAILS_List[2].A55=data_number(INCOME_DETAILS_List[2].A55,INCOME_DETAILS_List[2].key,'A55')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A56"
+                    (keyup)="INCOME_DETAILS_List[2].A56=data_number(INCOME_DETAILS_List[2].A56,INCOME_DETAILS_List[2].key,'A56')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].P5}}</td>
+              <td>系統計算平均值*70%*14</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].D5}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C5"
+                    (keyup)="INCOME_DETAILS_List[2].C5=data_number(INCOME_DETAILS_List[2].C5,INCOME_DETAILS_List[2].key,'C5')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(工作獎金、加班費)</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A61"
+                    (keyup)="INCOME_DETAILS_List[2].A61=data_number(INCOME_DETAILS_List[2].A61,INCOME_DETAILS_List[2].key,'A61')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A62"
+                    (keyup)="INCOME_DETAILS_List[2].A62=data_number(INCOME_DETAILS_List[2].A62,INCOME_DETAILS_List[2].key,'A62')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A63"
+                    (keyup)="INCOME_DETAILS_List[2].A63=data_number(INCOME_DETAILS_List[2].A63,INCOME_DETAILS_List[2].key,'A63')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A64"
+                    (keyup)="INCOME_DETAILS_List[2].A64=data_number(INCOME_DETAILS_List[2].A64,INCOME_DETAILS_List[2].key,'A64')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A65"
+                    (keyup)="INCOME_DETAILS_List[2].A65=data_number(INCOME_DETAILS_List[2].A65,INCOME_DETAILS_List[2].key,'A65')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A66"
+                    (keyup)="INCOME_DETAILS_List[2].A66=data_number(INCOME_DETAILS_List[2].A66,INCOME_DETAILS_List[2].key,'A66')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].P6}}</td>
+              <td>系統計算平均值*70%*14</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].D6}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C6"
+                    (keyup)="INCOME_DETAILS_List[2].C6=data_number(INCOME_DETAILS_List[2].C6,INCOME_DETAILS_List[2].key,'C6')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(其他加計項-計入單筆)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].A7"
+                    (keyup)="INCOME_DETAILS_List[2].A7=data_number(INCOME_DETAILS_List[2].A7,INCOME_DETAILS_List[2].key,'A7')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].D7}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C7"
+                    (keyup)="INCOME_DETAILS_List[2].C7=data_number(INCOME_DETAILS_List[2].C7,INCOME_DETAILS_List[2].key,'C7')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(其他加計項-計入平均)
+                退休金收入/優存利息收入</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A81"
+                    (keyup)="INCOME_DETAILS_List[2].A81=data_number(INCOME_DETAILS_List[2].A81,INCOME_DETAILS_List[2].key,'A81')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A82"
+                    (keyup)="INCOME_DETAILS_List[2].A82=data_number(INCOME_DETAILS_List[2].A82,INCOME_DETAILS_List[2].key,'A82')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[2].A83"
+                    (keyup)="INCOME_DETAILS_List[2].A83=data_number(INCOME_DETAILS_List[2].A83,INCOME_DETAILS_List[2].key,'A83')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].P8}}</td>
+              <td>系統計算平均值*100%*12</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].D8}}</td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[2].C8"
+                    (keyup)="INCOME_DETAILS_List[2].C8=data_number(INCOME_DETAILS_List[2].C8,INCOME_DETAILS_List[2].key,'C8')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td>合計</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].Dtotal}}</td>
+              <td class="data_right">{{INCOME_DETAILS_List[2].Ctotal}}</td>
+              <td class="display"></td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <!-- 電腦列印薪資單 -->
+  <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
+    <nz-collapse-panel [nzHeader]="'電腦列印薪資單'" [nzActive]="false" >
+
+      <div class="line_bank_card_no_padding">
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="電腦列印薪資單" nzFrontPagination="false"
+          nzSimple="false">
+          <thead>
+            <tr>
+              <th class="table-header" style="width:2%">序號</th>
+              <th class="table-header" style="width:5%">收入類型</th>
+              <th class="table-header" style="width:10%">身分分類</th>
+              <th class="table-header" style="width:10%">認列項目</th>
+              <th class="table-header" style="width:10%">輸入金額</th>
+              <th class="table-header" style="width:5%">系統計算</th>
+              <th class="table-header" style="width:10%">認列年收入計算公式</th>
+              <th class="table-header" style="width:10%">認列年收入</th>
+              <th class="table-header" style="width:10%">認列年收入(徵審確認)</th>
+              <th class="table-header" style="width:18%">說明</th>
+            </tr>
+          </thead>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
+            <!-- 4 -->
+            <tr>
+              <td rowspan="6">4</td>
+              <td rowspan="6">電腦列印薪資單</td>
+              <td rowspan="3">非業務傭收人員(近三個月)</td>
+              <td>固定本薪</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A11"
+                    (keyup)="INCOME_DETAILS_List[3].A11=data_number(INCOME_DETAILS_List[3].A11,INCOME_DETAILS_List[3].key,'A11')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A12"
+                    (keyup)="INCOME_DETAILS_List[3].A12=data_number(INCOME_DETAILS_List[3].A12,INCOME_DETAILS_List[3].key,'A12')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A13"
+                    (keyup)="INCOME_DETAILS_List[3].A13=data_number(INCOME_DETAILS_List[3].A13,INCOME_DETAILS_List[3].key,'A13')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A14"
+                    (keyup)="INCOME_DETAILS_List[3].A14=data_number(INCOME_DETAILS_List[3].A14,INCOME_DETAILS_List[3].key,'A14')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A15"
+                    (keyup)="INCOME_DETAILS_List[3].A15=data_number(INCOME_DETAILS_List[3].A15,INCOME_DETAILS_List[3].key,'A15')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A16"
+                    (keyup)="INCOME_DETAILS_List[3].A16=data_number(INCOME_DETAILS_List[3].A16,INCOME_DETAILS_List[3].key,'A16')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].P1}}
+              </td>
+              <td>系統計算平均值*100%*14</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].D1}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].C1"
+                    (keyup)="INCOME_DETAILS_List[3].C1=data_number(INCOME_DETAILS_List[3].C1,INCOME_DETAILS_List[3].key,'C1')"
+                    maxlength="11" /></div>
+              </td>
+              <td rowspan="5">1.電腦列印薪資單較容易偽造,如果僅提供薪資單,需在多方面比對確認(如比對聯徵BAM061,KRM043資訊,公司公開資訊查核)
+                2.比對勞保扣款金額,是否符合扣款級距部分
+                https://tea.mcu.edu.tw/msg_text/resume/A1001042.pdf
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(工作獎金、加班費)</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A21"
+                    (keyup)="INCOME_DETAILS_List[3].A21=data_number(INCOME_DETAILS_List[3].A21,INCOME_DETAILS_List[3].key,'A21')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A22"
+                    (keyup)="INCOME_DETAILS_List[3].A22=data_number(INCOME_DETAILS_List[3].A22,INCOME_DETAILS_List[3].key,'A22')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A23"
+                    (keyup)="INCOME_DETAILS_List[3].A23=data_number(INCOME_DETAILS_List[3].A23,INCOME_DETAILS_List[3].key,'A23')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A24"
+                    (keyup)="INCOME_DETAILS_List[3].A24=data_number(INCOME_DETAILS_List[3].A24,INCOME_DETAILS_List[3].key,'A24')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A25"
+                    (keyup)="INCOME_DETAILS_List[3].A25=data_number(INCOME_DETAILS_List[3].A25,INCOME_DETAILS_List[3].key,'A25')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A26"
+                    (keyup)="INCOME_DETAILS_List[3].A26=data_number(INCOME_DETAILS_List[3].A26,INCOME_DETAILS_List[3].key,'A26')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].P2}}
+              </td>
+              <td>系統計算平均值*70%*14</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].D2}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].C2"
+                    (keyup)="INCOME_DETAILS_List[3].C2=data_number(INCOME_DETAILS_List[3].C2,INCOME_DETAILS_List[3].key,'C2')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(其他加計項-計入單筆)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].A3"
+                    (keyup)="INCOME_DETAILS_List[3].A3=data_number(INCOME_DETAILS_List[3].A3,INCOME_DETAILS_List[3].key,'A3')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].D3}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].C3"
+                    (keyup)="INCOME_DETAILS_List[3].C3=data_number(INCOME_DETAILS_List[3].C3,INCOME_DETAILS_List[3].key,'C3')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="3">業務傭收人員(近六個月)</td>
+              <td>固定本薪</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A51"
+                    (keyup)="INCOME_DETAILS_List[3].A51=data_number(INCOME_DETAILS_List[3].A51,INCOME_DETAILS_List[3].key,'A51')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A52"
+                    (keyup)="INCOME_DETAILS_List[3].A52=data_number(INCOME_DETAILS_List[3].A52,INCOME_DETAILS_List[3].key,'A52')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A53"
+                    (keyup)="INCOME_DETAILS_List[3].A53=data_number(INCOME_DETAILS_List[3].A53,INCOME_DETAILS_List[3].key,'A53')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A54"
+                    (keyup)="INCOME_DETAILS_List[3].A54=data_number(INCOME_DETAILS_List[3].A54,INCOME_DETAILS_List[3].key,'A54')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A55"
+                    (keyup)="INCOME_DETAILS_List[3].A55=data_number(INCOME_DETAILS_List[3].A55,INCOME_DETAILS_List[3].key,'A55')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A56"
+                    (keyup)="INCOME_DETAILS_List[3].A56=data_number(INCOME_DETAILS_List[3].A56,INCOME_DETAILS_List[3].key,'A56')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].P5}}
+              </td>
+              <td>系統計算平均值*70%*14</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].D5}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].C5"
+                    (keyup)="INCOME_DETAILS_List[3].C5=data_number(INCOME_DETAILS_List[3].C5,INCOME_DETAILS_List[3].key,'C5')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(工作獎金、加班費)</td>
+              <td>
+                <div style="padding:0px">1.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A61"
+                    (keyup)="INCOME_DETAILS_List[3].A61=data_number(INCOME_DETAILS_List[3].A61,INCOME_DETAILS_List[3].key,'A61')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">2.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A62"
+                    (keyup)="INCOME_DETAILS_List[3].A62=data_number(INCOME_DETAILS_List[3].A62,INCOME_DETAILS_List[3].key,'A62')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">3.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A63"
+                    (keyup)="INCOME_DETAILS_List[3].A63=data_number(INCOME_DETAILS_List[3].A63,INCOME_DETAILS_List[3].key,'A63')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">4.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A64"
+                    (keyup)="INCOME_DETAILS_List[3].A64=data_number(INCOME_DETAILS_List[3].A64,INCOME_DETAILS_List[3].key,'A64')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">5.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A65"
+                    (keyup)="INCOME_DETAILS_List[3].A65=data_number(INCOME_DETAILS_List[3].A65,INCOME_DETAILS_List[3].key,'A65')"
+                    maxlength="11" /></div>
+                <div style="padding:0px">6.<input style="width: 93%;" class="data_right"
+                    [(ngModel)]="INCOME_DETAILS_List[3].A66"
+                    (keyup)="INCOME_DETAILS_List[3].A66=data_number(INCOME_DETAILS_List[3].A66,INCOME_DETAILS_List[3].key,'A66')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].P6}}
+              </td>
+              <td>系統計算平均值*70%*14</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].D6}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].C6"
+                    (keyup)="INCOME_DETAILS_List[3].C6=data_number(INCOME_DETAILS_List[3].C6,INCOME_DETAILS_List[3].key,'C6')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>非固定薪(其他加計項-計入單筆)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].A7"
+                    (keyup)="INCOME_DETAILS_List[3].A7=data_number(INCOME_DETAILS_List[3].A7,INCOME_DETAILS_List[3].key,'A7')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[3].D7}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[3].C7"
+                    (keyup)="INCOME_DETAILS_List[3].C7=data_number(INCOME_DETAILS_List[3].C7,INCOME_DETAILS_List[3].key,'C7')"
+                    maxlength="11" /></div>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td>合計</td>
+              <td class="data_right">{{INCOME_DETAILS_List[3].Dtotal}}</td>
+              <td class="data_right">{{INCOME_DETAILS_List[3].Ctotal}}</td>
+              <td class="display"></td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <!-- 勞保投保及勞退提撥明細 -->
+  <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
+    <nz-collapse-panel [nzHeader]="'勞保投保及勞退提撥明細'" [nzActive]="false" >
+
+      <div class="line_bank_card_no_padding">
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="勞保投保及勞退提撥明細" nzFrontPagination="false"
+          nzSimple="false">
+          <thead>
+            <tr>
+              <th class="table-header" style="width:2%">序號</th>
+              <th class="table-header" style="width:5%">收入類型</th>
+              <th class="table-header" style="width:10%">身分分類</th>
+              <th class="table-header" style="width:10%">認列項目</th>
+              <th class="table-header" style="width:10%">輸入金額</th>
+              <th class="table-header" style="width:5%">系統計算</th>
+              <th class="table-header" style="width:10%">認列年收入計算公式</th>
+              <th class="table-header" style="width:10%">認列年收入</th>
+              <th class="table-header" style="width:10%">認列年收入(徵審確認)</th>
+              <th class="table-header" style="width:18%">說明</th>
+            </tr>
+          </thead>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
+            <!-- 5 -->
+            <tr>
+              <td rowspan="4">5</td>
+              <td rowspan="4">勞保投保及勞退提撥明細</td>
+              <td rowspan="2">非業務傭收人員</td>
+              <td>勞保明細
+                近一年投保明細金額(最低者)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].A1"
+                    (keyup)="INCOME_DETAILS_List[4].A1=data_number(INCOME_DETAILS_List[4].A1,INCOME_DETAILS_List[4].key,'A1')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%*12</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[4].D1}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].C1"
+                    (keyup)="INCOME_DETAILS_List[4].C1=data_number(INCOME_DETAILS_List[4].C1,INCOME_DETAILS_List[4].key,'C1')"
+                    maxlength="11" /></div>
+              </td>
+              <td rowspan="4">1.需為投保公司,不得為加保公會
+                2.需為近一個月申請資料
+                3.多方面比對確認(如比對聯徵BAM061,KRM043資訊,公司公開資訊查核)
+                4.雖認列金額皆為級距的上限,但因投保明細與勞退明細金額皆未包含年終金額,且是依金額*12認列年收(非固定薪再*70%),固年收認列上並未高估
+                註:初期要勞保+勞退
+              </td>
+            </tr>
+            <tr>
+              <td>勞退明細
+                近一年勞退提撥明細月提繳工資(最低者)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].A2"
+                    (keyup)="INCOME_DETAILS_List[4].A2=data_number(INCOME_DETAILS_List[4].A2,INCOME_DETAILS_List[4].key,'A2')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*100%*12</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[4].D2}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].C2"
+                    (keyup)="INCOME_DETAILS_List[4].C2=data_number(INCOME_DETAILS_List[4].C2,INCOME_DETAILS_List[4].key,'C2')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="2">業務傭收人員</td>
+              <td>勞保明細
+                近一年投保明細金額(最低者)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].A3"
+                    (keyup)="INCOME_DETAILS_List[4].A3=data_number(INCOME_DETAILS_List[4].A3,INCOME_DETAILS_List[4].key,'A3')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*70%*12</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[4].D3}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].C3"
+                    (keyup)="INCOME_DETAILS_List[4].C3=data_number(INCOME_DETAILS_List[4].C3,INCOME_DETAILS_List[4].key,'C3')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td>勞退明細
+                近一年勞退提撥明細月提繳工資(最低者)</td>
+              <td>
+                <div style="padding:0px"><input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].A4"
+                    (keyup)="INCOME_DETAILS_List[4].A4=data_number(INCOME_DETAILS_List[4].A4,INCOME_DETAILS_List[4].key,'A4')"
+                    maxlength="11" /></div>
+              </td>
+              <td class="display"></td>
+              <td>輸入金額*70%*12</td>
+              <td class="data_right">
+                {{INCOME_DETAILS_List[4].D4}}
+              </td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[4].C4"
+                    (keyup)="INCOME_DETAILS_List[4].C4=data_number(INCOME_DETAILS_List[4].C4,INCOME_DETAILS_List[4].key,'C4')"
+                    maxlength="11" /></div>
+              </td>
+            </tr>
+            <tr>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td>合計</td>
+              <td class="data_right">{{INCOME_DETAILS_List[4].Dtotal}}</td>
+              <td class="data_right">{{INCOME_DETAILS_List[4].Ctotal}}</td>
+              <td class="display"></td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <!-- 本行行員 -->
+  <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
+    <nz-collapse-panel [nzHeader]="'本行行員'" [nzActive]="false" >
+
+      <div class="line_bank_card_no_padding">
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="本行行員" nzFrontPagination="false"
+          nzSimple="false">
+          <thead>
+            <tr>
+              <th class="table-header" style="width:2%">序號</th>
+              <th class="table-header" style="width:5%">收入類型</th>
+              <th class="table-header" style="width:10%">身分分類</th>
+              <th class="table-header" style="width:10%">認列項目</th>
+              <th class="table-header" style="width:10%"></th>
+              <th class="table-header" style="width:5%"></th>
+              <th class="table-header" style="width:10%">認列年收入數值</th>
+              <th class="table-header" style="width:10%"></th>
+              <th class="table-header" style="width:10%">認列年收入(徵審確認)</th>
+              <th class="table-header" style="width:18%">說明</th>
+            </tr>
+          </thead>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
+
+            <!-- 6 -->
+            <tr>
+              <td rowspan="3">6</td>
+              <td rowspan="3">本行行員</td>
+              <td>專員~副理</td>
+              <td></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="data_right">1,000,000</td>
+              <td></td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[5].C1"
+                    (keyup)="INCOME_DETAILS_List[5].C1=data_number(INCOME_DETAILS_List[5].C1,INCOME_DETAILS_List[5].key,'C1')"
+                    maxlength="11" />
+                </div>
+              </td>
+              <td rowspan="3">所有行員申辦需出單照會HR</td>
+            </tr>
+            <tr>
+              <td>經理~協理</td>
+              <td></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="data_right">1,500,000</td>
+              <td></td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[5].C2"
+                    (keyup)="INCOME_DETAILS_List[5].C2=data_number(INCOME_DETAILS_List[5].C2,INCOME_DETAILS_List[5].key,'C2')"
+                    maxlength="11" />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>資深協理以上</td>
+              <td></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="data_right">2,000,000</td>
+              <td></td>
+              <td>
+                <div style="padding:0px"> <input class="data_right" [(ngModel)]="INCOME_DETAILS_List[5].C3"
+                    (keyup)="INCOME_DETAILS_List[5].C3=data_number(INCOME_DETAILS_List[5].C3,INCOME_DETAILS_List[5].key,'C3')"
+                    maxlength="11" />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td class="display"></td>
+              <td>合計</td>
+              <td class="data_right">{{INCOME_DETAILS_List[5].Ctotal}}</td>
+              <td class="display"></td>
+            </tr>
+
+          </tbody>
+        </nz-table>
+      </div>
+
+    </nz-collapse-panel>
+  </nz-collapse>
+
+
+
+</div>

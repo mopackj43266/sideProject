@@ -1,0 +1,176 @@
+<!-- 核心系統客戶資料 -->
+<form [formGroup]="coreCustInfoForm">
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title">客戶資訊</div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">姓名</span><input matInput #input class="form-control"
+            formControlName="NAME" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">年齡</span><input matInput #input class="form-control"
+            formControlName="AGE" readonly></div>
+      </div>
+
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">生日</span><input matInput #input class="form-control"
+            formControlName="BIRTHDAY" readonly></div>
+      </div>
+
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">教育程度</span><input matInput #input class="form-control"
+            formControlName="EDUCATION" readonly></div>
+      </div>
+      <div nz-col nzFlex="2">
+        <div style="padding:10px"><span class="form-title">本行Main Account開戶日期</span><input matInput #input
+            class="form-control" formControlName="ACC_OPEN_DATE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">Account type</span><input matInput #input
+            class="form-control" formControlName="ACC_TYPE" readonly></div>
+      </div>
+
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">迄今往來</span><input matInput #input class="form-control"
+            formControlName="CONTACT_DATE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">login ID</span><input matInput #input class="form-control"
+            formControlName="LOGIN_ID" readonly></div>
+      </div>
+    </div>
+
+    <!-- <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">其他客戶註記</span><input matInput #input class="form-control"
+            formControlName="" readonly></div>
+      </div>
+
+    </div> -->
+    <nz-table nzShowSizeChanger [nzData]="blockingCodeSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="Blocking code資訊" style="border-radius: 0px  0px  0px  0px;">
+      <thead>
+        <tr>
+          <th class="table-header">代碼</th>
+          <th class="table-header">中文</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of blockingCodeSource">
+          <td class="table-data">{{ data.blockingCode }}</td>
+          <td class="table-data">{{ data.localNm }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <!-- <div nz-row>
+
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">Blocking code資訊</span><input matInput #input
+            class="form-control" formControlName="BLOCKING_CODE" readonly></div>
+      </div>
+    </div> -->
+    <div nz-row>
+
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="coreCustInfoForm">
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title">任職資訊</div>
+    <div nz-row>
+      <div nz-col nzFlex="4">
+        <div style="padding:10px"><span class="form-title">行職業代碼</span><input matInput #input class="form-control"
+            formControlName="CP_NO" readonly></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="2">
+        <div style="padding:10px"><span class="form-title">公司名稱</span><input matInput #input class="form-control"
+            formControlName="CP_NAME" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">職稱</span><input matInput #input class="form-control"
+            formControlName="CP_TITLE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px;"><span class="form-title">客戶填寫年收入</span><input matInput #input class="form-control"
+            formControlName="SALARY_YEAR" readonly style="text-align: right;"></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="3">
+        <div style="padding:10px"><span class="form-title">公司地址</span><input matInput #input class="form-control"
+            formControlName="CP_ADDR" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">公司電話</span><input matInput #input class="form-control"
+            formControlName="CP_TEL" readonly></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="coreCustInfoForm">
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title">聯絡資訊</div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">行動電話</span><input matInput #input class="form-control"
+            formControlName="MOBILE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">eMail</span><input matInput #input class="form-control"
+            formControlName="EMAIL" readonly></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">戶籍電話</span><input matInput #input class="form-control"
+            formControlName="P_TEL" readonly></div>
+      </div>
+      <div nz-col nzFlex="2">
+        <div style="padding:10px"><span class="form-title">戶籍地址</span><input matInput #input class="form-control"
+            formControlName="P_ADDR" readonly></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">通訊電話</span><input matInput #input class="form-control"
+            formControlName="H_TEL" readonly></div>
+      </div>
+      <div nz-col nzFlex="2">
+        <div style="padding:10px"><span class="form-title">通訊地址</span><input matInput #input class="form-control"
+            formControlName="H_ADDR" readonly></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="2">
+        <div style="padding:10px"><span class="form-title">寄卡地址</span><input matInput #input class="form-control"
+            formControlName="SEND_CARD_ADDR" readonly></div>
+      </div>
+      <div nz-col nzFlex="2"></div>
+    </div>
+  </div>
+</form>

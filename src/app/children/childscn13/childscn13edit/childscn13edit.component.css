@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-width: 1000px;
+    min-height: 800px;
+  }
+
+  .container > * {
+    width: 100%;
+  }
+
+  .form {
+    display: flex;
+    padding-top: 6px;
+  }
+
+  .mat-form-field {
+    font-size: 16px;
+    flex-grow: 1;
+  }
+
+  .inboxContainer {
+    width: 1000px;
+    height: 550px;
+    border: 1px solid black;
+    margin: auto;
+    position: absolute;
+    overflow: auto;
+  }
+
+  :host {
+    display: block;
+    max-height: 65vh;
+  }
+
+  .position_top_left{
+    position: relative;
+    top:-5px;
+  }

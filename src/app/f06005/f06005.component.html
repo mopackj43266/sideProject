@@ -1,0 +1,98 @@
+<div class="line_bank_bankground_color">
+    <br>
+    <div class="line_bank_card_no_padding">
+        <div nz-row>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title-actions">客戶ID</span>
+                    <div><input [(ngModel)]="custId" name="custId" matInput #input class="form-control"
+                            placeholder="請輸入客戶ID" required>
+                    </div>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title-actions">徵信人員員編</span>
+                    <div>
+                        <mat-select [(ngModel)]="L3empno" name="L3empno" style="width:100%"
+                            style="width:100%;height:30px;border-radius:5px;border:1px solod white;padding:4px ">
+                            <mat-option class="option" *ngFor="let item of L3empnoCode" [value]="item.value">
+                                {{item.value}}{{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+
+                    </div>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title-actions">預計撥款日</span>
+                    <div>
+                        <nz-range-picker [(ngModel)]="settleDate" name="settleDate " style="width:100%">
+                        </nz-range-picker>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+                (click)="searchTable(custId,L3empno)">查詢資料</button>
+            <button nz-button [nzSize]="'middle'" (click)="clear()" nzDanger style="margin:0px 5px">清除資料</button>
+        </div>
+    </div>
+    <div class="line_bank_card_no_padding">
+        <div class="line_bank_form_header_title">案件查詢資料結果</div>
+        <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="false"
+            [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+            (nzQueryParams)="onQueryParamsChange($event)" id="matTable">
+            <thead>
+                <tr>
+                    <th>提取</th>
+                    <th>案件編號</th>
+                    <th>身分證字號</th>
+                    <th>客戶ID</th>
+                    <th>客戶姓名</th>
+                    <th>預計撥款日</th>
+                    <th>簽約日期時間</th>
+                    <th>貸款金額</th>
+                    <th>撥款帳號</th>
+                    <th>撥款帳號戶名 </th>
+                    <th>徵審人員姓名</th>
+                    <th>錯誤訊息</th>
+                    <th>撥款方式</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of newData; let i = index ">
+                    <!--取件-->
+                    <td><button nz-button [nzSize]="'small'" nzType="primary" (click)="pickup(data.APPLNO,data.CUST_ID)">取件</button>
+                    </td>
+                    <!--案件編號-->
+                    <td>{{data. APPLNO}}</td>
+                    <!--身分證字號-->
+                    <td>{{data. NATIONAL_ID}}</td>
+                    <!--客戶ID-->
+                    <td>{{data. CUST_ID}}</td>
+                    <!--客戶姓名-->
+                    <td>{{data. CU_CNAME}}</td>
+                    <!--預計撥款日-->
+                    <td>{{data. FIRST_SETTLE_DATE}}</td>
+                    <!--簽約日期時間-->
+                    <td>{{data. SIGN_UP_TIME}}</td>
+                    <!--貸款金額-->
+                    <td>{{toCurrency(data. AJSTLNAMT)}}</td>
+                    <!--撥款帳號-->
+                    <td>{{data. DSBSACCTNBR}}</td>
+                    <!--撥款帳號戶名-->
+                    <td>{{data. CU_CNAME}}</td>
+                    <!--徵審人員姓名-->
+                    <td>{{data. L3EMPNO}}</td>
+                    <!--錯誤訊息-->
+                    <td>{{data. ERR_MSG }}</td>
+                    <td>{{data.AJSTLNAMT > 2000000 ? 'FXML' : '轉帳' }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+
+</div>

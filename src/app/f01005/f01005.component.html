@@ -1,0 +1,14 @@
+<div class="line_bank_bankground_color">
+  <nz-page-header class="site-page-header" style=" width: 100%;z-index: 60;">
+
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)">
+        <a [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">案件清單</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page2" (click)="changePage(Page.Page2)">
+        <nz-badge [(nzCount)]="total" [nzTitle]="null" [nzOffset]="[10, -1]"><a [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">徵信通報</a></nz-badge>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+  <ng-container appDynamic></ng-container>
+</div>

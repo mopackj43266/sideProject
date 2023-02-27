@@ -1,0 +1,20 @@
+th,tr,td{text-align:left; border: 1.5px solid rgb(255, 254, 254);}
+/* th{background:#F1E1FF;}
+td{background: #4DFFFF;}
+.td3{background:#79FF79;} */
+
+
+td{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+
+
+/* 表單輸入欄 */
+.inpu1{
+  height:auto;
+  width:auto;
+}

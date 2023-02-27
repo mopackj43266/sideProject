@@ -1,0 +1,103 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzFlex="0.5">
+        <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+            [(ngModel)]="applno" name="applno" placeholder="請輸入案件編號">
+        </div>
+      </div>
+      <div nz-col nzFlex="0.5">
+        <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;"
+            [(ngModel)]="nationalId" name="nationalId" placeholder="請輸入身分證字號">
+        </div>
+      </div>
+      <div nz-col nzFlex="0.5">
+        <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
+            [(ngModel)]="custId" name="custId" placeholder="請輸入客戶ID">
+        </div>
+      </div>
+
+      <div nz-col nzFlex="0.5">
+        <div style="padding:10px"><span class="form-title">執行員編</span>
+          <mat-select [(ngModel)]="l4EMPNO" name="l3EMPNO">
+            <mat-option *ngFor="let item of l4EMPNOArry" [value]="item.value">
+              {{item.viewValue}}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="0.5">
+        <div style="padding:10px"><span class="form-title">本次執行時間</span>
+          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME" style="width: 100%;"
+            (ngModelChange)="dateNull(apply_TIME,'apply_TIME')"></nz-range-picker>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:5px;text-align:center">
+      <!-- (click)="add()" -->
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="conditionCheck()">查詢資料</button>&nbsp;
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>&nbsp;
+      <!-- <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp; -->
+    </div>
+    <!-- 表格 -->
+  </div>
+
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">凍結/降額/解凍案件查詢-結果:(案件數:{{quantity}}件)</div>
+    <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzScroll]="{ x: '800px', y: '1500px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
+      [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+      <thead>
+        <tr>
+          <th nzLeft nzWidth="10px">序號</th>
+          <th nzLeft nzWidth="30px" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="true"
+            [nzSortOrder]="'ascend'">案件編號</th>
+          <th nzWidth="22px">客戶ID</th>
+          <th nzWidth="22px">身分證字號</th>
+          <th nzWidth="25px">額度號</th>
+          <th nzWidth="29px">本次執行原因</th>
+          <th nzWidth="29px">本次執行細項</th>
+          <th nzWidth="25px">本次執行措施策略</th>
+          <th nzWidth="25px">執行員編</th>
+          <th nzWidth="28px">本次執行時間</th>
+          <th nzWidth="29px">主管員編</th>
+          <th nzWidth="28px">主管覆核時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData; let i = index ">
+          <!--序號-->
+          <td nzLeft style="text-align: center;">{{i+1}}</td>
+          <!--案件編號-->
+          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link" style="padding:0px;"
+              (click)="Detail(data.APPLNO,data.CUSTOMER_ID,data.NATIONAL_ID,data.REASON_CODE,
+                            data.EXECUTE_TYPE,data.CREDIT_TIME,data.CREDIT_EMPNO,data.REASON_DETAIL,
+                            data.LIMIT_NO,data.CONTACT_YN,data.CONTACT_TYPE,data.CONTACT_CONTENT,data.CREDIT_MEMO,data.RESERVE_LIMIT,data.MOBILE)">{{data.APPLNO}}</button>
+          </td>
+          <!--客戶ＩＤ-->
+          <td>{{data.CUSTOMER_ID}}</td>
+          <!--身分證字號-->
+          <td>{{data.NATIONAL_ID}}</td>
+
+          <!--額度號-->
+          <td>{{data.LIMIT_NO}}</td>
+          <!--本次執行原因-->
+          <td>{{data.REASON_DESC}}</td>
+          <!--本次執行細項-->
+          <td>{{changeDetailChinese(data.REASON_DETAIL)}}</td>
+          <!--本次執行措施策略-->
+          <td>{{data.EXECUTE_TYPE}}</td>
+          <!--執行員編-->
+          <td>{{data.CREDIT_EMPNO}}</td>
+          <!--本次執行時間-->
+          <td>{{data.CREDIT_TIME | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+          <!--主管員編-->
+          <td>{{data.BOSS_EMPNO}}</td>
+          <!--主管覆核時間-->
+          <td>{{data.BOSS_TIME}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

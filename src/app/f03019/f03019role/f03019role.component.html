@@ -1,0 +1,43 @@
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">請假停派維護-角色設定 </div>
+  <nz-table [nzData]="data.SOURCE" [nzFrontPagination]="false" [nzSimple]="true">
+    <thead>
+      <tr>
+        <th style="width:100px" class="table-header">
+          <div>
+            <mat-checkbox color="primary" (change)="setAll($event.checked)" disabled>全選</mat-checkbox>
+          </div>
+        </th>
+        <th style="width:200px" class="table-header">角色名稱</th>
+        <th style="width:200px" class="table-header">是否停派</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data.SOURCE; let i = index;">
+        <td class="table-data">
+          <div nz-row>
+            <label nz-checkbox [(ngModel)]="data.CHECKBOX[i].completed" name={{data.CHECKBOX[i].completed}}
+              disabled></label>
+          </div>
+        </td>
+        <td class="table-data">{{ row.roleNo+row.roleName }}</td>
+        <td class="table-data" [ngClass]="!data.CHECKBOX[i].completed || (row.roleNo == 'S1' || row.roleNo == 'S2' || row.roleNo == 'S3' || row.roleNo == 'S4' || row.roleNo == 'Fraud') ? 'dropdown' : ''">
+          <mat-select [(ngModel)]="data.CHECKBOX[i].assignStopValue" name="assign_stopValue"
+            [disabled]="!data.CHECKBOX[i].completed || (row.roleNo == 'S1' || row.roleNo == 'S2' || row.roleNo == 'S3' || row.roleNo == 'S4' || row.roleNo == 'Fraud')">
+            <mat-option *ngFor="let code of data.assignStopCode" [value]="code.value">
+              {{data.CHECKBOX[i].completed && !(row.roleNo == 'S1' || row.roleNo == 'S2' || row.roleNo == 'S3' || row.roleNo == 'S4' || row.roleNo == 'Fraud') ? code.viewValue : ''}}
+            </mat-option>
+          </mat-select>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div mat-dialog-actions style="margin:0 auto;width:12vw;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" [mat-dialog-close]="1" style="margin:0px 5px"
+      (click)="confirmAdd()">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+      style="margin:0px 5px">離開</button>
+  </div>
+</div>
+<br>
+<br>

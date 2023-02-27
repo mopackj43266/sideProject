@@ -1,0 +1,133 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+      <div nz-row>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">案件類型</span>
+                  <mat-select (ngModelChange)="changeOption($event)" [(ngModel)]="outboundTypeValue"
+                      name="outboundTypeValue">
+                      <mat-option *ngFor="let item of outboundTypeCode" [value]="item.value">
+                          {{item.viewValue}}
+                      </mat-option>
+                  </mat-select>
+              </div>
+          </div>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">案件狀態</span>
+                  <div style="border:1px solid #c9c9c9;height:30px;padding-top:3px;border-radius: 5px;">
+                      <nz-checkbox-group [(ngModel)]="checkOptionsOne">
+                      </nz-checkbox-group>
+                  </div>
+              </div>
+          </div>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">客群</span>
+                  <div style="border:1px solid #c9c9c9;height:30px;padding:3px;border-radius: 5px;">
+                      <nz-checkbox-group [(ngModel)]="checkOptionsTwo">
+                      </nz-checkbox-group>
+                  </div>
+
+              </div>
+          </div>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">是否需要再次聯繫</span>
+                  <mat-select name="applyProcess" style="width:25%" [(ngModel)]="YNValue" name="YNValue">
+                      <mat-option *ngFor="let item of YNCode" [value]="item.value">
+                          {{item.viewValue}}
+                      </mat-option>
+                  </mat-select>
+              </div>
+          </div>
+      </div>
+      <div nz-row>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">申請金額</span>
+                  <input type="text" [(ngModel)]="lowPrice" placeholder="請輸入最低金額" style="width:40%" maxlength="14">
+                  <span>以上~</span>
+                  <input type="text" [(ngModel)]="highPrice" placeholder="請輸入最高金額" style="width:40%" maxlength="14">
+                  <span>萬以下</span>
+              </div>
+          </div>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px">
+                  <span class="form-title-actions">客戶查詢</span>
+                  <mat-select [(ngModel)]="client" name="client" (ngModelChange)="clientMethod(client)"
+                      style="width:45%">
+                      <mat-option *ngFor="let item of clientList" [value]="item.value">
+                          {{item.viewValue}}
+                      </mat-option>
+                  </mat-select>
+                  &nbsp;&nbsp;
+                  &nbsp;&nbsp;
+                  <ng-container>
+                      <input type="text" [(ngModel)]="te" placeholder={{this.s}} (ngModelChange)="teMethod(client)"
+                          maxlength={{this.limit}} style="width:49%" [disabled]="client =='' ? true:false">
+                  </ng-container>
+              </div>
+          </div>
+          <div nz-col nzFlex="1"></div>
+          <div nz-col nzFlex="1"></div>
+      </div>
+      <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+              (click)="searchTable()">查詢資料</button>
+          <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()">清除資料</button>
+      </div>
+  </div>
+  <div class="line_bank_card_no_padding">
+      <div class="line_bank_form_header_title">案件查詢資料結果</div>
+      <nz-table [nzData]="resultData">
+          <thead>
+              <tr>
+                  <th> </th>
+                  <th>案件編號</th>
+                  <th>負責人</th>
+                  <th>案件類型</th>
+                  <th>客群</th>
+                  <th>預計下次聯繫時間</th>
+                  <th>案件狀態</th>
+                  <th>進入案件狀態時間</th>
+                  <th>已聯繫次數</th>
+                  <th>申請金額</th>
+                  <th>授信通過日期</th>
+                  <th>利率</th>
+                  <th>額度</th>
+                  <th>案件到期日</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let data of resultData; let i = index ">
+                  <!--取件-->
+                  <td><button nz-button [nzSize]="'middle'" nzType="primary"
+                          (click)="pickup(data.applno,this.outboundTypeValue,data.nextContactTime)">取件</button></td>
+                  <!--案件編號-->
+                  <td>{{data. applno}}</td>
+                  <!--負責人-->
+                  <td>{{data.empno}}</td>
+                  <!--案件類型-->
+                  <td>{{getOutboundChinese(this.outboundTypeValue)}}</td>
+                  <!--客群-->
+                  <td>{{data.custFlag}}</td>
+                  <!--預計下次聯繫時間-->
+                  <td>{{data.nextContactTime}}</td>
+                  <!--案件狀態-->
+                  <td>{{data.statusCode}}</td>
+                  <!--進入案件狀態時間-->
+                  <td>{{data.lastChngTmstmp}}</td>
+                  <!--已聯繫次數-->
+                  <td>{{data.count}}</td>
+                  <!--申請金額-->
+                  <td>{{toCurrency(data.amount)}}</td>
+                  <!--授信通過日期-->
+                  <td>{{data.creditTime}}</td>
+                  <!--利率-->
+                  <td>{{data.interest}}</td>
+                  <!--額度-->
+                  <td>{{data.approveAmt}}</td>
+                  <!--案件到期日-->
+                  <td>{{data.applyTime}}</td>
+              </tr>
+          </tbody>
+      </nz-table>
+  </div>
+</div>

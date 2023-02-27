@@ -1,0 +1,366 @@
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+
+  <div  style="padding-left: 50px;">
+    <button *ngIf="getSearch() == 'N' && getPage()=='5'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
+    <button *ngIf="getSearch() != 'N' || (getSearch() == 'N' && getPage()!='5') " nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
+  </div>
+
+  <div *ngIf="getPage()=='5'" class="line_bank_card_no_padding">
+
+    <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="偽冒案件處理">
+      <thead>
+        <tr>
+          <th class="table-header">NO</th>
+          <th class="table-header">判斷結果</th>
+          <th class="table-header">偽冒類型</th>
+          <th class="table-header">偽冒子類型</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let reasonData of fmData.data;let i = index">
+          <!-- 依資料動態長出共三種格式 -->
+          <!-- 格式1 單列 -->
+          <tr
+            *ngIf="reasonData.level2.length <='1' && reasonData.REASON_DESC!='高度偽冒風險' && reasonData.REASON_DESC!='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td>
+              <div *ngFor="let reasonData_level2 of reasonData.level2;let i = index"><input type="checkbox"
+                  [(ngModel)]="reasonData_level2.checkbox" [disabled]="reasonData.checkbox ? false : true"
+                  value={{reasonData_level2.REASON_DESC}}
+                  (click)="checkboxSelect($event.target.checked,reasonData_level2.REASON_DESC,reasonData_level2.REASON_LEVEL,reasonData_level2.UP_REASON_CODE,reasonData_level2.REASON_CODE,'fm');">{{reasonData_level2.REASON_DESC}}
+              </div>
+            </td>
+            <td>
+              <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
+                <ng-container *ngFor="let reasonData_level3 of reasonData_level2.level3;let i = index">
+                  {{reasonData_level3.REASON_DESC}}
+                </ng-container>
+              </ng-container>
+            </td>
+          </tr>
+          <!-- 格式2 多列 -->
+          <tr *ngIf="reasonData.level2.length >'1'">
+            <td [attr.rowspan]="reasonData.level2.length">{{reasonData.sort}}</td>
+            <td [attr.rowspan]="reasonData.level2.length">
+              <input type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td>
+              <input type="checkbox" [(ngModel)]="reasonData.level2[0].checkbox"
+                name={{reasonData.level2[0].REASON_DESC}} [disabled]="reasonData.checkbox ? false : true"
+                value={{reasonData.level2[0].REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData.level2[0]);">{{reasonData.level2[0].REASON_DESC}}
+            </td>
+            <td>
+              <ng-container *ngFor="let reasonData_level3 of reasonData.level2[0].level3;let i = index">
+                <input type="checkbox" [(ngModel)]="reasonData_level3.checkbox" name={{reasonData_level3.REASON_DESC}}
+                  [disabled]="reasonData.level2[0].checkbox ? false : true" value={{reasonData_level3.REASON_DESC}}
+                  (click)="checkboxSelect($event.target.checked,reasonData_level3);">{{reasonData_level3.REASON_DESC}}
+              </ng-container>
+            </td>
+          </tr>
+          <ng-container *ngIf="reasonData.level2.length >'1'">
+            <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
+              <tr *ngIf="i>'0'">
+                <td>
+                  <input type="checkbox" [(ngModel)]="reasonData_level2.checkbox" name={{reasonData_level2.REASON_DESC}}
+                    [disabled]="reasonData.checkbox ? false : true" value={{reasonData_level2.REASON_DESC}}
+                    (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
+                </td>
+                <td>
+                  <ng-container *ngFor="let reasonData_level3 of reasonData_level2.level3;let i = index">
+                    <input type="checkbox" [(ngModel)]="reasonData_level3.checkbox"
+                      name={{reasonData_level3.REASON_DESC}} [disabled]="reasonData_level2.checkbox ? false : true"
+                      value={{reasonData_level3.REASON_DESC}}
+                      (click)="checkboxSelect($event.target.checked,reasonData_level3);">{{reasonData_level3.REASON_DESC}}
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <!-- 格式3 特殊文字框 -->
+          <tr *ngIf="reasonData.REASON_DESC=='高度偽冒風險' || reasonData.REASON_DESC=='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td colspan="2">
+              <textarea *ngIf="reasonData.REASON_DESC=='高度偽冒風險'" [(ngModel)]="manageHigh" name="manageHigh"
+                maxlength="150" [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
+              <textarea *ngIf="reasonData.REASON_DESC=='其他'" [(ngModel)]="manageOther" name="manageOther"
+              maxlength="150" [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
+            </td>
+          </tr>
+
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <div *ngIf="getPage()!='5'" class="line_bank_card_no_padding">
+
+    <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="偽冒案件處理">
+      <thead>
+        <tr>
+          <th class="table-header">NO</th>
+          <th class="table-header">判斷結果</th>
+          <th class="table-header">偽冒類型</th>
+          <th class="table-header">偽冒子類型</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let reasonData of fmData.data;let i = index">
+          <!-- 依資料動態長出共三種格式 -->
+          <!-- 格式1 單列 -->
+          <tr
+            *ngIf="reasonData.level2.length <='1' && reasonData.REASON_DESC!='高度偽冒風險' && reasonData.REASON_DESC!='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input disabled type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td>
+              <div disabled *ngFor="let reasonData_level2 of reasonData.level2;let i = index"><input type="checkbox"
+                  [(ngModel)]="reasonData_level2.checkbox" [disabled]="reasonData.checkbox ? false : true"
+                  value={{reasonData_level2.REASON_DESC}}
+                  (click)="checkboxSelect($event.target.checked,reasonData_level2.REASON_DESC,reasonData_level2.REASON_LEVEL,reasonData_level2.UP_REASON_CODE,reasonData_level2.REASON_CODE,'fm');">{{reasonData_level2.REASON_DESC}}
+              </div>
+            </td>
+            <td>
+              <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
+                <ng-container *ngFor="let reasonData_level3 of reasonData_level2.level3;let i = index">
+                  {{reasonData_level3.REASON_DESC}}
+                </ng-container>
+              </ng-container>
+            </td>
+          </tr>
+          <!-- 格式2 多列 -->
+          <tr *ngIf="reasonData.level2.length >'1'">
+            <td [attr.rowspan]="reasonData.level2.length">{{reasonData.sort}}</td>
+            <td [attr.rowspan]="reasonData.level2.length">
+              <input disabled type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td>
+              <input disabled type="checkbox" [(ngModel)]="reasonData.level2[0].checkbox"
+                name={{reasonData.level2[0].REASON_DESC}} [disabled]="reasonData.checkbox ? false : true"
+                value={{reasonData.level2[0].REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData.level2[0]);">{{reasonData.level2[0].REASON_DESC}}
+            </td>
+            <td>
+              <ng-container *ngFor="let reasonData_level3 of reasonData.level2[0].level3;let i = index">
+                <input disabled type="checkbox" [(ngModel)]="reasonData_level3.checkbox" name={{reasonData_level3.REASON_DESC}}
+                  [disabled]="reasonData.level2[0].checkbox ? false : true" value={{reasonData_level3.REASON_DESC}}
+                  (click)="checkboxSelect($event.target.checked,reasonData_level3);">{{reasonData_level3.REASON_DESC}}
+              </ng-container>
+            </td>
+          </tr>
+          <ng-container *ngIf="reasonData.level2.length >'1'">
+            <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
+              <tr *ngIf="i>'0'">
+                <td>
+                  <input disabled type="checkbox" [(ngModel)]="reasonData_level2.checkbox" name={{reasonData_level2.REASON_DESC}}
+                    [disabled]="reasonData.checkbox ? false : true" value={{reasonData_level2.REASON_DESC}}
+                    (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
+                </td>
+                <td>
+                  <ng-container *ngFor="let reasonData_level3 of reasonData_level2.level3;let i = index">
+                    <input disabled type="checkbox" [(ngModel)]="reasonData_level3.checkbox"
+                      name={{reasonData_level3.REASON_DESC}} [disabled]="reasonData_level2.checkbox ? false : true"
+                      value={{reasonData_level3.REASON_DESC}}
+                      (click)="checkboxSelect($event.target.checked,reasonData_level3);">{{reasonData_level3.REASON_DESC}}
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <!-- 格式3 特殊文字框 -->
+          <tr *ngIf="reasonData.REASON_DESC=='高度偽冒風險' || reasonData.REASON_DESC=='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input disabled type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td colspan="2">
+              <textarea disabled *ngIf="reasonData.REASON_DESC=='高度偽冒風險'" [(ngModel)]="manageHigh" name="manageHigh"
+              maxlength="150" [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
+              <textarea disabled *ngIf="reasonData.REASON_DESC=='其他'" [(ngModel)]="manageOther" name="manageOther"
+              maxlength="150"  [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
+            </td>
+          </tr>
+
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <div *ngIf="getPage()=='5'" class="line_bank_card_no_padding">
+
+    <nz-table nzShowSizeChanger [nzData]="fdData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="偽冒原因">
+      <thead>
+        <tr>
+          <th class="table-header">NO</th>
+          <th class="table-header">Delay警訊原因</th>
+          <th class="table-header">子項目</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let reasonData of fdData.data;let i = index">
+          <!-- 依資料動態長出共三種格式 -->
+          <!-- 格式1 單列 -->
+          <tr
+            *ngIf="reasonData.level2.length <='1' && reasonData.REASON_DESC!='高度偽冒風險' && reasonData.REASON_DESC!='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td>
+              <div *ngFor="let reasonData_level2 of reasonData.level2;let i = index"><input type="checkbox"
+                  [(ngModel)]="reasonData_level2.checkbox" [disabled]="reasonData.checkbox ? false : true"
+                  value={{reasonData_level2.REASON_DESC}}
+                  (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
+              </div>
+            </td>
+          </tr>
+          <!-- 格式2 多列 -->
+          <tr *ngIf="reasonData.level2.length >'1'">
+            <td [attr.rowspan]="reasonData.level2.length">{{reasonData.sort}}</td>
+            <td [attr.rowspan]="reasonData.level2.length"><input type="checkbox" [(ngModel)]="reasonData.checkbox"
+                name={{reasonData.REASON_DESC}} value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}</td>
+            <td class="td3"><input type="checkbox" [(ngModel)]="reasonData.level2[0].checkbox"
+                name={{reasonData.level2[0].REASON_DESC}} [disabled]="reasonData.checkbox ? false : true"
+                value={{reasonData.level2[0].REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData.level2[0]);">{{reasonData.level2[0].REASON_DESC}}
+            </td>
+          </tr>
+          <ng-container *ngIf="reasonData.level2.length >'1'">
+            <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
+              <tr *ngIf="i>'0'">
+                <td class="td3">
+                  <input type="checkbox" [(ngModel)]="reasonData_level2.checkbox" name={{reasonData_level2.REASON_DESC}}
+                    [disabled]="reasonData.checkbox ? false : true" value={{reasonData_level2.REASON_DESC}}
+                    (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
+                  <ng-container *ngIf="reasonData_level2.REASON_DESC=='其他'">
+                    <textarea maxlength="100" [(ngModel)]="delayOtherTwo" name="delayOtherTwo"
+                      [disabled]="reasonData_level2.checkbox ? false : true"></textarea>
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <!-- 格式3 特殊文字框 -->
+          <tr *ngIf="reasonData.REASON_DESC=='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="reasonData.checkbox"
+                name={{reasonData.REASON_DESC+reasonData.REASON_LEVEL}} value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td class="td3">
+              <textarea [(ngModel)]="delayOther" name="delayOther" [disabled]="reasonData.checkbox ? false : true"
+              maxlength="100" rows="10"></textarea>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+
+
+  <div *ngIf="getPage()!='5'" class="line_bank_card_no_padding">
+
+    <nz-table nzShowSizeChanger [nzData]="fdData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="偽冒原因">
+      <thead>
+        <tr>
+          <th class="table-header">NO</th>
+          <th class="table-header">Delay警訊原因</th>
+          <th class="table-header">子項目</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let reasonData of fdData.data;let i = index">
+          <!-- 依資料動態長出共三種格式 -->
+          <!-- 格式1 單列 -->
+          <tr
+            *ngIf="reasonData.level2.length <='1' && reasonData.REASON_DESC!='高度偽冒風險' && reasonData.REASON_DESC!='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input disabled type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
+                value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td>
+              <div disabled *ngFor="let reasonData_level2 of reasonData.level2;let i = index"><input type="checkbox"
+                  [(ngModel)]="reasonData_level2.checkbox" [disabled]="reasonData.checkbox ? false : true"
+                  value={{reasonData_level2.REASON_DESC}}
+                  (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
+              </div>
+            </td>
+          </tr>
+          <!-- 格式2 多列 -->
+          <tr *ngIf="reasonData.level2.length >'1'">
+            <td [attr.rowspan]="reasonData.level2.length">{{reasonData.sort}}</td>
+            <td [attr.rowspan]="reasonData.level2.length"><input disabled type="checkbox" [(ngModel)]="reasonData.checkbox"
+                name={{reasonData.REASON_DESC}} value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}</td>
+            <td class="td3"><input disabled type="checkbox" [(ngModel)]="reasonData.level2[0].checkbox"
+                name={{reasonData.level2[0].REASON_DESC}} [disabled]="reasonData.checkbox ? false : true"
+                value={{reasonData.level2[0].REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData.level2[0]);">{{reasonData.level2[0].REASON_DESC}}
+            </td>
+          </tr>
+          <ng-container *ngIf="reasonData.level2.length >'1'">
+            <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
+              <tr *ngIf="i>'0'">
+                <td class="td3">
+                  <input disabled type="checkbox" [(ngModel)]="reasonData_level2.checkbox" name={{reasonData_level2.REASON_DESC}}
+                    [disabled]="reasonData.checkbox ? false : true" value={{reasonData_level2.REASON_DESC}}
+                    (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
+                  <ng-container *ngIf="reasonData_level2.REASON_DESC=='其他'">
+                    <textarea disabled [(ngModel)]="delayOtherTwo" name="delayOtherTwo"
+                    maxlength="100" [disabled]="reasonData_level2.checkbox ? false : true"></textarea>
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <!-- 格式3 特殊文字框 -->
+          <tr *ngIf="reasonData.REASON_DESC=='其他'">
+            <td>{{reasonData.sort}}</td>
+            <td>
+              <input disabled type="checkbox" [(ngModel)]="reasonData.checkbox"
+                name={{reasonData.REASON_DESC+reasonData.REASON_LEVEL}} value={{reasonData.REASON_DESC}}
+                (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
+            <td class="td3">
+              <textarea disabled [(ngModel)]="delayOther" name="delayOther" [disabled]="reasonData.checkbox ? false : true"
+              maxlength="100" rows="10"></textarea>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <br>
+
+</div>

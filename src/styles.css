@@ -1,0 +1,215 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+@import "~ng-zorro-antd/style/index.min.css"; /* 引入基本样式 */
+@import "~ng-zorro-antd/button/style/index.min.css"; /* 引入组件样式 */
+
+html, body {min-height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.login-background{
+    background-image: url(src\assets\images\LineBank.png);
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: left 50% top 0%;
+    background-size: 50%;
+  }
+
+  .mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
+body {
+	touch-action: manipulation;
+	-webkit-overflow-scrolling: touch;
+	/* -ms-overflow-style: none; */
+	overflow-x: hidden;
+	/* user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none; */
+	font-family: 'SF Pro TC', 'SF Pro Text', 'SF Pro Icons', 'PingFang TC', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+html {
+	height: 100%;
+	background: transparent;
+
+}
+.line_bank_h1{
+  font-size: 25px;
+}
+.line_bank_h2{
+  font-size: 20px;
+}
+.line_bank_h3{
+  font-size: 18px;
+}
+.line_bank_h4{
+  font-size: 15px;
+}
+.line_bank_h5{
+  font-size: 13px;
+}
+.line_bank_bankground_color{
+  background-color: #fff7e9;
+  width:100%;
+  min-height:100%;
+}
+.line_bank_form_header_title_color{
+  background-color: #98CCFE;
+}
+.line_bank_form_header_title{
+  text-align: left;
+  font-weight:500;
+  font-size: 16px;
+  margin-top:5px;
+  color:#2E4765;
+  background-color: #BFECD0;
+  padding:5px 5px 5px 10px;
+  border-radius: 10px 10px 0 0;
+}
+.line_bank_form_header_title_middle{
+  text-align: left;
+  margin:5px 0;
+  font-weight:500;
+  font-size: 16px;
+  color:#2E4765;
+  background-color: #BFECD0;
+  padding:5px 5px 5px 10px;
+  border-radius: 0px;
+}
+
+.line_bank_form_header_child_title{
+  text-align: left;
+  font-weight:500;
+  font-size: 14px;
+  color:#2E4765;
+  background-color:	#fff6c6	;
+  padding:5px 5px 5px 10px;
+}
+
+.line_bank_card {
+	position: relative;
+  margin:10px auto;
+	width: 95%;
+	background: white;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 10px;
+	padding: 10px ;
+}
+.line_bank_card_no_padding {
+	position: relative;
+  margin:10px auto;
+	width: 95%;
+	background: white;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 10px;
+}
+.line_bank_function_btn{
+background-color:white;
+max-width: 5%;
+text-align:center;
+font-size:15px;
+color:#24C875;
+border-radius: 10px;
+border:none;
+cursor: pointer;
+padding:10px;
+box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+}
+.line_bank_function_btn:hover{
+background-color:#24C875;
+font-size:15px;
+text-align:center;
+max-width: 5%;
+color:#ffffff;
+border-radius: 10px;
+border:none;
+cursor: pointer;
+padding:10px;
+box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mat-dialog-transparent .mat-dialog-container {
+  background: transparent;
+  box-shadow: none;
+
+}
+
+.ant-empty-normal {
+  margin: 0;
+}
+.ant-empty-normal .ant-empty-image{
+  height:40px;
+  margin-top:10px;
+}
+/* .ant-table-tbody>tr>td{
+  border-bottom:none;
+} */
+/* .ant-table.ant-table-small .ant-table-tbody>tr>td{
+  padding:6px;
+}
+.table-data{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:rgb(87, 87, 87);
+  margin-bottom: 0px;
+  font-size: 5px;
+} */
+.ant-picker{
+  border:1px solid #c9c9c9;
+  border-radius: 5px;
+}
+:host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
+  padding:0px;
+  font-size: 12px;
+}
+:host::ng-deep.table-data{
+  font-size: 12px;
+  border:1px solid #e8e8e8;
+  background-color: white;
+  color: rgba(87,87,87);
+  margin-bottom: 0px;
+}
+/* 表格表頭樣式 黑色*/
+.table-header-black{
+  background-color:#ededed;
+  color:#000000;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+/* 表格內容樣式 黑色*/
+.table-data-black{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:#000000;
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+/* 文字靠右 */
+.text_right{
+  text-align:right;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

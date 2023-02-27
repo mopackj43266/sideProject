@@ -1,0 +1,105 @@
+<!-- 頁面背景 -->
+
+<div class="line_bank_bankground_color">
+    <br>
+    <form [formGroup]="proxyIncomeForm">
+
+
+        <!-- 最外層卡片包覆 -->
+        <div class="line_bank_card_no_padding">
+            <div nz-row>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">行職業代碼</span>
+                        <!-- <mat-select [(ngModel)]="inducCodeValue" name="sysCode" formControlName="INDUC_CODE"
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of inducCode" [value]="code.value">
+                {{code.value}} - {{code.viewValue}}
+              </mat-option>
+            </mat-select> -->
+                        <input matInput #input class="form-control" [(ngModel)]="inducCode" formControlName="INDUC_CODE" maxlength="6">
+
+                    </div>
+                </div>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">行業Level1</span>
+                        <mat-select [(ngModel)]="inducLevel1Value" (ngModelChange)="changeLevel1Select()" name="inducLevel1" formControlName="INDUC_LEVEL1">
+                            <mat-option *ngFor="let code of inducLevel1" [value]="code.value">
+                                {{code.value}} - {{code.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">行業Level2</span>
+                        <mat-select [(ngModel)]="inducLevel2Value" (ngModelChange)="changeLevel2Select()" name="inducLevel2" formControlName="INDUC_LEVEL2">
+                            <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
+                                {{code.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">職稱碼</span>
+                        <mat-select [(ngModel)]="jobCodeValue" name="jobCode" formControlName="JOB_CODE">
+                            <mat-option *ngFor="let code of jobCode" [value]="code.value">
+                              {{code.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:10px;text-align: center">
+                <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="doSearch()">查詢</button> -->
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="getProxyIncomeData(this.pageIndex, this.pageSize)">查詢資料</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="insert(true)">新增</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadExcel()">上傳Excel</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="exportExcel()">匯出Excel</button>
+            </div>
+        </div>
+        <!-- 最外層卡片包覆 -->
+        <div class="line_bank_card_no_padding">
+            <!-- 表格 -->
+            <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="proxyIncomeDataSource" [nzSimple]="true" [nzScroll]="{ x: '1500px', y: '240;px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+                nzSize="small" nzTitle="Proxy Income 維護" (nzQueryParams)="onQueryParamsChange($event)">
+                <thead>
+                    <tr>
+                        <th nzLeft class="table-header" nzWidth="140px"></th>
+                        <th class="table-header" nzWidth="150px">行職業代碼</th>
+                        <th class="table-header" nzWidth="150px">行業Level1</th>
+                        <th class="table-header" nzWidth="150px">行業Level1敘述</th>
+                        <th class="table-header" nzWidth="150px">行業Level2</th>
+                        <th class="table-header" nzWidth="150px">行業Level2敘述</th>
+                        <th class="table-header" nzWidth="150px">職業碼</th>
+                        <th class="table-header" nzWidth="150px">職業碼敘述</th>
+                        <th class="table-header" nzWidth="150px">第10百分位薪資</th>
+                        <th class="table-header" nzWidth="150px">中位數薪資</th>
+                        <th class="table-header" nzWidth="150px">第90百分位薪資</th>
+                        <th class="table-header" nzWidth="150px">異動日期</th>
+                        <th class="table-header" hidden>ROWID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of proxyIncomeDataSource">
+                        <td nzLeft><button nz-button [nzSize]="'middle'" nzType="primary" (click)="update(true, data)">編輯</button>
+                            <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="delete(data.RID)">刪除</button>
+                        </td>
+                        <td class="table-data">{{ data.INDUC_CODE }}</td>
+                        <td class="table-data">{{ data.INDUC_LEVEL1 }}</td>
+                        <td class="table-data">{{ data.INDUC_LEVEL1_DESC }}</td>
+                        <td class="table-data">{{ data.INDUC_LEVEL2 }}</td>
+                        <td class="table-data">{{ data.INDUC_LEVEL2_DESC }}</td>
+                        <td class="table-data">{{ data.JOB_CODE }}</td>
+                        <td class="table-data">{{ data.JOB_CODE_DESC }}</td>
+                        <td class="table-data">{{ data.TEN_PERCENT_SALARY }}</td>
+                        <td class="table-data">{{ data.MID_SALARY }}</td>
+                        <td class="table-data">{{ data.NINETY_PERCENT_SALARY }}</td>
+                        <td class="table-data">{{ data.CHANGE_DATE | date:'yyyy-MM-dd'}}</td>
+                        <td class="table-data" hidden>{{ data.ROWID }}</td>
+
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </form>
+</div>

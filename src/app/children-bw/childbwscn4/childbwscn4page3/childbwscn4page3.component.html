@@ -1,0 +1,466 @@
+<!-- 本行消金產品 -->
+<!-- 表格 -->
+<ng-container *ngFor="let source of Source, let i = index">
+  <div class="line_bank_card_no_padding" *ngIf="source.code == 'PROD_DETAIL'">
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="source.Source"
+      [nzSimple]="true" (nzQueryParams)="onQueryParamsChange($event, i)" [nzLoading]="loading" [nzTotal]="source.total"
+      [nzPageSize]="source.pageSize" [nzPageIndex]="source.pageIndex" nzSize="small" nzTitle="產品明細">
+      <thead>
+        <tr>
+          <th class="table-header" nzWidth="100px">產品</th>
+          <th class="table-header" nzWidth="50px">目前狀態正常帳戶數</th>
+          <th class="table-header" nzWidth="50px">目前逾期狀態（各產品最嚴重）</th>
+          <th class="table-header" nzWidth="100px">最早轉催日期</th>
+          <th class="table-header" nzWidth="100px">最早轉呆日期</th>
+          <!-- <th class="table-header" nzWidth="100px">最早行內協議成立日期</th>
+        <th class="table-header" nzWidth="100px">最早前置協商/調解申請日期</th>
+        <th class="table-header" nzWidth="100px">最早前置協商/調解成立日期</th>
+        <th class="table-header" nzWidth="100px">最早更生成立日期</th>
+        <th class="table-header" nzWidth="100px">最早清算成立日期</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of source.Source">
+          <td class="table-data">{{ data.PROD_TYPE }}</td>
+          <td class="table-data">{{ data.CU_NORMAL_ACC }}</td>
+          <td class="table-data">{{ data.OVERDUE_STATUS }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.TURN_COLLECT_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.TURN_BAD_DEBIT_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+          <!-- <td class="table-data">{{ data.INTER_AGGR_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.NEGO_APPL_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.NEGO_SETUP_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.REOPEN_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.LIQ_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</ng-container>
+<ng-container *ngFor="let source of Source, let i = index">
+  <div class="line_bank_card_no_padding" *ngIf="source.code == 'INSTALLMENT_ACC'">
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="source.Source"
+      [nzSimple]="true" (nzQueryParams)="onQueryParamsChange($event, i)" [nzLoading]="loading" [nzTotal]="source.total"
+      [nzPageSize]="source.pageSize" [nzPageIndex]="source.pageIndex" nzSize="small"
+      [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="分期信貸產品資訊">
+      <thead>
+        <tr>
+          <th class="table-header" nzWidth="100px">產品</th>
+          <th class="table-header" nzWidth="100px">合約確定時間</th>
+          <th class="table-header" nzWidth="100px">合約截止時間</th>
+          <th class="table-header" nzWidth="100px">期數</th>
+          <th class="table-header" nzWidth="100px">放款帳號</th>
+          <th class="table-header" nzWidth="100px">目前帳號狀態</th>
+          <th class="table-header" nzWidth="100px">目前利率</th>
+          <th class="table-header" nzWidth="100px">撥款金額</th>
+          <th class="table-header" nzWidth="100px">目前放款餘額</th>
+          <th class="table-header" nzWidth="100px">佔額比</th>
+          <th class="table-header" nzWidth="100px">結清時間</th>
+          <th class="table-header" nzWidth="100px">往來月數( 年 月)</th>
+          <th class="table-header" nzWidth="100px">合約剩餘期數</th>
+          <!-- <th class="table-header" nzWidth="100px">多階利率說明</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of source.Source">
+          <td class="table-data">{{ data.PROD_TYPE }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CT_CFM_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CT_EXP_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.NUM_OF_INST }}</td>
+          <td class="table-data">{{ data.LOAN_ACC}}</td>
+          <td class="table-data">{{ data.ACC_STATUS }}</td>
+          <td class="table-data">{{ data.RATE }}</td>
+          <td class="table-data" style="text-align: right;">{{toCurrency( data.APPR_AMOUNT) }}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.LOAN_BAL) }}</td>
+          <td class="table-data">{{ data.PERCENTAGE }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.TRANS_MONTHS }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CT_MONTHS_REMAIN }}</td>
+          <!-- <td class="table-data">{{ data.MULTI_LEVEL_RATE_DES }}</td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</ng-container>
+<ng-container *ngFor="let source of Source, let i = index">
+  <div class="line_bank_card_no_padding" *ngIf="source.code == 'REVOLVING_ACC'">
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="source.Source"
+      [nzFrontPagination]="false" [nzSimple]="true" (nzQueryParams)="onQueryParamsChange($event, i)"
+      [nzLoading]="loading" [nzTotal]="source.total" [nzPageSize]="source.pageSize" [nzPageIndex]="source.pageIndex"
+      nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="循環信貸產品資訊">
+      <thead>
+        <tr>
+          <th class="table-header" nzWidth="100px">產品</th>
+          <th class="table-header" nzWidth="100px">合約確定日期時間</th>
+          <th class="table-header" nzWidth="100px">合約截止日期時間</th>
+          <th class="table-header" nzWidth="100px">期數</th>
+          <th class="table-header" nzWidth="100px">放款帳號</th>
+          <th class="table-header" nzWidth="100px">目前帳號狀態</th>
+          <th class="table-header" nzWidth="100px">目前利率</th>
+          <th class="table-header" nzWidth="100px">核准額度</th>
+          <th class="table-header" nzWidth="100px">目前放款餘額</th>
+          <th class="table-header" nzWidth="100px">佔額比(%)</th>
+          <th class="table-header" nzWidth="100px">目前可用額度</th>
+          <th class="table-header" nzWidth="100px">結清日期</th>
+          <th class="table-header" nzWidth="100px">往來月數( 年 月)</th>
+          <th class="table-header" nzWidth="100px">結帳日至還款日是否可動用</th>
+          <!-- <th class="table-header" nzWidth="100px">多階利率說明</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of source.Source">
+          <td class="table-data">{{ data.PROD_TYPE }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CT_CFM_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CT_EXP_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.NUM_OF_REVOL }}</td>
+          <td class="table-data">{{ data.LOAN_ACC}}</td>
+          <td class="table-data">{{ data.ACC_STATUS }}</td>
+          <td class="table-data">{{ data.RATE }}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.APPR_CREDIT) }}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.LOAN_BAL) }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.PERCENTAGE }}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.AVAIL_BAL)}}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
+          <td class="table-data" style="text-align: right;">{{ data.TRANS_MONTHS }}</td>
+          <td class="table-data">{{ data.IS_AVAILABLE }}</td>
+          <!-- <td class="table-data">{{ data.MULTI_LEVEL_RATE_DES }}</td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</ng-container>
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="INST_TRANS_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="分期信貸往來明細">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">交易日期時間</th>
+        <th class="table-header" nzWidth="100px">放款帳號</th>
+        <th class="table-header" nzWidth="100px">產品</th>
+        <th class="table-header" nzWidth="100px">貸款期數</th>
+        <th class="table-header" nzWidth="100px">本次繳款狀態</th>
+        <th class="table-header" nzWidth="100px">帳戶逾期狀態</th>
+        <th class="table-header" nzWidth="100px">本期適用利率</th>
+        <th class="table-header" nzWidth="100px">應償還利息</th>
+        <th class="table-header" nzWidth="100px">應償還本金</th>
+        <th class="table-header" nzWidth="100px">本次償還利息</th>
+        <th class="table-header" nzWidth="100px">本次償還本金</th>
+        <th class="table-header" nzWidth="100px">目前貸款本金餘額</th>
+        <th class="table-header" nzWidth="100px">本期償還利息合計</th>
+        <th class="table-header" nzWidth="100px">本期償還本金合計</th>
+        <th class="table-header" nzWidth="100px">應繳未繳(逾期)利息</th>
+        <th class="table-header" nzWidth="100px">應繳未繳(逾期)本金</th>
+        <th class="table-header" nzWidth="100px">本次應繳日</th>
+        <th class="table-header" nzWidth="100px">下次應繳日</th>
+        <th class="table-header" nzWidth="100px">繳款帳號(存款帳號)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of INST_TRANS_DETAILSource">
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
+        <td class="table-data">{{ data.LOAN_ACC }}</td>
+        <td class="table-data">{{ data.PROD_TYPE }}</td>
+        <td class="table-data">{{ data.LOAN_MONTHS }}</td>
+        <td class="table-data">{{ data.PAYMENT_STATUS}}</td>
+        <td class="table-data">{{ data.ACC_OVERDUE_STATUS }}</td>
+        <td class="table-data">{{ data.RATE }}</td>
+        <td class="table-data">{{ data.REPAY_INTE }}</td>
+        <td class="table-data">{{ data.REPAY_PRIN }}</td>
+        <td class="table-data">{{ data.CUR_REPAY_INTE }}</td>
+        <td class="table-data">{{ data.CUR_REPAY_PRIN}}</td>
+        <td class="table-data">{{ data.LOAN_PCP_BAL}}</td>
+        <td class="table-data">{{ data.TT_REPAY_INTE }}</td>
+        <td class="table-data">{{ data.TT_REPAY_PRIN }}</td>
+        <td class="table-data">{{ data.OVERDUE_INTE }}</td>
+        <td class="table-data">{{ data.OVERDUE_PRIN }}</td>
+        <td class="table-data">{{ data.DUE_DATE }}</td>
+        <td class="table-data">{{ data.NEXT_DUE_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
+        <td class="table-data">{{ data.PAY_ACC }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="REV_TRANS_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="循環信貸往來明細">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">交易日期時間</th>
+        <th class="table-header" nzWidth="100px">放款帳號</th>
+        <th class="table-header" nzWidth="100px">產品</th>
+        <th class="table-header" nzWidth="100px">額度</th>
+        <th class="table-header" nzWidth="100px">額度狀態</th>
+        <th class="table-header" nzWidth="100px">申請動撥金額</th>
+        <th class="table-header" nzWidth="100px">申請動撥結果</th>
+        <th class="table-header" nzWidth="100px">徵審代碼</th>
+        <th class="table-header" nzWidth="100px">本筆申請前可用額度</th>
+        <th class="table-header" nzWidth="100px">交易類型</th>
+        <th class="table-header" nzWidth="100px">交易金額</th>
+        <th class="table-header" nzWidth="100px">累計動用金額</th>
+        <th class="table-header" nzWidth="100px">目前可用額度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of REV_TRANS_DETAILSource">
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
+        <td class="table-data">{{ data.LOAN_ACC }}</td>
+        <td class="table-data">{{ data.PROD_TYPE }}</td>
+        <td class="table-data">{{ data.QUOTA }}</td>
+        <td class="table-data">{{ data.QUOTA_STATUS}}</td>
+        <td class="table-data">{{ data.DRAWDOWN_REQ_AMT }}</td>
+        <td class="table-data">{{ data.DRAWDOWN_REQ_RES }}</td>
+        <td class="table-data">{{ data.APPL_CODE }}</td>
+        <td class="table-data">{{ data.AVA_BAL_BEFORE_APPL }}</td>
+        <td class="table-data">{{ data.TRANS_TYPE }}</td>
+        <td class="table-data">{{ data.TRANS_AMT}}</td>
+        <td class="table-data">{{ data.TT_AMT_USERD}}</td>
+        <td class="table-data">{{ data.CUR_AVA_BAL }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="APPR_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '500px', y: '240px' }"
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="撥款統計數據">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月內最嚴重逾期未繳金額</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of APPR_STATIS_DATASource">
+        <td class="table-data">{{ data.PROD_TYPE}}</td>
+        <td class="table-data">{{ data.OD_TIMES_WIT_3_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_STATUS_WIT_3_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_AMT_WIT_3_MON }}</td>
+        <td class="table-data">{{ data.OD_TIMES_WIT_6_MON}}</td>
+        <td class="table-data">{{ data.SERI_OD_STATUS_WIT_6_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_AMT_WIT_6_MON }}</td>
+        <td class="table-data">{{ data.OD_TIMES_WIT_12_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_STATUS_WIT_12_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_AMT_WIT_12_MON }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="OVERDUE_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="逾期統計數據">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">最近一次逾期距今月數</th>
+        <th class="table-header" nzWidth="100px">最近一次逾期狀態</th>
+        <th class="table-header" nzWidth="100px">最近一次逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">近三個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">近三個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">近三個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">近六個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">近六個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">近六個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">近十二個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">近十二個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">近十二個月內最嚴重逾期未繳金額</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of OVERDUE_STATIS_DATASource">
+        <td class="table-data">{{ data.PROD_TYPE }}</td>
+        <td class="table-data">{{ data.MONTHS_FROM_LAST_OD }}</td>
+        <td class="table-data">{{ data.LAST_OD_STATUS }}</td>
+        <td class="table-data">{{ data.LAST_OD_AMT }}</td>
+        <td class="table-data">{{ data.OD_TIMES_WIT_3_MON}}</td>
+        <td class="table-data">{{ data.SERI_OD_STATUS_WIT_3_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_AMT_WIT_3_MON }}</td>
+        <td class="table-data">{{ data.OD_TIMES_WIT_6_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_STATUS_WIT_6_MON }}</td>
+        <td class="table-data">{{ data.SERI_OD_AMT_WIT_6_MON }}</td>
+        <td class="table-data">{{ data.OD_TIMES_WIT_12_MON}}</td>
+        <td class="table-data">{{ data.SERI_OD_STATUS_WIT_12_MON}}</td>
+        <td class="table-data">{{ data.SERI_OD_AMT_WIT_12_MON }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="CON_PROD_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="帳戶狀態統計">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">總往來帳戶數</th>
+        <th class="table-header" nzWidth="100px">正常帳戶數</th>
+        <th class="table-header" nzWidth="100px">凍結中帳戶數</th>
+        <th class="table-header" nzWidth="100px">逾期中帳戶數</th>
+        <th class="table-header" nzWidth="100px">已結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">最早往來日期迄今</th>
+        <th class="table-header" nzWidth="100px">最晚往來日期迄今</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of CON_PROD_STATIS_DATASource">
+        <td class="table-data">{{ data.PROD_TYPE }}</td>
+        <td class="table-data">{{ data.TT_ACC_NUM }}</td>
+        <td class="table-data">{{ data.NOR_ACC_NUM }}</td>
+        <td class="table-data">{{ data.FRO_ACC_NUM }}</td>
+        <td class="table-data">{{ data.OD_ACC_NUM}}</td>
+        <td class="table-data">{{ data.CLO_ACC_NUM }}</td>
+        <td class="table-data">{{ data.FST_TRANS_DATE }}</td>
+        <td class="table-data">{{ data.LST_TRANS_DATE }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="UNCLOSED_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="未結清帳戶統計">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款金額/核准額度合計</th>
+        <th class="table-header" nzWidth="100px">目前餘額合計</th>
+        <th class="table-header" nzWidth="100px">目前餘額佔額比</th>
+        <th class="table-header" nzWidth="100px">剩餘月數<=個月帳戶數</th>
+        <th class="table-header" nzWidth="100px">剩餘月數<=6個月帳戶數</th>
+        <th class="table-header" nzWidth="100px">剩餘月數<=12個月帳戶數</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of UNCLOSED_STATIS_DATASource">
+        <td class="table-data">{{ data.PROD_TYPE }}</td>
+        <td class="table-data">{{ data.ACC_NUM }}</td>
+        <td class="table-data">{{ data.TOTAL_APPR_AMT }}</td>
+        <td class="table-data">{{ data.TOTAL_BAL }}</td>
+        <td class="table-data">{{ data.BAL_PCT}}</td>
+        <td class="table-data">{{ data.LESS_3_MON_ACC_NUM }}</td>
+        <td class="table-data">{{ data.LESS_6_MON_ACC_NUM }}</td>
+        <td class="table-data">{{ data.LESS_12_MON_ACC_NUM }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="CLOSED_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="已結清帳戶統計">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">平均往來月數</th>
+        <th class="table-header" nzWidth="100px">撥款後一個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款後一個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月(含)內結清帳戶%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of CLOSED_STATIS_DATASource">
+        <td class="table-data">{{ data.PROD_TYPE }}</td>
+        <td class="table-data">{{ data.AVE_MON }}</td>
+        <td class="table-data">{{ data.CLO_NUM_AFT_1_MON }}</td>
+        <td class="table-data">{{ data.CLO_PC_AFT_1_MON }}</td>
+        <td class="table-data">{{ data.CLO_NUM_AFT_3_MON}}</td>
+        <td class="table-data">{{ data.CLO_PC_AFT_3_MON }}</td>
+        <td class="table-data">{{ data.CLO_NUM_AFT_6_MON }}</td>
+        <td class="table-data">{{ data.CLO_PC_AFT_6_MON }}</td>
+        <td class="table-data">{{ data.CLO_NUM_AFT_12_MON }}</td>
+        <td class="table-data">{{ data.CLO_PC_AFT_12_MON }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="INSTAL_APPL_INFOSource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="循環信貸申請動撥資訊">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="100px">申請動撥資訊</th>
+        <th class="table-header" nzWidth="100px">最近一次申請動撥距今日數</th>
+        <th class="table-header" nzWidth="100px">最近一次申請動撥申請金額</th>
+        <th class="table-header" nzWidth="100px">近一個月申請次數</th>
+        <th class="table-header" nzWidth="100px">近一個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近一個月平均申請金額</th>
+        <th class="table-header" nzWidth="100px">近三個月申請次數</th>
+        <th class="table-header" nzWidth="100px">近三個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近三個月平均申請金額</th>
+        <th class="table-header" nzWidth="100px">近六個月申請次數</th>
+        <th class="table-header" nzWidth="100px">近六個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近六個月平均申請金額</th>
+        <th class="table-header" nzWidth="100px">近十二個月申請次數</th>
+        <th class="table-header" nzWidth="100px">近十二個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近十二個月平均申請金額</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of INSTAL_APPL_INFOSource">
+        <td class="table-data">{{ data.DRAWDOWN_REQ_INFO }}</td>
+        <td class="table-data">{{ data.DAS_FROM_LAST_DD_REQ }}</td>
+        <td class="table-data">{{ data.AMT_FROM_LAST_DD_REQ }}</td>
+        <td class="table-data">{{ data.REQ_TIMES_LAST_1_MON }}</td>
+        <td class="table-data">{{ data.REQ_AMT_LAST_1_MON}}</td>
+        <td class="table-data">{{ data.AVE_REQ_AMT_LAST_1_MON }}</td>
+        <td class="table-data">{{ data.REQ_TIMES_LAST_3_MON }}</td>
+        <td class="table-data">{{ data.REQ_AMT_LAST_3_MON }}</td>
+        <td class="table-data">{{ data.AVE_REQ_AMT_LAST_3_MON }}</td>
+        <td class="table-data">{{ data.REQ_TIMES_LAST_6_MON }}</td>
+        <td class="table-data">{{ data.REQ_AMT_LAST_6_MON }}</td>
+        <td class="table-data">{{ data.AVE_REQ_AMT_LAST_6_MON }}</td>
+        <td class="table-data">{{ data.REQ_TIMES_LAST_12_MON }}</td>
+        <td class="table-data">{{ data.REQ_AMT_LAST_12_MON }}</td>
+        <td class="table-data">{{ data.AVE_REQ_AMT_LAST_12_MON }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->
+
+<!-- <div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="DC_TRANS_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" nzTitle="本行Debit Card交易明細">
+    <thead>
+      <tr>
+        <th class="table-header">交易日期時間</th>
+        <th class="table-header">交易特店代號</th>
+        <th class="table-header">MCC</th>
+        <th class="table-header">交易金額（台幣</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of DC_TRANS_DETAILSource">
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
+        <td class="table-data">{{ data.TRANS_STORE_CODE }}</td>
+        <td class="table-data">{{ data.MCC }}</td>
+        <td class="table-data">{{ data.TRANS_AMOUNT }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> -->

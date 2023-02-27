@@ -1,0 +1,86 @@
+#steps-action {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    border: 1px solid #000;
+}
+
+.ant-btn-primary {
+    color: #24C875;
+    font-size: 14px;
+    background: white;
+    border-color: #24C875;
+    border-radius: 5px;
+
+}
+
+.ant-btn-primary:hover {
+    color: #ffffff;
+    background: #24C875;
+    border-color: #24C875;
+    border-radius: 5px;
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
+
+.ant-btn-primary:active {
+    color: #ffffff;
+    background: #24C875;
+    border-color: #24C875;
+    border-radius: 5px;
+
+}
+
+.back {
+    color: #1890ff;
+    font-size: 14px;
+    background: white;
+    border-color: #1890ff;
+    border-radius: 5px;
+
+}
+
+.back:hover {
+    color: #ffffff;
+    background: #1890ff;
+    border-color: #1890ff;
+    border-radius: 5px;
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
+
+.back:active {
+    color: #ffffff;
+    background: #1890ff;
+    border-color: #1890ff;
+    border-radius: 5px;
+
+}
+
+
+.main-card {
+    position: relative;
+    margin: 10px auto;
+    min-width: 1000px;
+    width: 50%;
+    background: white;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 19%);
+    border-radius: 5px;
+    min-height: 170px;
+    padding: 20px;
+}
+.action-btn {
+    width: 100%;
+    padding: 0 4%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin: 20px 0 10px;
+}
+::ng-deep .ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon .ant-steps-icon-dot {
+    background: #BFECD0;
+}
+::ng-deep .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-tail::after {
+    background-color: #BFECD0 ;
+}
+::ng-deep .ant-steps-item-process .ant-steps-item-icon>.ant-steps-icon .ant-steps-icon-dot {
+    background: #02d755;
+}

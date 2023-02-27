@@ -1,0 +1,49 @@
+<cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 400px;   width: 600px;">
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+
+      <div class="line_bank_form_header_title">上傳文件</div>
+      <div class="container" style="padding:20px">
+          <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="uploadForm">
+              <div nz-row>
+                  <div nz-col nzSpan="32">
+                      <div class="form" style="padding:20px">
+                          <div><span class="form-title-actions">上傳檔案</span>
+                              <div mat-dialog-actions>
+                                  <input type="file"
+                                  (change)="onChange($event)"
+                                  style="width:100%;height:33px;border-radius:5px;padding:3px;margin-left:-20px;margin-bottom: 7px; background-color:white">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div nz-col nzSpan="32">
+                    <div class="form" style="padding:20px"><span class="form-title-actions">文件類型</span>
+                      <mat-select [(ngModel)]="imageTypeValue" name="sysCode" formControlName="DOC_ID"
+                        style="width:150px;height:32px;border-radius:5px;border:1px solid #c9c9c9;padding:4px;background-color:white">
+                        <mat-option *ngFor="let code of imageTypeCode" [value]="code.value">
+                          {{code.value}} - {{code.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                </div>
+              </div>
+              <div nz-row>
+                <div nz-col nzSpan="24">
+                  <div class="form" style="padding:20px">
+                      <div><span class="form-title-actions">備註</span>
+                          <input matInput maxlength="{{this.p}}" formControlName="REMARK">
+                      </div>
+                  </div>
+              </div>
+              </div>
+              <div mat-dialog-actions style="margin:0 auto;width:12vw">
+                  <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!isValidFile"
+                      style="margin:0px 5px" (click)="upload()">上傳</button>
+                  <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="onNoClick()" tabindex="-1"
+                      style="margin:0px 5px">取消</button>
+              </div>
+              <br><br>
+          </form>
+      </div>
+  </div>
+</cdk-virtual-scroll-viewport>

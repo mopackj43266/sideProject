@@ -1,0 +1,186 @@
+input{
+    background-color:#ffffff;
+    border-radius: 5px;
+    height:30px;
+    width:100%;
+    border: 1px solid #E6E6E6;
+    display: block;
+    text-align: right;
+    padding: 0 5px;
+  }
+  /* disabled樣式*/
+input:disabled{
+  color: #727171;
+  background-color:#E6E6E6
+}
+
+  .form-title{
+    color:#2E4765;
+    font-weight: 500;
+    display:block;
+  }
+  ::ng-deep.ant-table.ant-table-small .ant-table-title{
+    color:#2E4765;
+    font-size:18px;
+    border-radius:5px 5px 0 0;
+    background-color:#BFECD0;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid #DBDBDB;
+
+  }
+  .ant-btn-primary{
+    color:#24C875;
+    background:white;
+    border-color:#24C875;
+    border-radius:5px;
+
+  }
+  .ant-btn-primary:hover{
+    color:#ffffff;
+    background:#24C875;
+    border-color:#24C875;
+    border-radius:5px;
+    box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+  }
+  .ant-btn-primary:active{
+    color:#ffffff;
+    background:#24C875;
+    border-color:#24C875;
+    border-radius:5px;
+  }
+  .mat-dialog-actions{
+    padding-left:20px;
+  }
+
+  .line_bank_form_header_title{
+    text-align: center;
+    font-weight:500;
+    font-size: 18px;
+    color:#2E4765;
+    background-color: #BFECD0;
+    padding:10px 0;
+    border-radius: 10px 10px 0 0;
+  }
+  .mat-select{
+    width:100%;
+    display:inline-block;
+    height:30px;
+    font-size:14px;
+    border-radius:5px;
+    border:1px solid #c9c9c9;
+    padding:4px;
+    background-color:#ffffff;
+  }
+
+  .info-sum {
+    width: 92%;
+    margin: 0 4% 20px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+  }
+  .info-detail {
+    width: 30%;
+    padding: 0 10px;
+    display: flex;
+    flex-flow: column;
+  }
+  .bold-label {
+    font-size: 18px !important;
+    padding: 0 0 10px 0;
+    color: black !important;
+  }
+  .card-detail {
+    font-size: 15px;
+    display: flex;
+    padding: 10px 0;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #ababab;
+  }
+  .black {
+    color: black !important;
+  }
+  .control-info {
+    width: 100%;
+    max-height: 450px;
+    min-height: 200px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+  }
+  .control-info-detail {
+    width: 42%;
+  }
+  .black-line {
+    margin: 10px 4% 20px;
+    display: flex;
+    width: 92%;
+    height: 1px;
+    background-color: #ebebeb;
+  }
+  /* .card-title {
+    background-color: #BFECD0;
+    height: 40px;
+    padding: 10px 10px;
+    font-size: 16px;
+    font-weight: bold;
+  } */
+  .card-title {
+    background-color: #BFECD0;
+    width: 100px;
+    height: 26px;
+    padding: 4px 5px;
+    font-size: 14px;
+    text-align: center;
+  }
+  .right-justify {
+    width: 30%;
+    color: black;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .error-red {
+    border: solid 1px red;
+  }
+  .error-red:hover {
+    border: solid 1px red;
+  }
+  .error-red:visited {
+    border: solid 1px red;
+  }
+  .card-info {
+    border: solid 2px #BFECD0;
+  }
+
+  .calculate-info {
+    padding: 15px 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+  }
+  .calculate-title {
+    width: 14%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+  .detail-name {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid 3px #b3b3b3;
+    margin-bottom: 10px;
+    color: gray;
+  }
+  .detail-value {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+  }
+

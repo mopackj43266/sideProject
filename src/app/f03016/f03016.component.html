@@ -1,0 +1,221 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <!-- 產生合約前回查值設定 -->
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">產生合約前回查值設定</div>
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">DSS3落人再送JCIC時間設定 </span>
+            <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" name="dss_jcic_set" id="dss_jcic_set"
+              oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" required>
+            <mat-error *ngIf="formControl.invalid && (DssJcicSet==0 || DssJcicSet== null)  ">{{getErrorMessage()}}
+            </mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">DSS3落人後email提醒天數</span>
+            <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" name="dss_mail_day" id="dss_mail_day"
+              oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" required>
+            <mat-error *ngIf="formControl.invalid && (DssMailDay==0 || DssMailDay== null)  ">{{getErrorMessage()}}
+            </mat-error>
+          </div>
+        </div>
+      </div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">動撥設定 </div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">基本門檻
+            </span>
+            <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit "
+              (keyup)="data_number(BasicLimit)" oninput="value=value.replace(/[^\d]/g,'')" name="basic_limit"
+              style="display: block;" required>
+            <mat-error *ngIf="formControl.invalid && (BasicLimit=='' || BasicLimit== null)">{{getErrorMessage()}}
+            </mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">是否查詢JCIC</span>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic" name="IsJcic" style="display: block;"
+              required>
+              <mat-radio-button [value]="'Y'">是</mat-radio-button>
+              <mat-radio-button [value]="'N'">否</mat-radio-button>
+            </mat-radio-group>
+            <!-- <mat-error *ngIf="formControl.invalid  && IsJcic== null">{{getErrorMessage()}}</mat-error> -->
+          </div>
+        </div>
+      </div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">CSS PASS設定</div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">PASS起始日
+            </span>
+            <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" (ngModelChange)="onChange($event)"> -->
+            <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" required>
+            </nz-date-picker>
+            <mat-error *ngIf="formControl.invalid && ( CssPassStart== null)  ">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">PASS結束日</span>
+            <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" (ngModelChange)="onChange($event)"> -->
+            <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" required>
+            </nz-date-picker>
+            <mat-error *ngIf="formControl.invalid && ( CssPassEnd== null)  ">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 10px;text-align: center">
+        <button nz-button style="margin:0px 5px" [nzSize]="'middle'" nzType="primary" (click)="save()"
+          [disabled]="!formControl.valid">儲存</button>
+      </div>
+    </form>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="ChangeSource" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="重要參數異動紀錄">
+      <thead>
+        <tr>
+          <th class="table-header">欄位 </th>
+          <th class="table-header">原欄位值 </th>
+          <th class="table-header">新欄位值 </th>
+          <th class="table-header">處理員編 </th>
+          <th class="table-header">異動時間 </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ChangeSource">
+          <td class="table-data">{{data.columnName}}</td>
+          <td class="table-data">{{data.originalValue}}</td>
+          <td class="table-data">{{data.currentValue}}</td>
+          <td class="table-data">{{data.transEmpNo}}</td>
+          <td class="table-data">
+            {{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<!-- <div width='100%' >
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='25%' textAlign="center" colspan=4>產生合約前回查值設定</th>
+    </tr>
+    <tr>
+      <td width='25%'>DSS3落人再送JCIC時間設定</td>
+      <td class="td2" width='25%'>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>天數設定</mat-label>
+          <input matInput placeholder="輸入數字" [(ngModel)]="DssJcicSet"  id="dss_jcic_set"
+            oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+        </mat-form-field>
+      </td>
+      <td width='25%'>DSS3落人後email提醒天數</td>
+      <td class="td2" width='25%'> <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>天數設定</mat-label>
+        <input matInput placeholder="輸入天數" [(ngModel)]="DssMailDay"  id="dss_mail_day"
+          oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+      </mat-form-field>
+      </td>
+    </tr>
+  </table>
+</div>
+<div width='100%'>
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='25%' textAlign="center" colspan=4>動撥設定</th>
+    </tr>
+    <tr>
+      <td width='25%'>基本門檻</td>
+      <td class="td2" width='25%'>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>金額設定</mat-label>
+          <input matInput placeholder="輸入金額" [(ngModel)]="BasicLimit"  id="basic_limit">
+        </mat-form-field>
+      </td>
+      <td width='25%'></td>
+      <td class="td2" width='25%'></td>
+    </tr>
+    <tr>
+      <td width='25%'>是否查詢JCIC</td>
+      <td class="td2" width='25%' style="text-align:left">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic">
+          <mat-radio-button [value]="'Y'">是</mat-radio-button>
+          <mat-radio-button [value]="'N'">否</mat-radio-button>
+        </mat-radio-group>
+        {{IsJcic}}
+      </td>
+      <td width='25%'></td>
+      <td class="td2" width='25%'></td>
+    </tr>
+  </table>
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='25%' textAlign="center" colspan=4>CSS PASS設定</th>
+    </tr>
+    <tr>
+      <td width='25%'>PASS期間</td>
+      <td class="td2" width='25%'>
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>開始時間</mat-label>
+          <input matInput [matDatepicker]="picker1"  [(ngModel)]="CssPassStart">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>結束時間</mat-label>
+          <input matInput [matDatepicker]="picker2"  [(ngModel)]="CssPassEnd">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td width='25%'></td>
+      <td class="td2" width='25%'></td>
+    </tr>
+  </table>
+  <div style="width:20vh;margin:10px auto;">
+    <button type="reset" (click)="save()">儲存</button>
+    &nbsp;&nbsp;
+    <button type="button">關閉</button>
+  </div>
+</div> -->
+<!-- <br>
+<br>
+<form width='100%' >
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='20%' textAlign="center" colspan=5>異動紀錄</th>
+    </tr>
+    <tr>
+      <th width='20%' style="background-color: #4DFFFF;">欄位</th>
+      <th width='20%' style="background-color: #4DFFFF;">原欄位值</th>
+      <th width='20%' style="background-color: #4DFFFF;">新欄位值</th>
+      <th width='20%' style="background-color: #4DFFFF;">處理員編</th>
+      <th width='20%' style="background-color: #4DFFFF;">異動時間</th>
+    </tr>
+    <tr *ngFor="let data of ChangeSource">
+      <td class="td2" width='20%'>{{data.columnName}}</td>
+      <td class="td2" width='20%'>{{data.originalValue}}</td>
+      <td class="td2" width='20%'>{{data.currentValue}}</td>
+      <td class="td2" width='20%'>{{data.transEmpNo}}</td>
+      <td class="td2" width='20%'>{{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+    </tr>
+  </table>
+  <tr>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </tr>
+</form> -->

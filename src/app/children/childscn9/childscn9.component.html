@@ -1,0 +1,46 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <!-- <div style="margin-top: 30px; margin-left: 5px; width: 100%;"> -->
+    <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
+      <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)">
+          <a  [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">核心系統客戶資料</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item
+        [class.active]="nowPage === Page.Page2" (click)="changePage(Page.Page2)">
+          <a  [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">本行存款往來</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item [class.active]="nowPage === Page.Page3" (click)="changePage(Page.Page3)">
+          <a  [ngClass]="nowPage === Page.Page3 ? 'oncloick' : 'unclock'">本行消金產品往來</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item [class.active]="nowPage === Page.Page4"
+          (click)="changePage(Page.Page4)">
+          <a  [ngClass]="nowPage === Page.Page4 ? 'oncloick' : 'unclock'">本行Debit card交易明細 </a>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </nz-page-header>
+    <div style="padding-left: 35px; padding-top: 0px;">
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
+              [(ngModel)]="queryDate" readonly disabled></div>
+        </div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+      </div>
+    </div>
+    
+    <ng-container appDynamic></ng-container>
+    <!-- <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page1"
+      (click)="changePage(Page.Page1)">核心系統客戶資料 </button>
+    <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page2"
+      style="margin-bottom: 5px; margin-left: 5px;" (click)="changePage(Page.Page2)">本行存款往來 </button>
+    <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page3"
+      style="margin-bottom: 5px; margin-left: 5px;" (click)="changePage(Page.Page3)">本行消金產品(放款及信用卡)往來 </button> -->
+    <!-- <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page4" style="margin-bottom: 5px; margin-left: 5px;"
+    (click)="changePage(Page.Page4)">本行Debit card交易明細 </button> -->
+  </div>
+<ng-container appDynamic></ng-container>

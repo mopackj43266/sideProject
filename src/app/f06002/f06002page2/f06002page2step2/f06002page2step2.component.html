@@ -1,0 +1,85 @@
+<div style="min-height:170px">
+  <div class="card-title" style="margin-left: 4%;">試算資訊</div>
+  <div class="card-info" style="margin: 0 4% 30px;">
+    <div class="calculate-info">
+      <div class="calculate-title black" [hidden]="!hidden">
+        <span class="detail-name">一階段貸款利率</span>
+        <span class="detail-value">{{intRt}}%</span>
+      </div>
+      <div class="calculate-title black" [hidden]="hidden">
+        <span class="detail-name">前{{ sgmtIntRtCntChange }}期貸款利率</span>
+        <span class="detail-value">{{sgmtIntRt}}%</span>
+      </div>
+      <div class="calculate-title black" [hidden]="hidden">
+        <span class="detail-name">後續每期貸款利率</span>
+        <span class="detail-value">{{intRt}}%</span>
+      </div>
+      <div class="calculate-title">
+        <span class="detail-name">預估貸款金額</span>
+        <span style="color: black" class="detail-value">${{checkTotalString}}</span>
+      </div>
+      <div class="calculate-title">
+        <span class="detail-name">預估每月還款金額</span>
+        <span style="color: #00d812" class="detail-value">${{tryCalculate}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="control-info">
+    <div class="control-info-detail bank">
+      <div class="card-title">選擇債整銀行</div>
+      <div class="card-info" style="max-height: 420px;overflow-y: auto;">
+        <nz-table nzShowSizeChanger [nzData]="dataSource" [nzFrontPagination]="false" [nzSimple]="true"
+          [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" #middleTable>
+          <thead>
+            <tr>
+              <th class="table-header">銀行</th>
+              <th class="table-header">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of dataSource; let i = index;">
+              <td class="table-data">
+                <mat-checkbox [(ngModel)]="chkArray[i].sltdYn" [disabled]="changeYN(chkArray[i].dsbsYn)"
+                  (ngModelChange)="calculate1(chkArray[i].sltdYn, data.lnAmt, 'N', 0)" color="primary">{{ data.bnkNm }}
+                </mat-checkbox>
+              </td>
+              <td class="table-data">${{ this.toCurrency(data.lnAmt.toString()) }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <div class="control-info-detail disburse-info">
+      <div class="card-title">其他貸款資訊</div>
+      <div class="card-info">
+        <div class="card-detail black" style="padding: 20px 10px 10px;">
+          <span style="width: 70%">現金核准額度</span>
+          <span class="right-justify">${{ this.toCurrency(lnLmtAmt?.toString()) }}</span>
+        </div>
+        <div class="card-detail black" style="padding: 10px 10px;" *ngIf="lnLmtAmt > 0">
+          <span style="width: 60%">申請貸款金額</span>
+          <span style="width: 10%">
+            <mat-checkbox color="primary" [(ngModel)]="custLnAmtcheck" (ngModelChange)="calculate2(custLnAmtcheck)"
+              [disabled]="lnLmtAmtbool"></mat-checkbox>
+          </span>
+          <span style="width: 30%;">
+            <input [ngClass]="{'error-red': custLnAmt > lnLmtAmt}" (keyup)="calculate2(true)"
+              [disabled]="(!custLnAmtcheck)" (keypress)="numberOnly($event)" [(ngModel)]="custLnAmtstr" maxlength="10">
+            <mat-error *ngIf="custLnAmt > lnLmtAmt">申請貸款金額不可超過現金核准額度 ${{ this.toCurrency(lnLmtAmt.toString())}}元
+            </mat-error>
+          </span>
+        </div>
+        <div class="card-detail" style="padding: 10px 10px 20px;">
+          <span class="form-title" style="width: 70%">申請期數</span>
+          <span style="width: 30%;">
+            <mat-select [(ngModel)]="periodValue" (ngModelChange)="getAplyintrtData()" name="code" class="mat-select">
+              <mat-option class="option" *ngFor="let code of periodCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

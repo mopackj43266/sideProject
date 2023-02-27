@@ -1,0 +1,13 @@
+<th class="f03_th">新增明細</th>
+<table>
+    <tr>
+        <th>
+            <button type="submit" mat-raised-button color="primary" (click)="insert('A')">貸款額度&期數資訊</button>
+            <button type="submit" mat-raised-button color="primary" (click)="insert('B')">優惠方案</button>
+            <button type="submit" mat-raised-button color="primary" (click)="insert('C')">貸款利率資訊</button>
+        </th>
+    </tr>
+</table>
+<div style="padding-left: 20px;">
+    <ng-container *ngComponentOutlet="mapping.get(chooseForm)"></ng-container>
+</div>

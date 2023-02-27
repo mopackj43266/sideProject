@@ -1,0 +1,105 @@
+<div class="line_bank_bankground_color">
+    <br>
+    <div class="line_bank_card_no_padding">
+        <div nz-row>
+            <div nz-col nzFlex="0.5">
+                <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+                        [(ngModel)]="applno" placeholder="請輸入案件編號">
+                </div>
+            </div>
+            <div nz-col nzFlex="0.5">
+                <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;"
+                        [(ngModel)]="nationalId" name="nationalId" placeholder="請輸入身分證字號">
+                </div>
+            </div>
+            <div nz-col nzFlex="0.5">
+                <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
+                        [(ngModel)]="custId" name="custId" placeholder="請輸入客戶ID">
+                </div>
+            </div>
+
+            <div nz-col nzFlex="0.5">
+                <div style="padding:10px"><span class="form-title">流程</span>
+                    <mat-select [(ngModel)]="flowRiskModeValue" (ngModelChange)="changeOption()">
+                        <mat-option *ngFor="let item of flowRiskModeCode" [value]="item.value">
+                            {{item.viewValue}}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzFlex="0.5">
+                <div style="padding:10px"><span class="form-title">流程階段</span>
+                    <mat-select [disabled]="flowRiskModeValue != '' ? false : true" [(ngModel)]="dssResultValue">
+                        <mat-option *ngFor="let item of dssResultCode" [value]="item.value">
+                            {{item.viewValue}}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzFlex="0.5">
+                <div style="padding:10px"><span class="form-title">查詢日期</span>
+                    <nz-range-picker [(ngModel)]="queryTime" name="queryTime" style="width: 100%;"
+                        (ngModelChange)="dateNull(queryTime,'queryTime')"></nz-range-picker>
+                </div>
+            </div>
+        </div>
+        <div style="padding:5px;text-align:center">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
+            <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>&nbsp;
+        </div>
+    </div>
+
+    <div class="line_bank_card_no_padding">
+        <div class="line_bank_form_header_title">模型細部資訊查詢-結果:(案件數:{{this.total}}件)</div>
+        <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newData"
+         [nzSimple]="true" [nzScroll]="{ x: '800px', y: '1500px' }" [nzTotal]="total" [nzLoading]="false" [nzPageSize]="pageSize"  [nzPageIndex]="pageIndex"
+         (nzQueryParams)="onQueryParamsChange($event)" >
+            <thead>
+                <tr>
+                    <th nzWidth="10px">序號</th>
+                    <th nzWidth="20px">身分證字號</th>
+                    <th nzWidth="20px">客戶ID</th>
+                    <th nzWidth="25px">案件編號</th>
+                    <th nzWidth="25px" (nzSortOrderChange)="sortChange($event, 'queryDate')" [nzSortFn]="true" [nzSortOrder]="sort">DSS日期時間</th>
+                    <th nzWidth="20px">流程</th>
+                    <th nzWidth="20px">流程階段</th>
+                    <th nzWidth="20px">模型代碼</th>
+                    <th nzWidth="30px">模型名稱</th>
+                    <th nzWidth="30px">模型總分</th>
+                    <th nzWidth="30px">模型等級</th>
+                    <th nzWidth="30px">產品名稱</th>
+                    <th nzWidth="20px" nzRight>模型細部資訊</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of newData; let i = index ">
+                    <!--序號-->
+                    <td style="text-align: center;">{{ i+1 }}</td>
+                    <!--身分證字號-->
+                    <td>{{ data.NATIONAL_ID }}</td>
+                    <!--客戶ID-->
+                    <td>{{ data.CUST_ID }}</td>
+                    <!--案件編號-->
+                    <td>{{ data.APPLNO }}</td>
+                    <!--DSS日期時間-->
+                    <td>{{ data.QUERY_DATE }}</td>
+                    <!--流程-->
+                    <td>{{ data.FLOW_RISK_MODE }}</td>
+                    <!--流程階段-->
+                    <td>{{ data.DSS_RESULT }}</td>
+                    <!--模型代碼-->
+                    <td>{{ data.RISKMDSUB }}</td>
+                    <!--模型名稱-->
+                    <td>{{ data.RISKMDSUB_DESC }}</td>
+                    <!--模型總分-->
+                    <td>{{ data.RISKMDSCORE }}</td>
+                    <!--模型等級-->
+                    <td>{{ data.RISKMDGRADE_ADJ }}</td>
+                    <!-- 產品名稱 -->
+                    <td>{{ data.PROD_NAME }}</td>
+                    <!--模型細部資訊-->
+                    <td><button nz-button [nzSize]="'middle'" nzType="link" (click)="getDetail(data.APPLNO,data.DSS_RESULT)">明細</button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

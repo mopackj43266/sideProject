@@ -1,0 +1,122 @@
+<br>
+<div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="restartDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+    nzTitle="申覆資料檔" [nzScroll]="{ x: restartDataSource.length > 0 ? !applno.includes('A') ? '4000px' : '2000px' : '4000px' }">
+    <thead>
+      <tr>
+        <th [nzLeft]="true" class="table-header" style="text-align: center;">No</th>
+        <th [nzLeft]="true" class="table-header" style="width:200px;text-align: center;">申覆原因</th>
+        <th class="table-header" style="text-align: center;">申覆前核准利率<br>(方案一 一階利率)</th>
+        <th class="table-header" style="text-align: center;">申覆前核准利率<br>(方案一 二階利率)</th>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <th class="table-header" style="text-align: center;">申覆前核准利率<br>(方案二 一階利率)</th>
+          <th class="table-header" style="text-align: center;">申覆前核准利率<br>(方案二 二階利率)</th>
+        </ng-container>
+        <th class="table-header" style="text-align: center;">申覆前核准額度<br>方案一</th>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <th class="table-header" style="text-align: center;">申覆前核准額度<br>方案二</th>
+          <th class="table-header" style="text-align: center;">申覆前核准期數<br>(MIN)-方案一</th>
+          <th class="table-header" style="text-align: center;">申覆前核准期數<br>(MAX)-方案一</th>
+          <th class="table-header" style="text-align: center;">申覆前核准期數<br>(MIN)-方案二</th>
+          <th class="table-header" style="text-align: center;">申覆前核准期數<br>(MAX)-方案二</th>
+        </ng-container>
+        <th class="table-header" style="width:400px;text-align: center;">申覆說明</th>
+        <th class="table-header" style="text-align: center;">申覆人員</th>
+        <th class="table-header" style="text-align: center;">申覆時間</th>
+        <th class="table-header" style="text-align: center;">申覆結果</th>
+        <th class="table-header" style="text-align: center;">申覆後核准利率<br>(方案一 一階利率)</th>
+        <th class="table-header" style="text-align: center;">申覆後核准利率<br>(方案一 二階利率)</th>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <th class="table-header" style="text-align: center;">申覆後核准利率<br>(方案二 一階利率)</th>
+          <th class="table-header" style="text-align: center;">申覆後核准利率<br>(方案二 二階利率)</th>
+        </ng-container>
+        <th class="table-header" style="text-align: center;">申覆後核准額度<br>方案一</th>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <th class="table-header" style="text-align: center;">申覆後核准額度<br>方案二</th>
+          <th class="table-header" style="text-align: center;">申覆後核准期數<br>(MIN)-方案一</th>
+          <th class="table-header" style="text-align: center;">申覆後核准期數<br>(MAX)-方案一</th>
+          <th class="table-header" style="text-align: center;">申覆後核准期數<br>(MIN)-方案二</th>
+          <th class="table-header" style="text-align: center;">申覆後核准期數<br>(MAX)-方案二</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of restartDataSource;let i = index">
+        <td [nzLeft]="true" class="table-data" [nzAlign]="'center'">{{ i+1 }}</td>
+        <td [nzLeft]="true" class="table-data" [nzAlign]="'center'">{{ data.REASON_DESC }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY1_APRV_INT_RT_1 ?
+          data.BEFORE_STRGY1_APRV_INT_RT_1 > 16 ? 16 : data.BEFORE_STRGY1_APRV_INT_RT_1 : "" }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY1_APRV_INT_RT_2 ?
+          data.BEFORE_STRGY1_APRV_INT_RT_2 > 16 ? 16 : data.BEFORE_STRGY1_APRV_INT_RT_2 : "" }}</td>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY2_APRV_INT_RT_1 ?
+            data.BEFORE_STRGY2_APRV_INT_RT_1 > 16 ? 16 : data.BEFORE_STRGY2_APRV_INT_RT_1 : "" }}</td>
+          <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY2_APRV_INT_RT_2 ?
+            data.BEFORE_STRGY2_APRV_INT_RT_2 > 16 ? 16 : data.BEFORE_STRGY2_APRV_INT_RT_2 : "" }}</td>
+        </ng-container>
+        <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY1_APRV_AMT ?
+          childscn17Service.toCurrency(data.BEFORE_STRGY1_APRV_AMT.toString()) : "" }}</td>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY2_APRV_AMT ?
+            childscn17Service.toCurrency(data.BEFORE_STRGY2_APRV_AMT.toString()) : "" }}</td>
+          <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY1_APRV_MIN_PERIOD }}</td>
+          <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY1_APRV_MAX_PERIOD }}</td>
+          <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY2_APRV_MIN_PERIOD }}</td>
+          <td class="table-data" [nzAlign]="'center'">{{ data.BEFORE_STRGY2_APRV_MAX_PERIOD }}</td>
+        </ng-container>
+        <td class="table-data" style="padding: 5px;" [nzAlign]="'center'">{{ data.RESTART_CONTENT }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.RESTART_EMP_NO }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.RESTART_DATE_FM }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.RESTART_STATUS == 'Y' ? '申覆中' : '申覆結束' }}</td>
+        <td class="table-data" [nzAlign]="'center'"
+          [ngStyle]="{'color' : (data.AFTER_STRGY1_APRV_INT_RT_1 && data.BEFORE_STRGY1_APRV_INT_RT_1) ?
+          (data.AFTER_STRGY1_APRV_INT_RT_1 != data.BEFORE_STRGY1_APRV_INT_RT_1) ? 'red' : '' : data.AFTER_STRGY1_APRV_INT_RT_1 ? 'red' : ''}">{{
+          data.AFTER_STRGY1_APRV_INT_RT_1 ? data.AFTER_STRGY1_APRV_INT_RT_1
+          > 16 ? 16 : data.AFTER_STRGY1_APRV_INT_RT_1 : "" }}</td>
+        <td class="table-data" [nzAlign]="'center'"
+          [ngStyle]="{'color' : (data.AFTER_STRGY1_APRV_INT_RT_2 && data.BEFORE_STRGY1_APRV_INT_RT_2) ?
+          (data.AFTER_STRGY1_APRV_INT_RT_2 != data.BEFORE_STRGY1_APRV_INT_RT_2) ? 'red' : '' : data.AFTER_STRGY1_APRV_INT_RT_2 ? 'red' : ''}">{{
+          data.AFTER_STRGY1_APRV_INT_RT_2 ? data.AFTER_STRGY1_APRV_INT_RT_2
+          > 16 ? 16 : data.AFTER_STRGY1_APRV_INT_RT_2 : "" }}</td>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <td class="table-data" [nzAlign]="'center'"
+            [ngStyle]="{'color' : (data.AFTER_STRGY2_APRV_INT_RT_1 && data.BEFORE_STRGY2_APRV_INT_RT_1) ?
+          (data.AFTER_STRGY2_APRV_INT_RT_1 != data.BEFORE_STRGY2_APRV_INT_RT_1) ? 'red' : '' : data.AFTER_STRGY2_APRV_INT_RT_1 ? 'red' : ''}">{{
+            data.AFTER_STRGY2_APRV_INT_RT_1 ?
+            data.AFTER_STRGY2_APRV_INT_RT_1 > 16 ? 16 : data.AFTER_STRGY2_APRV_INT_RT_1 : "" }}</td>
+          <td class="table-data" [nzAlign]="'center'"
+            [ngStyle]="{'color' : (data.AFTER_STRGY2_APRV_INT_RT_2 && data.BEFORE_STRGY2_APRV_INT_RT_2) ?
+          (data.AFTER_STRGY2_APRV_INT_RT_2 != data.BEFORE_STRGY2_APRV_INT_RT_2) ? 'red' : '' : data.AFTER_STRGY2_APRV_INT_RT_2 ? 'red' : ''}">{{
+            data.AFTER_STRGY2_APRV_INT_RT_2 ?
+            data.AFTER_STRGY2_APRV_INT_RT_2 > 16 ? 16 : data.AFTER_STRGY2_APRV_INT_RT_2 : "" }}</td>
+        </ng-container>
+        <td class="table-data" [nzAlign]="'center'"
+          [ngStyle]="{'color' : (data.AFTER_STRGY1_APRV_AMT && data.BEFORE_STRGY1_APRV_AMT) ?
+          (data.AFTER_STRGY1_APRV_AMT != data.BEFORE_STRGY1_APRV_AMT) ? 'red' : '' : data.AFTER_STRGY1_APRV_AMT ? 'red' : ''}">{{ data.AFTER_STRGY1_APRV_AMT ?
+          childscn17Service.toCurrency(data.AFTER_STRGY1_APRV_AMT.toString()) : "" }}</td>
+        <ng-container *ngIf="restartDataSource.length > 0 ? !applno.includes('A') : true">
+          <td class="table-data" [nzAlign]="'center'"
+            [ngStyle]="{'color' : (data.AFTER_STRGY2_APRV_AMT && data.BEFORE_STRGY2_APRV_AMT) ?
+          (data.AFTER_STRGY2_APRV_AMT != data.BEFORE_STRGY2_APRV_AMT) ? 'red' : '' : data.AFTER_STRGY2_APRV_AMT ? 'red' : ''}">{{ data.AFTER_STRGY2_APRV_AMT ?
+            childscn17Service.toCurrency(data.AFTER_STRGY2_APRV_AMT.toString()) : "" }}</td>
+          <td class="table-data" [nzAlign]="'center'"
+            [ngStyle]="{'color' : (data.AFTER_STRGY1_APRV_MIN_PERIOD && data.BEFORE_STRGY1_APRV_MIN_PERIOD) ?
+          (data.AFTER_STRGY1_APRV_MIN_PERIOD != data.BEFORE_STRGY1_APRV_MIN_PERIOD) ? 'red' : '' : data.AFTER_STRGY1_APRV_MIN_PERIOD ? 'red' : ''}">{{
+            data.AFTER_STRGY1_APRV_MIN_PERIOD }}</td>
+          <td class="table-data" [nzAlign]="'center'"
+            [ngStyle]="{'color' : (data.AFTER_STRGY1_APRV_MAX_PERIOD && data.BEFORE_STRGY1_APRV_MAX_PERIOD) ?
+          (data.AFTER_STRGY1_APRV_MAX_PERIOD != data.BEFORE_STRGY1_APRV_MAX_PERIOD) ? 'red' : '' : data.AFTER_STRGY1_APRV_MAX_PERIOD ? 'red' : ''}">{{
+            data.AFTER_STRGY1_APRV_MAX_PERIOD }}</td>
+          <td class="table-data" [nzAlign]="'center'"
+            [ngStyle]="{'color' : (data.AFTER_STRGY2_APRV_MIN_PERIOD && data.BEFORE_STRGY2_APRV_MIN_PERIOD) ?
+          (data.AFTER_STRGY2_APRV_MIN_PERIOD != data.BEFORE_STRGY2_APRV_MIN_PERIOD) ? 'red' : '' : data.AFTER_STRGY2_APRV_MIN_PERIOD ? 'red' : ''}">{{
+            data.AFTER_STRGY2_APRV_MIN_PERIOD }}</td>
+          <td class="table-data" [nzAlign]="'center'"
+            [ngStyle]="{'color' : (data.AFTER_STRGY2_APRV_MAX_PERIOD && data.BEFORE_STRGY2_APRV_MAX_PERIOD) ?
+          (data.AFTER_STRGY2_APRV_MAX_PERIOD != data.BEFORE_STRGY2_APRV_MAX_PERIOD) ? 'red' : '' : data.AFTER_STRGY2_APRV_MAX_PERIOD ? 'red' : ''}">{{
+            data.AFTER_STRGY2_APRV_MAX_PERIOD }}</td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

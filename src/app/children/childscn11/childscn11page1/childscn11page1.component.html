@@ -1,0 +1,178 @@
+<!-- 頁面背景 -->
+<div style="padding-left:40px;display: inline-block;" *ngIf="loading">
+  <span class="form-title">查詢日期時間:</span><input style="width: 80%;height: 25px;" matInput #input [(ngModel)]="time"
+    readonly disabled>
+</div>
+<div style="padding-left:40px;display: inline-block;" *ngIf="!loading">
+  <span class="form-title">查詢日期時間:</span><input style="width: 80%;height: 25px;" matInput #input [(ngModel)]="time"
+    readonly disabled>
+</div>
+  <div class="line_bank_card_no_padding" *ngIf="loading">
+    <nz-table nzSize="small" nzTitle="本案申請書資訊合理性" [nzData]="compare" [nzFrontPagination]="false">
+      <ng-container>
+        <tr>
+          <th class="table-header-y" style="width:30%;">區塊</th>
+          <th class="table-header-y" style="width:30%;">比對欄位</th>
+          <th class="table-header-y" style="width:30%;">比對結果</th>
+        </tr>
+        <!-- Channel資訊 -->
+        <tr>
+          <th class="table-header-x" rowspan="4">Channel資訊</th>
+        </tr>
+        <tr>
+          <th class="table-header-y">IP 地址</th>
+          <td class="table-data-text-compare">{{compare.ipAddr}}</td>
+        </tr>
+        <tr>
+          <th class="table-header-y">手機型號</th>
+          <td class="table-data-text-compare">{{compare.deviceName}}</td>
+        </tr>
+        <tr>
+          <th class="table-header-y">Device ID</th>
+          <td class="table-data-text-compare">{{compare.deviceId}}</td>
+        </tr>
+      </ng-container>
+      <!-- 聯絡資訊 -->
+      <ng-container>
+        <tr>
+          <th class="table-header-x" rowspan="5">聯絡資訊</th>
+          <!-- <th rowspan="1" class="table-header-y">戶籍電話跟戶籍地址之縣市區域對應電話區碼是否合理</th>
+          <td class="table-data-text-compare">{{compare.addr}}</td> -->
+        </tr>
+        <tr>
+          <th rowspan="1" class="table-header-y">通訊電話與通訊地址之縣市區域對應電話區碼是否合理</th>
+          <td class="table-data-text-compare">{{compare.hTel1}}</td>
+        </tr>
+        <tr>
+          <th rowspan="1" class="table-header-y">通訊電話與公司地址之縣市區域對應電話區碼是否合理</th>
+          <td class="table-data-text-compare">{{compare.hTel2}}</td>
+        </tr>
+        <tr>
+          <th rowspan="1" class="table-header-y">通訊電話跟公司電話區碼比對</th>
+          <td class="table-data-text-compare">{{compare.hTel3}}</td>
+        </tr>
+        <tr>
+          <th rowspan="1" class="table-header-y">通訊電話與寄卡地址之縣市區域對應電話區碼是否合理</th>
+          <td class="table-data-text-compare">{{compare.hTel4}}</td>
+        </tr>
+      </ng-container>
+      <!-- 任職資訊比對 -->
+      <ng-container>
+        <tr>
+          <th class="table-header-x" rowspan="3">任職資訊比對</th>
+          <th rowspan="1" class="table-header-y">年薪第10百分位數</th>
+          <td class="table-data-text-compare">{{compare.ten}}</td>
+        </tr>
+        <tr>
+          <th rowspan="1" class="table-header-y">年薪中位數</th>
+          <td class="table-data-text-compare">{{compare.mid}}</td>
+        </tr>
+        <tr>
+          <th rowspan="1" class="table-header-y">年薪第90百分位數</th>
+          <td class="table-data-text-compare">{{compare.ninety}}</td>
+        </tr>
+      </ng-container>
+    </nz-table>
+  </div>
+  <!-- <th class="f01_th">COMPARE本案申請書資訊合理性比對</th>
+<ng-container *ngIf="compare.length == 0; else elseTemplate">
+  <br><br>
+  <th style="padding-left: 20px;color: red;">查無比對資料</th>
+</ng-container>
+<ng-template #elseTemplate>
+  <form [formGroup]="compareForm" style="padding-left: 20px;">
+    <table>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <ng-container *ngFor="let compare of compare;let i = index">
+            <ng-container *ngIf="i%3==0">
+              <tr>
+            </ng-container>
+            <ng-container *ngIf="compare.result == 'Y'; else elseTemplate">
+              <th nowrap="nowrap">{{compare.compareColumn)}}：</th>
+              <td style="color: red;">
+                {{compare.count}}
+              </td>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <th nowrap="nowrap">{{compare.compareColumn)}}：</th>
+              <td>
+                {{compare.count}}
+              </td>
+            </ng-template>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </form>
+</ng-template>
+ -->
+
+ <!-- loading畫面時使用 -->
+<div class="line_bank_card_no_padding" *ngIf="!loading">
+  <nz-table nzSize="small" nzTitle="本案申請書資訊合理性">
+    <ng-container>
+      <tr>
+        <th class="table-header-y" style="width:30%;">區塊</th>
+        <th class="table-header-y" style="width:30%;">比對欄位</th>
+        <th class="table-header-y" style="width:30%;">比對結果</th>
+      </tr>
+      <!-- Channel資訊 -->
+      <tr>
+        <th class="table-header-x" rowspan="4">Channel資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">IP 地址</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">手機型號</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">Device ID</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+    </ng-container>
+    <!-- 聯絡資訊 -->
+    <ng-container>
+      <tr>
+        <th class="table-header-x" rowspan="5">聯絡資訊</th>
+        <!-- <th rowspan="1" class="table-header-y">戶籍電話跟戶籍地址之縣市區域對應電話區碼是否合理</th>
+        <td class="table-data-text-compare">{{compare.addr}}</td> -->
+      </tr>
+      <tr>
+        <th rowspan="1" class="table-header-y">通訊電話與通訊地址之縣市區域對應電話區碼是否合理</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th rowspan="1" class="table-header-y">通訊電話與公司地址之縣市區域對應電話區碼是否合理</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th rowspan="1" class="table-header-y">通訊電話跟公司電話區碼比對</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th rowspan="1" class="table-header-y">通訊電話與寄卡地址之縣市區域對應電話區碼是否合理</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+    </ng-container>
+    <!-- 任職資訊比對 -->
+    <ng-container>
+      <tr>
+        <th class="table-header-x" rowspan="3">任職資訊比對</th>
+        <th rowspan="1" class="table-header-y">年薪第10百分位數</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th rowspan="1" class="table-header-y">年薪中位數</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th rowspan="1" class="table-header-y">年薪第90百分位數</th>
+        <td class="table-data-text-compare"></td>
+      </tr>
+    </ng-container>
+  </nz-table>
+  <div>

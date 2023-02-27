@@ -1,0 +1,17 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <br>
+    <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)" >
+        <!-- <a [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">覆審階段</a> -->
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page2"  *ngIf="rskmdl"
+        (click)="changePage(Page.Page2)">
+        <!-- <a [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">風險模型資訊</a> -->
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+  <ng-container appDynamic></ng-container>
+</div>
+

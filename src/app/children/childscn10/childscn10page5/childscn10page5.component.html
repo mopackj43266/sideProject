@@ -1,0 +1,211 @@
+<div class="line_bank_bankground_color" style="margin-top: -10px;">
+  <div nz-row>
+    <div nz-col nzSpan="8">
+      <div class="line_bank_card_no_padding" style="margin-left: 8%;">
+        <div nz-row>
+          <div nz-col nzFlex="1">
+            <div style="padding:10px"><span class="form-title">DSS1回覆eloan階段</span>
+              <mat-select [(ngModel)]="official" name="official" (ngModelChange)="trigger(official)">
+                <mat-option *ngFor="let item of officialList" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding-left:50px;padding-top: 10px;"><span class="form-title">查詢日期時間</span><input
+                style="width: 70%;height: 25px;" matInput #input [(ngModel)]="queryDate" name="queryDate" readonly
+                disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="8">
+    </div>
+    <div nz-col nzSpan="8">
+    </div>
+
+  </div>
+  <div class="line_bank_card_no_padding_child">
+    <form [formGroup]="DSSDataForm">
+      <div class="EL_DSS_form_header_title2" style="border-radius: 10px 10px 0 0;">官署資料決策</div>
+      <div nz-row>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">DSS1回覆eloan階段</span>
+            <input formControlName="DSS_INQR" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">發查T50_YN</span>
+            <input formControlName="DSS_TN50" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">發查T51_YN</span>
+            <input style="display: block;" formControlName="DSS_TN51" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">發查T52_YN</span>
+            <input style="display: block;" formControlName="DSS_TN52" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">發查T53_YN</span>
+            <input style="display: block;" formControlName="DSS_TN53" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">發查T54_YN</span>
+            <input style="display: block;" formControlName="DSS_TN54" disabled>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">勞保最新一筆資料異動代碼</span>
+            <input formControlName="DSS_LTST_CHNG_CD" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">勞保最新一筆資料單位名稱工會類似文字判斷</span>
+            <input formControlName="DSS_LTST_UNIT_NM" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">勞保最新一筆加保紀錄是否為近期</span>
+            <input style="display: block;" formControlName="DSS_LTST_REC_NEW_YN" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">判斷JCIC特徵是否符合自動徵信條件</span>
+            <input style="display: block;" formControlName="DSS_JCIC" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">判斷工作轉換間空窗期大致連續</span>
+            <input style="display: block;" formControlName="DSS_JOB_CHNG_PRD_VAL" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">判斷工作加保期間大於一定月數</span>
+            <input style="display: block;" formControlName="DSS_JOB_MNTH_ENGH_VAL" disabled>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">DSS勞保T52最新一筆單位名稱</span>
+            <input style="display: block;" formControlName="DSS_CMPY_NM" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">DSS勞保公司比對清單-是否為設置名單內</span>
+            <input style="display: block;" formControlName="DSS_CMPY_LIST_YN" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">DSS公司名單註記(DSS公司資料-設置名單內)</span>
+            <input style="display: block;" formControlName="DSS_CPRS_LIST_CD" disabled>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <div style="padding:3px">
+            <span class="form-title">DSS客戶填寫公司比對清單-對應之行職業代碼6bytes</span>
+            <input style="display: block;" formControlName="DSS_CPRS_JOB_CD" disabled>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <div style="padding:3px">
+            <span class="form-title">DSS勞保公司比對清單-對應之行職業代碼6bytes</span>
+            <input style="display: block;" formControlName="DSS_JOB_CD" disabled>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">DSS勞保T52資料計算年收入(元)</span>
+            <input style="display: block; text-align:right" formControlName="DSS_T52_AMT" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">DSS勞保T52最新一筆單位名稱_34月投保薪資</span>
+            <input style="display: block; text-align:right" formControlName="DSS_Salary" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">T52最近一家公司_加保薪調次數</span>
+            <input style="display: block; text-align:right" formControlName="DSS_frequency" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">T52最近一家公司_加保薪調月投保薪資標準差L12</span>
+            <input style="display: block; text-align:right" formControlName="DSS_L12" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">T52最近一家公司_加保薪調月投保薪資標準差L24</span>
+            <input style="display: block; text-align:right" formControlName="DSS_L24" disabled>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">DSS財政部T50資料計算年收入(元)</span>
+            <input style="display: block; text-align:right" formControlName="DSS_T50_AMT" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">T50_給付總額合計</span>
+            <input style="display: block; text-align:right" formControlName="DSS_T50_Pay" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">T50_9A金額合計</span>
+            <input style="display: block; text-align:right" formControlName="DSS_T50_9A" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">T50_50金額合計</span>
+            <input style="display: block; text-align:right" formControlName="DSS_T50_T50" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">T50_受雇者其他項目合計</span>
+            <input style="display: block; text-align:right" formControlName="DSS_T50_employed" disabled>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

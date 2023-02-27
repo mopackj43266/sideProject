@@ -1,0 +1,2017 @@
+<!-- 頁面背景 -->
+
+<div style="padding-left:40px;display: inline-block" *ngIf="loading">
+  <span class="form-title">比對案件總數:</span>
+  <input style="width: 65%;height: 25px;" matInput #input [(ngModel)]="compare.total"  readonly disabled>
+
+</div>
+<div style="padding-left:40px;display: inline-block;" *ngIf="loading">
+  <span class="form-title">查詢日期時間:</span><input style="width: 80%;height: 25px;" matInput #input [(ngModel)]="time"
+    readonly disabled>
+</div>
+<!-- loading畫面時使用 -->
+<div style="padding-left:40px;display: inline-block" *ngIf="!loading">
+  <span class="form-title">比對案件總數:</span>
+  <input style="width: 65%;height: 25px;" matInput #input readonly disabled>
+
+</div>
+<div style="padding-left:40px;display: inline-block;" *ngIf="!loading">
+  <span class="form-title">查詢日期時間:</span><input style="width: 80%;height: 25px;" matInput #input readonly disabled>
+</div>
+<!-- loading畫面時使用結束 -->
+
+<div class="line_bank_card_no_padding" *ngIf="loading">
+  <nz-table nzSize="small" nzTitle="BAM061報送資料比對" [nzData]="compare">
+    <ng-container>
+      <tr>
+        <th class="table-header-y" style="width:30%;">區塊</th>
+        <th class="table-header-y" style="width:30%;">比對欄位</th>
+        <th class="table-header-y" style="width:10%;">比對結果</th>
+        <th class="table-header-y" style="width:10%;">比對方式</th>
+        <th class="table-header-y" style="width:10%;">最低門檻</th>
+        <th class="table-header-y" style="width:10%;">最高門檻</th>
+      </tr>
+      <!-- 聯絡資訊 -->
+      <tr>
+        <th class="table-header-x" rowspan="55">聯絡資訊</th>
+      </tr>
+      <!-- 行動電話 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('MOBILE_VS_M_TEL_6_MONTH')"
+            [disabled]="InputCount1(compare.MOBILE_VS_M_TEL_6_MONTH) =='0'">行動電話最近6個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.MOBILE_VS_M_TEL_6_MONTH.color === 'g',
+                      'table-data-text-y' :compare.MOBILE_VS_M_TEL_6_MONTH.color === 'y',
+                      'height' : compare.MOBILE_VS_M_TEL_6_MONTH.color === 'r',
+                      'table-data-z' : compare.MOBILE_VS_M_TEL_6_MONTH.color == undefined }" class="table-data-z">
+          {{InputCount1(compare.MOBILE_VS_M_TEL_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.MOBILE_VS_M_TEL_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('MOBILE_VS_M_TEL_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL) =='0'">行動電話最近6個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('MOBILE_VS_M_TEL_12_MONTH')"
+            [disabled]="InputCount1(compare.MOBILE_VS_M_TEL_12_MONTH) =='0'">行動電話最近12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.MOBILE_VS_M_TEL_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.MOBILE_VS_M_TEL_12_MONTH.color === 'y',
+        'height' : compare.MOBILE_VS_M_TEL_12_MONTH.color === 'r',
+        'table-data-z' : compare.MOBILE_VS_M_TEL_12_MONTH.color == undefined}">
+          {{InputCount1(compare.MOBILE_VS_M_TEL_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.MOBILE_VS_M_TEL_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('MOBILE_VS_M_TEL_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL) =='0'">行動電話最近12個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_12_MONTH_TOTAL.high}}</td>
+
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('MOBILE_VS_M_TEL_24_MONTH')"
+            [disabled]="InputCount1(compare.MOBILE_VS_M_TEL_24_MONTH) =='0'">行動電話最近24個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.MOBILE_VS_M_TEL_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.MOBILE_VS_M_TEL_24_MONTH.color === 'y',
+        'height' : compare.MOBILE_VS_M_TEL_24_MONTH.color === 'r',
+        'table-data-z' : compare.MOBILE_VS_M_TEL_24_MONTH.color == undefined}">
+          {{InputCount1(compare.MOBILE_VS_M_TEL_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.MOBILE_VS_M_TEL_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_24_MONTH.high}}</td>
+
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('MOBILE_VS_M_TEL_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL) =='0'">行動電話最近24個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.MOBILE_VS_M_TEL_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!--  通訊電話VS居住電話 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_H_TEL_6_MONTH')"
+            [disabled]="InputCount1(compare.H_TEL_VS_H_TEL_6_MONTH) =='0'">通訊電話VS居住電話6個月內不相同數</button>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_H_TEL_6_MONTH.color === 'g',
+          'table-data-text-y' :compare.H_TEL_VS_H_TEL_6_MONTH.color === 'y',
+          'height' : compare.H_TEL_VS_H_TEL_6_MONTH.color === 'r',
+          'table-data-z' : compare.H_TEL_VS_H_TEL_6_MONTH.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_H_TEL_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_H_TEL_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_H_TEL_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL ) =='0'">通訊電話VS居住電話6個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_H_TEL_12_MONTH')"
+            [disabled]="InputCount1(compare.H_TEL_VS_H_TEL_12_MONTH) =='0'">通訊電話VS居住電話12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_H_TEL_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_H_TEL_12_MONTH.color === 'y',
+        'height' : compare.H_TEL_VS_H_TEL_12_MONTH.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_H_TEL_12_MONTH.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_H_TEL_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_H_TEL_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_H_TEL_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL) =='0'">通訊電話VS居住電話12個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_H_TEL_24_MONTH')"
+            [disabled]="InputCount1(compare.H_TEL_VS_H_TEL_24_MONTH) =='0'">通訊電話VS居住電話24個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_H_TEL_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_H_TEL_24_MONTH.color === 'y',
+        'height' : compare.H_TEL_VS_H_TEL_24_MONTH.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_H_TEL_24_MONTH.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_H_TEL_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_H_TEL_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_H_TEL_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL) =='0'">通訊電話VS居住電話24個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_H_TEL_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!-- 通訊電話VS任職機構電話 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_O_TEL_6_MONTH')"
+            [disabled]="InputCount1(compare.H_TEL_VS_O_TEL_6_MONTH) =='0'">通訊電話VS任職機構電話6個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_O_TEL_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_O_TEL_6_MONTH.color === 'y',
+        'height' : compare.H_TEL_VS_O_TEL_6_MONTH.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_O_TEL_6_MONTH.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_O_TEL_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_O_TEL_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_O_TEL_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL) =='0'">通訊電話VS任職機構電話6個月內不相同總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_O_TEL_12_MONTH')"
+            [disabled]="InputCount1(compare.H_TEL_VS_O_TEL_12_MONTH) =='0'">通訊電話VS任職機構電話12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_O_TEL_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_TEL_VS_O_TEL_12_MONTH.color === 'y',
+        'height' : compare.H_TEL_VS_O_TEL_12_MONTH.color === 'r',
+        'table-data-z' : compare.H_TEL_VS_O_TEL_12_MONTH.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_O_TEL_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_O_TEL_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_12_MONTH.high}}</td>
+      </tr>
+
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_O_TEL_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL) =='0'">通訊電話VS任職機構電話12個月內不相同總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL.color === 'g',
+          'table-data-text-y' :compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL.color === 'y',
+          'height' : compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL.color === 'r',
+          'table-data-z' : compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_O_TEL_24_MONTH')"
+            [disabled]="InputCount1(compare.H_TEL_VS_O_TEL_24_MONTH) =='0'">通訊電話VS任職機構電話24個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_O_TEL_24_MONTH.color === 'g',
+          'table-data-text-y' :compare.H_TEL_VS_O_TEL_24_MONTH.color === 'y',
+          'height' : compare.H_TEL_VS_O_TEL_24_MONTH.color === 'r',
+          'table-data-z' : compare.H_TEL_VS_O_TEL_24_MONTH.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_O_TEL_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_O_TEL_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_TEL_VS_O_TEL_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL) =='0'">通訊電話VS任職機構電話24個月內不相同總件數 </button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL.color === 'g',
+          'table-data-text-y' :compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL.color === 'y',
+          'height' : compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL.color === 'r',
+          'table-data-z' : compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_TEL_VS_O_TEL_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!-- 戶籍地址VS戶籍地址 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_R_ADDR_6_MONTH')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_R_ADDR_6_MONTH) =='0'">戶籍地址VS戶籍地址不一致6個月內不相同數 </button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_R_ADDR_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.P_ADDR_VS_R_ADDR_6_MONTH.color === 'y',
+        'height' : compare.P_ADDR_VS_R_ADDR_6_MONTH.color === 'r',
+        'table-data-z' : compare.P_ADDR_VS_R_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_R_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_R_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_6_MONTH.high}}</td>
+      </tr>
+
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_R_ADDR_6_TOTAL')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_R_ADDR_6_TOTAL) =='0'">戶籍地址VS戶籍地址不一致6個月內對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_R_ADDR_6_TOTAL.color === 'g',
+        'table-data-text-y' :compare.P_ADDR_VS_R_ADDR_6_TOTAL.color === 'y',
+        'height' : compare.P_ADDR_VS_R_ADDR_6_TOTAL.color === 'r',
+        'table-data-z' : compare.P_ADDR_VS_R_ADDR_6_TOTAL.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_R_ADDR_6_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_R_ADDR_6_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_6_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_6_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_R_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_R_ADDR_12_MONTH) =='0'">戶籍地址VS戶籍地址不一致12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_R_ADDR_12_MONTH.color === 'g',
+          'table-data-text-y' :compare.P_ADDR_VS_R_ADDR_12_MONTH.color === 'y',
+          'height' : compare.P_ADDR_VS_R_ADDR_12_MONTH.color === 'r',
+          'table-data-z' : compare.P_ADDR_VS_R_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_R_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_R_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_R_ADDR_12_TOTAL')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_R_ADDR_12_TOTAL) =='0'">戶籍地址VS戶籍地址不一致12個月內對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_R_ADDR_12_TOTAL.color === 'g',
+          'table-data-text-y' :compare.P_ADDR_VS_R_ADDR_12_TOTAL.color === 'y',
+          'height' : compare.P_ADDR_VS_R_ADDR_12_TOTAL.color === 'r',
+          'table-data-z' : compare.P_ADDR_VS_R_ADDR_12_TOTAL.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_R_ADDR_12_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_R_ADDR_12_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_12_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_12_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_R_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_R_ADDR_24_MONTH) =='0'">戶籍地址VS戶籍地址不一致24個月內比對不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_R_ADDR_24_MONTH.color === 'g',
+          'table-data-text-y' :compare.P_ADDR_VS_R_ADDR_24_MONTH.color === 'y',
+          'height' : compare.P_ADDR_VS_R_ADDR_24_MONTH.color === 'r',
+          'table-data-z' : compare.P_ADDR_VS_R_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_R_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_R_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_R_ADDR_24_TOTAL')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_R_ADDR_24_TOTAL) =='0'">戶籍地址VS戶籍地址不一致24個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_R_ADDR_24_TOTAL.color === 'g',
+          'table-data-text-y' :compare.P_ADDR_VS_R_ADDR_24_TOTAL.color === 'y',
+          'height' : compare.P_ADDR_VS_R_ADDR_24_TOTAL.color === 'r',
+          'table-data-z' : compare.P_ADDR_VS_R_ADDR_24_TOTAL.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_R_ADDR_24_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_R_ADDR_24_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_24_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_R_ADDR_24_TOTAL.high}}</td>
+      </tr>
+      <!-- 戶籍地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_M_ADDR_6_MONTH')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_M_ADDR_6_MONTH) =='0'">戶籍地址VS寄單地址不一致6個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_M_ADDR_6_MONTH.color === 'g',
+          'table-data-text-y' :compare.P_ADDR_VS_M_ADDR_6_MONTH.color === 'y',
+          'height' : compare.P_ADDR_VS_M_ADDR_6_MONTH.color === 'r',
+          'table-data-z' : compare.P_ADDR_VS_M_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_M_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_M_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_M_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL) =='0'">戶籍地址VS寄單地址不一致6個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_M_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_M_ADDR_12_MONTH) =='0'">戶籍地址VS寄單地址不一致12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_M_ADDR_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.P_ADDR_VS_M_ADDR_12_MONTH.color === 'y',
+        'height' : compare.P_ADDR_VS_M_ADDR_12_MONTH.color === 'r',
+        'table-data-z' : compare.P_ADDR_VS_M_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_M_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_M_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_M_ADDR_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL) =='0'">戶籍地址VS寄單地址不一致12個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_M_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_M_ADDR_24_MONTH) =='0'">戶籍地址VS寄單地址不一致24個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_M_ADDR_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.P_ADDR_VS_M_ADDR_24_MONTH.color === 'y',
+        'height' : compare.P_ADDR_VS_M_ADDR_24_MONTH.color === 'r',
+        'table-data-z' : compare.P_ADDR_VS_M_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_M_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_M_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('P_ADDR_VS_M_ADDR_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL) =='0'">戶籍地址VS寄單地址不一致24個月內比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.P_ADDR_VS_M_ADDR_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!--通訊地址VS戶籍地址  -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_R_ADDR_6_MONTH')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_R_ADDR_6_MONTH) =='0'">通訊地址VS戶籍地址最近6個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_R_ADDR_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_R_ADDR_6_MONTH.color === 'y',
+        'height' : compare.H_ADDR_VS_R_ADDR_6_MONTH.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_R_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_R_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_R_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_R_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL) =='0'">通訊地址VS戶籍地址最近6個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_R_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_R_ADDR_12_MONTH) =='0'">通訊地址VS戶籍地址最近12個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_R_ADDR_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_R_ADDR_12_MONTH.color === 'y',
+        'height' : compare.H_ADDR_VS_R_ADDR_12_MONTH.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_R_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_R_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_R_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_R_ADDR_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL) =='0'">通訊地址VS戶籍地址最近12個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_R_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_R_ADDR_24_MONTH) =='0'">通訊地址VS戶籍地址最近24個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_R_ADDR_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_R_ADDR_24_MONTH.color === 'y',
+        'height' : compare.H_ADDR_VS_R_ADDR_24_MONTH.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_R_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_R_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_R_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_R_ADDR_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL) =='0'">通訊地址VS戶籍地址最近24個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_R_ADDR_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!-- 通訊地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_M_ADDR_6_MONTH')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_M_ADDR_6_MONTH) =='0'">通訊地址VS寄單地址最近6個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_M_ADDR_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_M_ADDR_6_MONTH.color === 'y',
+        'height' : compare.H_ADDR_VS_M_ADDR_6_MONTH.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_M_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_M_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_M_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_M_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL) =='0'">通訊地址VS寄單地址最近6個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_M_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_M_ADDR_12_MONTH) =='0'">通訊地址VS寄單地址最近12個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_M_ADDR_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_M_ADDR_12_MONTH.color === 'y',
+        'height' : compare.H_ADDR_VS_M_ADDR_12_MONTH.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_M_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_M_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_M_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_M_ADDR_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL) =='0'">通訊地址VS寄單地址最近12個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_M_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_M_ADDR_24_MONTH) =='0'">通訊地址VS寄單地址最近24個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_M_ADDR_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_M_ADDR_24_MONTH.color === 'y',
+        'height' : compare.H_ADDR_VS_M_ADDR_24_MONTH.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_M_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_M_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_M_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('H_ADDR_VS_M_ADDR_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL) =='0'">通訊地址VS寄單地址最近24個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.H_ADDR_VS_M_ADDR_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!-- 寄卡地址VS戶籍地址 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_R_ADDR_6_MONTH')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_R_ADDR_6_MONTH) =='0'">寄卡地址VS戶籍地址最近6個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_R_ADDR_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_R_ADDR_6_MONTH.color === 'y',
+        'height' : compare.CARD_ADDR_VS_R_ADDR_6_MONTH.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_R_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_R_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_R_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL) =='0'">寄卡地址VS戶籍地址最近6個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_R_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_R_ADDR_12_MONTH) =='0'">寄卡地址VS戶籍地址最近12個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_R_ADDR_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_R_ADDR_12_MONTH.color === 'y',
+        'height' : compare.CARD_ADDR_VS_R_ADDR_12_MONTH.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_R_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_R_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_R_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL) =='0'">寄卡地址VS戶籍地址最近12個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_R_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_R_ADDR_24_MONTH) =='0'">寄卡地址VS戶籍地址最近24個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_R_ADDR_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_R_ADDR_24_MONTH.color === 'y',
+        'height' : compare.CARD_ADDR_VS_R_ADDR_24_MONTH.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_R_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_R_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_R_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL) =='0'">寄卡地址VS戶籍地址最近24個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_R_ADDR_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!--寄卡地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_M_ADDR_6_MONTH')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_M_ADDR_6_MONTH) =='0'">寄卡地址VS寄單地址最近6個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_M_ADDR_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_M_ADDR_6_MONTH.color === 'y',
+        'height' : compare.CARD_ADDR_VS_M_ADDR_6_MONTH.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_M_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_M_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_M_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL) =='0'">寄卡地址VS寄單地址最近6個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_M_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_M_ADDR_12_MONTH) =='0'">寄卡地址VS寄單地址最近12個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_M_ADDR_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_M_ADDR_12_MONTH.color === 'y',
+        'height' : compare.CARD_ADDR_VS_M_ADDR_12_MONTH.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_M_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_M_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_M_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL) =='0'">寄卡地址VS寄單地址最近12個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_M_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_M_ADDR_24_MONTH) =='0'">寄卡地址VS寄單地址最近24個月內不一致</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_M_ADDR_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_M_ADDR_24_MONTH.color === 'y',
+        'height' : compare.CARD_ADDR_VS_M_ADDR_24_MONTH.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_M_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_M_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_M_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL) =='0'">寄卡地址VS寄單地址最近24個月內不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CARD_ADDR_VS_M_ADDR_24_MONTH_TOTAL.high}}</td>
+      </tr>
+    </ng-container>
+    <!-- 任職資訊比對 -->
+    <ng-container>
+      <tr>
+        <th class="table-header-x" rowspan="25">任職資訊比對</th>
+      </tr>
+      <!-- 任職機構 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_NAME_VS_O_NAME_6_MONTH')"
+            [disabled]="InputCount1(compare.CP_NAME_VS_O_NAME_6_MONTH) =='0'">任職機構6個月不一致件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_NAME_VS_O_NAME_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_NAME_VS_O_NAME_6_MONTH.color === 'y',
+        'height' : compare.CP_NAME_VS_O_NAME_6_MONTH.color === 'r',
+        'table-data-z' : compare.CP_NAME_VS_O_NAME_6_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_NAME_VS_O_NAME_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_NAME_VS_O_NAME_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_NAME_VS_O_NAME_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL) =='0'">任職機構6個月不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_NAME_VS_O_NAME_12_MONTH')"
+            [disabled]="InputCount1(compare.CP_NAME_VS_O_NAME_12_MONTH) =='0'">任職機構12個月不一致件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_NAME_VS_O_NAME_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_NAME_VS_O_NAME_12_MONTH.color === 'y',
+        'height' : compare.CP_NAME_VS_O_NAME_12_MONTH.color === 'r',
+        'table-data-z' : compare.CP_NAME_VS_O_NAME_12_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_NAME_VS_O_NAME_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_NAME_VS_O_NAME_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_NAME_VS_O_NAME_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL) =='0'">任職機構12個月不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_NAME_VS_O_NAME_24_MONTH')"
+            [disabled]="InputCount1(compare.CP_NAME_VS_O_NAME_24_MONTH) =='0'">任職機構24個月不一致件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_NAME_VS_O_NAME_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_NAME_VS_O_NAME_24_MONTH.color === 'y',
+        'height' : compare.CP_NAME_VS_O_NAME_24_MONTH.color === 'r',
+        'table-data-z' : compare.CP_NAME_VS_O_NAME_24_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_NAME_VS_O_NAME_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_NAME_VS_O_NAME_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_NAME_VS_O_NAME_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL) =='0'">任職機構24個月不一致比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_NAME_VS_O_NAME_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!-- 公司電話與居住電話 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_TEL_VS_H_TEL_6_MONTH')"
+            [disabled]="InputCount1(compare.CP_TEL_VS_H_TEL_6_MONTH) =='0'">公司電話與居住電話6個月不一致件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_TEL_VS_H_TEL_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_TEL_VS_H_TEL_6_MONTH.color === 'y',
+        'height' : compare.CP_TEL_VS_H_TEL_6_MONTH.color === 'r',
+        'table-data-z' : compare.CP_TEL_VS_H_TEL_6_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_TEL_VS_H_TEL_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_TEL_VS_H_TEL_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_TEL_VS_H_TEL_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL) =='0'">公司電話與居住電話6個月不一致總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_TEL_VS_H_TEL_12_MONTH')"
+            [disabled]="InputCount1(compare.CP_TEL_VS_H_TEL_12_MONTH) =='0'">公司電話與居住電話12個月不一致件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_TEL_VS_H_TEL_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_TEL_VS_H_TEL_12_MONTH.color === 'y',
+        'height' : compare.CP_TEL_VS_H_TEL_12_MONTH.color === 'r',
+        'table-data-z' : compare.CP_TEL_VS_H_TEL_12_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_TEL_VS_H_TEL_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_TEL_VS_H_TEL_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_TEL_VS_H_TEL_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL) =='0'">公司電話與居住電話12個月不一致總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_TEL_VS_H_TEL_24_MONTH')"
+            [disabled]="InputCount1(compare.CP_TEL_VS_H_TEL_24_MONTH) =='0'">公司電話與居住電話24個月不一致件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_TEL_VS_H_TEL_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_TEL_VS_H_TEL_24_MONTH.color === 'y',
+        'height' : compare.CP_TEL_VS_H_TEL_24_MONTH.color === 'r',
+        'table-data-z' : compare.CP_TEL_VS_H_TEL_24_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_TEL_VS_H_TEL_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_TEL_VS_H_TEL_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_TEL_VS_H_TEL_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL) =='0'">公司電話與居住電話24個月不一致總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_TEL_VS_H_TEL_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!-- 公司地址VS戶籍地址 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_R_ADDR_6_MONTH')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_R_ADDR_6_MONTH) =='0'">公司地址VS戶籍地址不一致近6個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_R_ADDR_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_R_ADDR_6_MONTH.color === 'y',
+        'height' : compare.CP_ADDR_VS_R_ADDR_6_MONTH.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_R_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_R_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_R_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL) =='0'">公司地址VS戶籍地址不一致近6個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_R_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_R_ADDR_12_MONTH) =='0'">公司地址VS戶籍地址不一致近12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_R_ADDR_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_R_ADDR_12_MONTH.color === 'y',
+        'height' : compare.CP_ADDR_VS_R_ADDR_12_MONTH.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_R_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_R_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_R_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL) =='0'">公司地址VS戶籍地址不一致近12個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_R_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_R_ADDR_24_MONTH) =='0'">公司地址VS戶籍地址不一致近24個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_R_ADDR_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_R_ADDR_24_MONTH.color === 'y',
+        'height' : compare.CP_ADDR_VS_R_ADDR_24_MONTH.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_R_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_R_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_R_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL) =='0'">公司地址VS戶籍地址不一致近24個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_R_ADDR_24_MONTH_TOTAL.high}}</td>
+      </tr>
+      <!-- 公司地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_M_ADDR_6_MONTH) =='0'">公司地址VS寄單地址不一致近6個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_M_ADDR_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_M_ADDR_6_MONTH.color === 'y',
+        'height' : compare.CP_ADDR_VS_M_ADDR_6_MONTH.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_M_ADDR_6_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_M_ADDR_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_M_ADDR_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL) =='0'">公司地址VS寄單地址不一致近6個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_M_ADDR_12_MONTH')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_M_ADDR_12_MONTH) =='0'">公司地址VS寄單地址不一致近12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_M_ADDR_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_M_ADDR_12_MONTH.color === 'y',
+        'height' : compare.CP_ADDR_VS_M_ADDR_12_MONTH.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_M_ADDR_12_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_M_ADDR_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_M_ADDR_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL) =='0'">公司地址VS寄單地址不一致近12個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_M_ADDR_24_MONTH')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_M_ADDR_24_MONTH) =='0'">公司地址VS寄單地址不一致近24個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_M_ADDR_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_M_ADDR_24_MONTH.color === 'y',
+        'height' : compare.CP_ADDR_VS_M_ADDR_24_MONTH.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_M_ADDR_24_MONTH.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_M_ADDR_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_M_ADDR_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL) =='0'">公司地址VS寄單地址不一致近24個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.CP_ADDR_VS_M_ADDR_24_MONTH_TOTAL.high}}</td>
+      </tr>
+    </ng-container>
+    <!-- 基本資料 -->
+    <ng-container>
+      <tr>
+        <th class="table-header-x" rowspan="7">基本資料</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('EDUCATION_VS_EDU_CODE_6_MONTH')"
+            [disabled]="InputCount1(compare.EDUCATION_VS_EDU_CODE_6_MONTH) =='0'">教育程度不一致近6個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.EDUCATION_VS_EDU_CODE_6_MONTH.color === 'g',
+        'table-data-text-y' :compare.EDUCATION_VS_EDU_CODE_6_MONTH.color === 'y',
+        'height' : compare.EDUCATION_VS_EDU_CODE_6_MONTH.color === 'r',
+        'table-data-z' : compare.EDUCATION_VS_EDU_CODE_6_MONTH.color == undefined}">
+          {{InputCount1(compare.EDUCATION_VS_EDU_CODE_6_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.EDUCATION_VS_EDU_CODE_6_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_6_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_6_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL) =='0'">教育程度不一致近6個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL.color === 'y',
+        'height' : compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_6_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.EDUCATION_VS_EDU_CODE_12_MONTH) =='0'">教育程度不一致近12個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.EDUCATION_VS_EDU_CODE_12_MONTH.color === 'g',
+        'table-data-text-y' :compare.EDUCATION_VS_EDU_CODE_12_MONTH.color === 'y',
+        'height' : compare.EDUCATION_VS_EDU_CODE_12_MONTH.color === 'r',
+        'table-data-z' : compare.EDUCATION_VS_EDU_CODE_12_MONTH.color == undefined}">
+          {{InputCount1(compare.EDUCATION_VS_EDU_CODE_12_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.EDUCATION_VS_EDU_CODE_12_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_12_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_12_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL) =='0'">教育程度不一致近12個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL.color === 'y',
+        'height' : compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_12_MONTH_TOTAL.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('EDUCATION_VS_EDU_CODE_24_MONTH')"
+            [disabled]="InputCount1(compare.EDUCATION_VS_EDU_CODE_24_MONTH) =='0'">教育程度不一致近24個月內不相同數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.EDUCATION_VS_EDU_CODE_24_MONTH.color === 'g',
+        'table-data-text-y' :compare.EDUCATION_VS_EDU_CODE_24_MONTH.color === 'y',
+        'height' : compare.EDUCATION_VS_EDU_CODE_24_MONTH.color === 'r',
+        'table-data-z' : compare.EDUCATION_VS_EDU_CODE_24_MONTH.color == undefined}">
+          {{InputCount1(compare.EDUCATION_VS_EDU_CODE_24_MONTH)}}</td>
+        <td class="table-data-text-compare">{{test(compare.EDUCATION_VS_EDU_CODE_24_MONTH.type)}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_24_MONTH.low}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_24_MONTH.high}}</td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          <button nz-button nzType="link" (click)="Inquire('EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL')"
+            [disabled]="InputCount1(compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL) =='0'">教育程度不一致近24個月內不相同比對總件數</button>
+        </th>
+        <td [ngClass]="{'table-data-text':compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL.color === 'g',
+        'table-data-text-y' :compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL.color === 'y',
+        'height' : compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL.color === 'r',
+        'table-data-z' : compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL.color == undefined}">
+          {{InputCount1(compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL)}}</td>
+        <td class="table-data-text-compare">{{test(compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL.type)}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL.low}}</td>
+        <td class="table-data-text-compare">{{compare.EDUCATION_VS_EDU_CODE_24_MONTH_TOTAL.high}}</td>
+      </tr>
+    </ng-container>
+  </nz-table>
+</div>
+
+<br>
+
+<!-- loading畫面時使用 -->
+<div class="line_bank_card_no_padding" *ngIf="!loading">
+  <nz-table nzSize="small" nzTitle="BAM061報送資料比對" [nzData]="compare">
+    <ng-container>
+      <tr>
+        <th class="table-header-y" style="width:30%;">區塊</th>
+        <th class="table-header-y" style="width:30%;">比對欄位</th>
+        <th class="table-header-y" style="width:10%;">比對結果</th>
+        <th class="table-header-y" style="width:10%;">比對方式</th>
+        <th class="table-header-y" style="width:10%;">最低門檻</th>
+        <th class="table-header-y" style="width:10%;">最高門檻</th>
+      </tr>
+      <!-- 聯絡資訊 -->
+      <tr>
+        <th class="table-header-x" rowspan="55">聯絡資訊</th>
+      </tr>
+      <!-- 行動電話 -->
+      <tr>
+        <th class="table-header-y">
+          行動電話最近6個月內不相同數</th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行動電話最近6個月內比對總件數</th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行動電話最近12個月內不相同數</th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行動電話最近12個月內比對總件數</th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行動電話最近24個月內不相同數</th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行動電話最近24個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!--  通訊電話VS居住電話 -->
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS居住電話6個月內不相同數
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+
+          通訊電話VS居住電話6個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS居住電話12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS居住電話12個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS居住電話24個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS居住電話24個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 通訊電話VS任職機構電話 -->
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS任職機構電話6個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS任職機構電話6個月內不相同總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS任職機構電話12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS任職機構電話12個月內不相同總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS任職機構電話24個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊電話VS任職機構電話24個月內不相同總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 戶籍地址VS戶籍地址 -->
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS戶籍地址不一致6個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS戶籍地址不一致6個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS戶籍地址不一致12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS戶籍地址不一致12個月內對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS戶籍地址不一致24個月內比對不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS戶籍地址不一致24個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 戶籍地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS寄單地址不一致6個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS寄單地址不一致6個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS寄單地址不一致12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS寄單地址不一致12個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS寄單地址不一致24個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          戶籍地址VS寄單地址不一致24個月內比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!--通訊地址VS戶籍地址  -->
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS戶籍地址最近6個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS戶籍地址最近6個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS戶籍地址最近12個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS戶籍地址最近12個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS戶籍地址最近24個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS戶籍地址最近24個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 通訊地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS寄單地址最近6個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS寄單地址最近6個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS寄單地址最近12個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS寄單地址最近12個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS寄單地址最近24個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          通訊地址VS寄單地址最近24個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 寄卡地址VS戶籍地址 -->
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS戶籍地址最近6個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS戶籍地址最近6個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS戶籍地址最近12個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS戶籍地址最近12個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS戶籍地址最近24個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS戶籍地址最近24個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!--寄卡地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS寄單地址最近6個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS寄單地址最近6個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS寄單地址最近12個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS寄單地址最近12個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS寄單地址最近24個月內不一致 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          寄卡地址VS寄單地址最近24個月內不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+    </ng-container>
+    <!-- 任職資訊比對 -->
+    <ng-container>
+      <tr>
+        <th class="table-header-x" rowspan="31">任職資訊比對</th>
+      </tr>
+      <!-- 任職機構 -->
+      <tr>
+        <th class="table-header-y">
+          任職機構6個月不一致件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          任職機構6個月不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          任職機構12個月不一致件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          任職機構12個月不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          任職機構24個月不一致件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          任職機構24個月不一致比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 公司電話與居住電話 -->
+      <tr>
+        <th class="table-header-y">
+          公司電話與居住電話6個月不一致件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司電話與居住電話6個月不一致總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司電話與居住電話12個月不一致件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司電話與居住電話12個月不一致總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司電話與居住電話24個月不一致件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司電話與居住電話24個月不一致總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 公司地址VS戶籍地址 -->
+      <tr>
+        <th class="table-header-y">
+          公司地址VS戶籍地址不一致近6個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS戶籍地址不一致近6個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS戶籍地址不一致近12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS戶籍地址不一致近12個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS戶籍地址不一致近24個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS戶籍地址不一致近24個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 公司地址VS寄單地址 -->
+      <tr>
+        <th class="table-header-y">
+          公司地址VS寄單地址不一致近6個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS寄單地址不一致近6個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS寄單地址不一致近12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS寄單地址不一致近12個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS寄單地址不一致近24個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          公司地址VS寄單地址不一致近24個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <!-- 行職業代碼 -->
+      <tr>
+        <th class="table-header-y">
+          行職業代碼不一致近6個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行職業代碼不一致近6個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行職業代碼不一致近12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行職業代碼不一致近12個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行職業代碼不一致近24個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          行職業代碼不一致近24個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+    </ng-container>
+    <!-- 基本資料 -->
+    <ng-container>
+      <tr>
+        <th class="table-header-x" rowspan="7">基本資料</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          教育程度不一致近6個月內不相同數</th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          教育程度不一致近6個月內不相同比對總件數</th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          教育程度不一致近12個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          教育程度不一致近12個月內不相同比對總件數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          教育程度不一致近24個月內不相同數 </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">
+          教育程度不一致近24個月內不相同比對總件數
+        </th>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+        <td class="table-data-text-compare"></td>
+      </tr>
+    </ng-container>
+  </nz-table>
+</div>

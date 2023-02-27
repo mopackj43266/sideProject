@@ -1,0 +1,35 @@
+.line_bank_card_no_padding {
+  position: relative;
+  margin:20px auto;
+  width: 95%;
+  background: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+}
+td
+{
+  border: 1px solid #e8e8e8;
+}
+:host::ng-deep.ant-table-pagination.ant-pagination {
+  margin: 5px;
+}
+.ant-btn-dangerous{
+  color: #f80000;;
+  background:white;
+  border-color:#f80000;
+  border-radius:5px;
+
+}
+.ant-btn-dangerous:hover{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-dangerous:active{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+}

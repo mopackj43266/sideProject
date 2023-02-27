@@ -1,0 +1,59 @@
+<div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newCORE_DATASource" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="totalCD" [nzPageSize]="pageSizeCD" [nzPageIndex]="pageIndexCD" nzSize="small"
+      nzTitle="放款資料" (nzQueryParams)="onQueryParamsChange($event, 'CORE_DATA')">
+      <thead>
+        <tr>
+          <th class="table-header">產品日期</th>
+          <th class="table-header">放款帳號</th>
+          <th class="table-header">第四層額度編號</th>
+          <th class="table-header">放款帳戶目前狀態</th>
+          <th class="table-header">放款帳戶合約金額</th>
+          <th class="table-header">放款帳戶目前餘額</th>
+          <th class="table-header">放款帳戶目前逾期天數</th>
+          <th class="table-header">放款帳戶目前逾期帳齡</th>
+          <th class="table-header">放款帳戶目前合約起日</th>
+          <th class="table-header">放款帳戶目前合約到期日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newCORE_DATASource">
+          <td class="table-data" style="text-align: right;">{{ data.prodCode}}</td>
+          <td class="table-data">{{ data.accNo }}</td>
+          <td class="table-data">{{ data.limitNo }}</td>
+          <td class="table-data">{{ data.stsCd}}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.rngVal)}}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.inbalAmt)}}</td>
+          <td class="table-data" style="text-align: right;">{{ data.oduedayCnt}}</td>
+          <td class="table-data" style="text-align: right;">{{ data.acctAge}}</td>
+          <td class="table-data" style="text-align: right;">{{ data.matst}}</td>
+          <td class="table-data" style="text-align: right;">{{ data.matdt}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newCORE_MAINLISTSource" [nzSimple]="true"
+    [nzLoading]="loading" [nzTotal]="totalCM" [nzPageSize]="pageSizeCM" [nzPageIndex]="pageIndexCM" nzSize="small"
+    nzTitle="消金產品" (nzQueryParams)="onQueryParamsChange($event, 'CORE_MAINLIST')">
+    <thead>
+      <tr>
+        <th class="table-header">目前本行分期信貸(餘額>0)之合約金額合計</th>
+        <th class="table-header">目前本行分期信貸之放款餘額合計</th>
+        <th class="table-header">目前本行循環信貸(有效)之額度</th>
+        <th class="table-header" >目前本行循環信貸之餘額</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of newCORE_MAINLISTSource">
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.istmLnCtrtLmtSumAmt)}}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.istmLnBalAmt) }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.rvvgLnCrdtLineActvAmt) }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.rvvgLnBalAmt)}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  </div>

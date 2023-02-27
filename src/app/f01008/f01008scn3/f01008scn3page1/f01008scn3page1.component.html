@@ -1,0 +1,160 @@
+<div class="line_bank_bankground_color">
+    <div style=" width: 100%;position:fixed;z-index:10;top: 96px;margin-top:35px">
+        <nz-tabset nzLinkRouter style="margin-top: 0px;">
+            <nz-tab [nzTitle]="showAll">
+                <ng-template #showAll let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideAll ? 'nohide' : 'hide'" (click)="all()">
+            全部顯示<h style="display: block; font-size: 12px;">-</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="JCICMASTER">
+                <ng-template #JCICMASTER let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideJCICMASTER ? 'nohide' : 'hide'" (click)="show('JCICMASTER')">
+            JCICMASTER<h style="display: block; font-size: 12px;">-</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="BAM501">
+                <ng-template #BAM501 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideBAM501 ? 'nohide' : 'hide'" (click)="show('BAM501')">
+            B68無擔保債務餘額<h style="display: block; font-size: 12px;">(BAM501)</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="BAM502">
+                <ng-template #BAM502 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideBAM502 ? 'nohide' : 'hide'" (click)="show('BAM502')">
+            B68無擔放款明細<h style="display: block; font-size: 12px;">(BAM502)</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="BAM504">
+                <ng-template #BAM504 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideBAM504 ? 'nohide' : 'hide'" (click)="show('BAM504')">
+            B68貸款餘額扣除擔保<h style="display: block; font-size: 12px;">(BAM504)</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="BAM505">
+                <ng-template #BAM505 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideBAM505 ? 'nohide' : 'hide'" (click)="show('BAM505')">
+            新增核准額度<h style="display: block; font-size: 12px;">(BAM505)</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="BAM029">
+                <ng-template #BAM029 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideBAM029 ? 'nohide' : 'hide'" (click)="show('BAM029')">
+            B29新增額度及清償<h style="display: block; font-size: 12px;">(BAM029)</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="VAM106">
+                <ng-template #VAM106 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideVAM106 ? 'nohide' : 'hide'" (click)="show('VAM106')">
+            VAM106<h style="display: block; font-size: 12px;">-</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="VAM107">
+                <ng-template #VAM107 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideVAM107 ? 'nohide' : 'hide'" (click)="show('VAM107')">
+            VAM107<h style="display: block; font-size: 12px;">-</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+            <nz-tab [nzTitle]="VAM108">
+                <ng-template #VAM108 let-visible="visible">
+                    <button nz-button nzSize="small" [ngClass]="hideVAM108 ? 'nohide' : 'hide'" (click)="show('VAM108')">
+            VAM108<h style="display: block; font-size: 12px;">-</h>
+          </button>
+                </ng-template>
+            </nz-tab>
+        </nz-tabset>
+    </div>
+    <div style="padding-left: 35px; padding-top:75px;">
+        <div nz-row>
+            <div nz-col nzFlex="1">
+                <div style="padding:3px"><span class="form-title">查詢日期</span><input matInput #input class="form-control" [(ngModel)]="queryDate" readonly disabled></div>
+            </div>
+            <div nz-col nzFlex="1"></div>
+            <div nz-col nzFlex="1"></div>
+            <div nz-col nzFlex="1"></div>
+            <div nz-col nzFlex="1"></div>
+            <div nz-col nzFlex="1"></div>
+        </div>
+    </div>
+
+    <!-- JCICMASTEE -->
+    <div style="display: flex; background-color: transparent;" [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
+        <div style="flex: 1; padding-right: 10px;">
+            <!-- BAS006 -->
+            <nz-table nzSize="small" nzTitle="BAS006 新增額度及每筆撥款清償提示資訊">
+                <ng-container *ngFor="let data of BAS006.slice(0,1)">
+                    <tr>
+                        <div nz-row>
+                            <th nz-col nzFlex="1" class="table-header">新增額度及每筆撥款清償提示資訊</th>
+                            <td nz-col nzFlex="1" class="table-data">{{ data.BA_YYYMM ? data.BA_YYYMM : ' ' }}</td>
+                            <td nz-col nzFlex="2"></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div nz-row>
+                            <th nz-col nzFlex="1" class="table-header">授信最新月份</th>
+                            <td nz-col nzFlex="1" class="table-data">{{ data.CREDIT_AD_FLAG ? data.CREDIT_AD_FLAG : ' ' }}</td>
+                            <td nz-col nzFlex="2"></td>
+                        </div>
+                    </tr>
+                </ng-container>
+            </nz-table>
+            <br>
+        </div>
+        <div style="flex: 1;">
+            <nz-table>
+                <tr>
+                    <div nz-row>
+                        <!-- BAI001 -->
+                        <ng-container *ngFor="let data of BAI001.slice(0,1)">
+                            <th nz-col nzFlex="1" class="table-header" style="color:#2E4765; background-color:#BFECD0;">BAI001</th>
+                            <td nz-col nzFlex="1" class="table-header">授信資料日期</td>
+                            <td nz-col nzFlex="1" class="table-data">{{ data.DATA_DATE ? data.DATA_DATE : ' ' }}</td>
+                        </ng-container>
+                        <td nz-col nzFlex="1"></td>
+                    </div>
+                </tr>
+                <tr>
+                    <div nz-row>
+                        <!-- BAI004 -->
+                        <ng-container *ngFor="let data of BAI004.slice(0,1)">
+                            <th nz-col nzFlex="1" class="table-header" style="color:#2E4765; background-color:#BFECD0;">BAI004</th>
+                            <td nz-col nzFlex="1" class="table-header">信用卡及特店資料處理日期</td>
+                            <td nz-col nzFlex="1" class="table-data">{{ data.DATA_DATE ? data.DATA_DATE : ' ' }}</td>
+                            <td nz-col nzFlex="1" class="table-data" style="color: red;">B64 DBR22倍規範無擔保債務<br>暨年收入彙整資訊之現金卡資料日期</td>
+                        </ng-container>
+                    </div>
+                </tr>
+                <tr>
+                    <div nz-row>
+                        <!-- KRI002 -->
+                        <ng-container *ngFor="let data of KRI002.slice(0,1)">
+                            <th nz-col nzFlex="1" class="table-header" style="color:#2E4765; background-color:#BFECD0;">KRI002</th>
+                            <td nz-col nzFlex="1" class="table-header">信用卡結帳日期擷取範圍</td>
+                            <td nz-col nzFlex="1" class="table-data">{{ data.HI_BILL_DATE ? data.HI_BILL_DATE + '~': ' ' }}{{ data.LO_BILL_DATE ? data.LO_BILL_DATE : ' ' }}</td>
+                            <td nz-col nzFlex="1" class="table-data" style="color: red;">B64</td>
+                        </ng-container>
+                    </div>
+                </tr>
+            </nz-table>
+        </div>
+    </div>
+
+    <app-jcictable [id]="!hideBAM501 ? 'BAM501' : '' " *ngIf="!hideBAM501" class="line_bank_card_no_padding" [code]="JCICCode.BAM501"></app-jcictable>
+    <app-jcictable [id]="!hideBAM502 ? 'BAM502' : '' " *ngIf="!hideBAM502" class="line_bank_card_no_padding" [code]="JCICCode.BAM502"></app-jcictable>
+    <app-jcictable [id]="!hideBAM504 ? 'BAM504' : '' " *ngIf="!hideBAM504" class="line_bank_card_no_padding" [code]="JCICCode.BAM504"></app-jcictable>
+    <app-jcictable [id]="!hideBAM505 ? 'BAM505' : '' " *ngIf="!hideBAM505" class="line_bank_card_no_padding" [code]="JCICCode.BAM505"></app-jcictable>
+    <app-jcictable [id]="!hideBAM029 ? 'BAM029' : '' " *ngIf="!hideBAM029" class="line_bank_card_no_padding" [code]="JCICCode.BAM029"></app-jcictable>
+    <app-jcictable [id]="!hideVAM106 ? 'VAM106' : '' " *ngIf="!hideVAM106" class="line_bank_card_no_padding" [code]="JCICCode.VAM106"></app-jcictable>
+    <app-jcictable [id]="!hideVAM107 ? 'VAM107' : '' " *ngIf="!hideVAM107" class="line_bank_card_no_padding" [code]="JCICCode.VAM107"></app-jcictable>
+    <app-jcictable [id]="!hideVAM108 ? 'VAM108' : '' " *ngIf="!hideVAM108" class="line_bank_card_no_padding" [code]="JCICCode.VAM108"></app-jcictable>
+</div>

@@ -1,0 +1,81 @@
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+    <!-- 最外層卡片包覆 -->
+    <div class="line_bank_card_no_padding">
+        <!-- 表格 -->
+        <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newData" [nzSimple]="true" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="網頁資訊">
+            <thead>
+                <tr>
+                    <th class="table-header">案編</th>
+                    <th class="table-header">代碼</th>
+                    <th class="table-header">網址</th>
+                    <th class="table-header">說明</th>
+                    <th class="table-header">時間</th>
+                    <th class="table-header">員工編號</th>
+                    <th class="table-header">顯示圖片</th>
+                    <th class="table-header">編輯</th>
+                    <th class="table-header">刪除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of newData">
+                    <td class="table-data">{{ data.applno }}</td>
+                    <td class="table-data">{{ getOptionDesc(data.web) }}</td>
+                    <td class="table-data">{{ data.webAddr }}</td>
+                    <td class="table-data">{{ data.messageContent }}</td>
+                    <td class="table-data">{{ data.daytime }}</td>
+                    <td class="table-data">{{ data.empno }}</td>
+                    <td class="table-data" style="text-align: center;">
+                        <button (mouseover)="mouseover(data.rowId)" (mouseout)="mouseout(data.rowId)" nz-button [nzSize]="'small'" nzType="primary" (click)="openView(data.webImg)">
+              <!-- <mat-icon aria-label="">image</mat-icon> -->
+              <!-- <img class="position_top_left" style="height: 30px; padding-bottom: 5px;" src='{{ "assets/images/" + data.ImgSrc + ".png" }}'> -->
+              <fa-icon class="icon_size" [icon]="['fas', 'image']"></fa-icon>
+            </button>
+                    </td>
+                    <ng-container *ngIf="getSearch() == 'N' && (getPage() == '2' || getPage() == '1'); else elseTemplate">
+                        <td class="table-data" style="text-align: center;">
+                            <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
+                data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)">編輯</button>
+                        </td>
+                        <td class="table-data" style="text-align: center;">
+                            <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
+                  data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)">刪除</button>
+                        </td>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <td class="table-data" style="text-align: center;">
+                            <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
+                  data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)" disabled>編輯</button>
+                        </td>
+                        <td class="table-data" style="text-align: center;">
+                            <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
+                  data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)" disabled>刪除</button>
+                        </td>
+                    </ng-template>
+                </tr>
+            </tbody>
+        </nz-table>
+        <div style="padding:10px;text-align:center">
+            <ng-container *ngIf="getSearch() == 'N' && (getPage() == '2' || getPage() == '1'); else elseTemplate">
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" disabled>新增</button>
+            </ng-template>
+        </div>
+
+        <div class="container" style="text-align: center;">
+            <div nz-row style="padding:10px">
+                <div nz-col nzFlex="1">
+                    圖片顯示區
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="20" style="padding:10px;border:2px solid black;width:80vw;height:80vh;margin:auto; display: table-cell;   vertical-align: middle;">
+                    <img [src]="image" *ngIf="image" style="width:100%;height: 100%;object-fit: contain;">
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

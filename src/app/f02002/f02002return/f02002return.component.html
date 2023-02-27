@@ -1,0 +1,52 @@
+<div class="line_bank_card_no_padding" style="min-height: 37vh;">
+  <div class="line_bank_form_header_title">補件</div>
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTemplateMode >
+      <thead>
+        <tr>
+          <th class="table-header" style="width: 50px;">NO</th>
+          <th class="table-header" style="width: 100px;">待補文件日期</th>
+          <th class="table-header" style="width: 200px;">補件原因</th>
+          <th class="table-header" style="width: 200px;">補件項目</th>
+          <th class="table-header" style="width: 400px">徵審註記</th>
+          <th class="table-header" style="width: 200px;">補件類型</th>
+          <th class="table-header" style="width: 200px;">補件影像</th>
+          <th class="table-header" style="width: 200px;">備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of F02002Data; let index = index;">
+          <td class="table-data">{{index+1}}</td>
+          <td class="table-data">{{data.RESTART_DATE|date: 'yyyy-MM-dd '}}</td>
+          <td class="table-data">{{data.RESCAN_TYPE}}</td>
+          <td class="table-data">{{data.RESCAN_ITEM}}</td>
+          <td class="table-data" style="max-width: 235px" >{{data.RESCAN_CONTENT}}</td>
+          <td class="table-data">
+            <div style="padding:10px">
+              <mat-select [(ngModel)]="data.RESCANREASON" name="data.RESCANREASON"    (ngModelChange)="block(data.ROW_ID,data.RESCANREASON)"
+                [disabled]="data.IMAGE_NAME ==null? false:true " placeholder="請選擇">
+                <mat-option *ngFor="let code of type" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </td>
+          <td class="table-data" *ngIf="data.IMAGE_NAME == null || data.IMAGE_NAME == ''"><input #test type="file" name="file" id="file"  [disabled]="data.RESCANREASON == ''? true:false"
+              (change)="onChange($event,data.ROW_ID)" /></td>
+          <!-- <td class="table-data" *ngIf="expression"><input type="text" [(ngModel)]="docType" name="docType" /></td> -->
+          <td class="table-data" *ngIf="!(data.IMAGE_NAME == null || data.IMAGE_NAME == '')"><label>{{data.IMAGE_NAME}}</label></td>
+          <td class="table-data"><input type="text" [(ngModel)]="data.IMAGE_CONTENT" name="data.IMAGE_CONTENT" maxlength="100" [disabled]="data.IMAGE_DATE ==null? false:true "></td>
+        </tr>
+      </tbody>
+
+    </nz-table>
+    <div style="text-align: center;padding-bottom:10px">
+      <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
+      <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="store()"
+        [disabled]="this.quantity == 1 ? true:false" >儲存</button> -->
+      <button nz-button [disabled]="quantity == onChangelength || bool ? true:false" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="store()"
+         >儲存</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="bo"
+        (click)="SendBack('是否案件完成')">送回案件清單</button>
+      <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="test()">測試</button> -->
+    </div>
+</div>

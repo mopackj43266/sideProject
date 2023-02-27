@@ -1,0 +1,82 @@
+.line_bank_card_no_padding_child{
+    position: relative;
+    margin:20px auto;
+      width: 95%;
+      background: white;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 10px;
+  }
+  
+  
+  .EL_DSS_form_header_title{
+  text-align: left;
+  margin:5px 0;
+  font-weight:500;
+  font-size: 16px;
+  color:#2E4765;
+  background-color: #BFECD0;
+  padding:5px 5px 5px 10px;
+  border-radius: 10px 10px 0 0;
+  }
+  
+  .EL_DSS_form_header_title2{
+  text-align: left;
+  padding:5px 5px 5px 10px;
+  margin:5px 0;
+  font-weight:500;
+  font-size: 16px;
+  color:#2E4765;
+  background-color: #c0dff1;
+  
+  }
+  
+  .EL_DSS_form_header_title3{
+  text-align: left;
+  padding:5px 5px 5px 10px;
+  margin:5px 0;
+  font-weight:500;
+  font-size: 16px;
+  color:#2E4765;
+  background-color: #f0dfc4;
+  
+  }
+  
+  .EL_DSS_form_header_title4{
+  text-align: left;
+  padding:5px 5px 5px 10px;
+  margin:5px 0;
+  font-weight:500;
+  font-size: 16px;
+  color:#2E4765;
+  background-color: #f6efe4;
+  
+  }
+  
+  th,tr,td{text-align:left; border: 1.5px solid rgb(255, 254, 254);}
+  
+  td{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+  }
+  
+  .form-title{
+  font-size:12px;
+  }
+  /* 文字顏色 */
+  .data_color{
+  color: red;
+  }
+  /* 文字靠右 */
+  .data_right{
+  text-align:right;
+  }
+  
+  :host(.line_bank_bankground_color_test) {
+  width:100%;
+  background-color: #fff7e9;
+    min-height:100vh;
+    }
+  

@@ -1,0 +1,16 @@
+<div class="container">
+    <th class="f03_th">產品新增</th>
+    <table style="padding-left: 20px;">
+        <br>
+        <tr>
+            <th>
+                <button type="submit" mat-raised-button color="primary" (click)="insert('A')">新增專案主檔</button>
+                <button type="submit" mat-raised-button color="primary" (click)="insert('B')">新增專案明細</button>
+            </th>
+        </tr>
+    </table>
+    <br>
+    <div style="padding-left: 20px;">
+        <ng-container *ngComponentOutlet="mapping.get(chooseForm)"></ng-container>
+    </div>
+</div>

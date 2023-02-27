@@ -1,0 +1,27 @@
+<th class="f03_th">新增專案</th>
+<form [formGroup]="inseetProject">
+    <table>
+        <mat-card class="matCard">
+            <mat-card-content>
+                <tr>
+                    <th nowrap="nowrap">活動型態：</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <mat-select formControlName="busType">
+                                <mat-option *ngFor="let busType of busTypeCode" [value]="busType.value">
+                                    {{busType.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <th nowrap="nowrap">專案代號：</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <input matInput #inputstate class="form-control" formControlName="prjCode">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </mat-card-content>
+        </mat-card>
+    </table>
+</form>

@@ -1,0 +1,139 @@
+table {
+	width: 1000px;
+	border-collapse: collapse;
+	text-align: left;
+	margin: 10px 5px 5px 10px;
+	cursor: default;
+	border: 1px solid #ccc;
+	margin-top:20px;
+	box-shadow: 0px 0px 10px rgba(0,255,255,0.75);
+	border: 1px solid rgba(127,255,255,0.75);
+	-webkit-box-shadow: 0px 0px 8px rgba(0,255,255,0.75);
+	-moz-box-shadow: 0px 0px 8px rgba(0,255,255,0.75);
+	box-shadow: 0px 0px 8px rgba(0,255,255,0.75);
+}
+
+.form1 th, td {
+	border: 1px solid #ededed;
+}
+
+.tbTitle th {
+	font-weight: 300;
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+	background-color: rgba(0,93,93,0.8);
+	color: #efefef;
+	text-shadow: 0px 0px 20px rgba(127,255,255,1);
+}
+
+.tbContext {
+	background-color: #FFE4CA !important;
+	text-align: center;
+}
+
+.hide{
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+  height: 100%;
+  line-height: normal;
+}
+
+.nohide{
+  color:#24C875;
+  background:white;
+  border-color:#24C875;
+  border-radius:5px;
+  height: 100%;
+  line-height: normal;
+}
+
+.watermark {
+  position: absolute;
+  color: lightgray;
+  opacity: 0.7;
+  font-size: 100px;
+  width: 100%;
+  top: 8%;
+  text-align: center;
+  z-index: 2;
+  transform:rotate(45deg);
+  padding-top: 1000px;
+}
+::ng-deep.ant-tabs-tab button:hover {
+  background-color: none;
+  color: none;
+  border-color: none;
+}
+:host::ng-deep .ant-tabs > .ant-tabs-nav,
+.ant-tabs > div > .ant-tabs-nav {
+  background: #efefef;
+  overflow: hidden;
+  padding: 0px 5px;
+}
+.red
+{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+  color:red;
+}
+.black
+{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+  color:black;
+  background-color:#FF0000;
+}
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+}
+nz-breadcrumb {
+  margin: 16px;
+}
+.oncloick{
+  color: blueviolet!important;
+}
+
+.unclock{
+  color: cornflowerblue!important;
+}
+.detail-name {
+  width: 100%;
+  /* display: flex; */
+  justify-content: center;
+  font-weight: bold;
+  border-bottom: solid 3px black;
+  margin-bottom: 10px;
+  color: black;
+}
+.detail-value {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+.black-line {
+  margin: 10px 1%;
+  display: flex;
+  border: solid 1px #ebebeb;
+  width: 98%;
+}
+.card-detail {
+  font-size: 20px;
+  padding: 10px 0;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  /* color: #ababab; */
+}
+

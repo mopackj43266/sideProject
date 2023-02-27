@@ -1,0 +1,39 @@
+<br>
+<div class="line_bank_bankground_color">
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzData]="newData" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史資料"
+      (nzQueryParams)="onQueryParamsChange($event)">
+      <thead id="matTable">
+        <tr>
+          <th class="table-header">案件編號</th>
+          <th class="table-header">客戶ID</th>
+          <th class="table-header">系統流程 </th>
+          <th class="table-header">審核結果</th>
+          <th class="table-header">覆審人員</th>
+          <th class="table-header">覆審主管</th>
+          <th class="table-header">核決時間</th>
+          <th class="table-header">結束時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData">
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzLeft nzType="link"
+              (click)="detail(data.APPLNO_OLD, data.NATIONAL_ID, data.CUST_ID)">
+              {{ data.APPLNO_OLD }}
+            </button>
+          </td>
+          <td class="table-data">{{ data.CUST_ID }}</td>
+          <td class="table-data">{{ data.RVPRCSCD }}</td>
+          <td class="table-data">{{ data.CREDIT_RESULT }}</td>
+          <td class="table-data">{{ data.L4EMPNO }}</td>
+          <td class="table-data">{{ data.L3EMPNO }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CREDIT_TIME| date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td class="table-data" style="text-align: right;">{{ data.CREDIT_END_TIME| date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

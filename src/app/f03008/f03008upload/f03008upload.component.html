@@ -1,0 +1,37 @@
+
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">貸後管理異常名單維護-上傳Excel</div>
+  <div>
+    <form class="mat-dialog-content  nz-row" [formGroup]="uploadForm" class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm" >
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title" style="margin:0px">上傳檔案</span>
+
+            <br>
+              <input class='file_input' type="file" (change)="onChange($event)" >
+              <fa-icon class="icon_size" [icon]="['fas', 'folder-open']"></fa-icon>
+              <span style="margin-left: -110px;">{{msg}}</span>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title" style="margin:0px">上傳異常訊息</span>
+            <textarea matInput class="input-textarea"
+            formControlName="ERROR_MESSAGE" readonly></textarea>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24">
+        <div class="button-group" style="text-align:center">
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="confirmAdd()" [disabled]="!formControl.valid" style="margin:0px 5px"
+            >儲存</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1" style="margin:0px 5px">關閉</button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+

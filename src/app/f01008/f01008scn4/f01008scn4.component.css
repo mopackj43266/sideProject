@@ -1,0 +1,15 @@
+.line_bank_bankground_color_test {
+width:100%;
+background-color: #fff7e9;
+  min-height:100vh;
+  }
+
+
+  .oncloick{
+    color: blueviolet!important;
+  }
+  
+  .unclock{
+    color: cornflowerblue!important;
+  }
+  

@@ -1,0 +1,363 @@
+<div class="line_bank_card_no_padding" style="padding:20px">
+    <div class="card-title" style="margin-left: 4%;">案件資料</div>
+     <div class="card-info" style="margin: 0 4% 30px;padding:10px">
+        <div style="display: flex">
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">姓名</span>
+                <span class="detail-value">{{cuCname}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto">
+                <span class="detail-name">客戶ID</span>
+                <span class="detail-value">{{custId}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">身分證字號</span>
+                <span class="detail-value">{{nationalId}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">案件編號</span>
+                <span class="detail-value">{{applno}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">申請產品</span>
+                <span class="detail-value">{{prodName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-title" style="margin-left: 4%;">Step4</div>
+     <div class="card-info" style="margin: 0 4% 30px;padding:10px">
+        <div style="display: flex">
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">核准方案(客戶選的)</span>
+                <span class="detail-value">{{strgyChange(applicationDebtStrgy)}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto">
+                <span class="detail-name">轉貸現有貸款可貸額度</span>
+                <span class="detail-value">{{aprvDebtAmt}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">新貸可貸額度</span>
+                <span class="detail-value">{{aprvInstCashAmt}}</span>
+            </div>
+             
+        </div>
+        <span class="black-line"></span>
+        <div style="display: flex">
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">轉貸勾選額度(客戶選取)</span>
+                <span class="detail-value" *ngIf="applicationDebtStrgy=='03'">{{ settleAmt ? f06004Service.toCurrency(settleAmt.toString()) : ""}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto">
+                <span class="detail-name">新貸撥款申請撥款金額</span>
+                <span class="detail-value">{{ajstlnamt}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">貸款期限(客戶選取)</span>
+                <span class="detail-value">{{period}}</span>
+            </div>
+          
+        </div>
+        <span class="black-line"></span>
+        <div style="display: flex">
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">新貸撥款銀行</span>
+                <span class="detail-value" [hidden]="ajstlnamt=='0'">{{bankName}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto">
+                <span class="detail-name">新貸撥款分行</span>
+                <span class="detail-value" [hidden]="ajstlnamt=='0'">{{branchName}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">新貸撥款帳號</span>
+                <span class="detail-value" [hidden]="ajstlnamt=='0'">{{dsbsacctnbr}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">還款銀行</span>
+                <span class="detail-value">{{rpaybankName}}</span>
+            </div>
+            <div class="card-detail black " style="width: 15%;margin:0 auto" >
+                <span class="detail-name">還款帳號</span>
+                <span class="detail-value">{{rpayacctnbr}}</span>
+            </div>
+        </div>
+        <span class="black-line"></span>
+
+
+        <div style="display: flex">
+            <div class="card-detail black" style="width: 20%;margin:0 auto;text-align: center;">
+                <span class="detail-name">利率異動通知方式</span>
+                <span class="detail-value" style="display:list-item;color:black"
+                    [hidden]="oanotiyn!='Y'">{{checkOptionsForStep3[0].label}}</span>
+                <span class="detail-value" style="display:list-item;color:black"
+                    [hidden]="emalnotiyn!='Y'">{{checkOptionsForStep3[1].label}}</span>
+                <span class="detail-value" style="display:list-item;color:black"
+                    [hidden]="pushnotiyn!='Y'">{{checkOptionsForStep3[2].label}}</span>
+            </div>
+          
+        </div> 
+        <nz-divider nzText="同一關係人"></nz-divider>
+        <div >
+            <div nz-row style="padding:10px" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }" *ngFor="let data of rcaData">
+                <div nz-col nzFlex="1">
+                    <span class="detail-name">關係</span>
+                    <span class="detail-value">{{relationChange(data.relationType)}}</span>
+    
+                </div>
+                <div nz-col nzFlex="1">
+                    <span class="detail-name">姓名</span>
+                    <span class="detail-value" *ngIf="data.relationType!='01'">{{data.relationType!='08' && data.relationType!='09'?
+                        data.relationName:''}}</span>
+    
+                </div>
+                <div nz-col nzFlex="1">
+                    <span class="detail-name">身分證字號</span>
+                    <span class="detail-value" *ngIf="data.relationType!='01'">{{data.relationType!='08'&& data.relationType!='09'?
+                        data.rcanationalId:''}}</span>
+    
+                </div>
+                <div nz-col nzFlex="1">
+                    <span class="detail-name">公司名稱</span>
+                    <span class="detail-value">{{data.relationType=='08'||data.relationType=='09'?
+                        data.relationName:''}}</span>
+    
+                </div>
+                <div nz-col nzFlex="1">
+                    <span class="detail-name">公司統一編號</span>
+                    <span class="detail-value">{{data.relationType=='08'||data.relationType=='09'? data.taxId:''}}</span>
+    
+                </div>
+                <div nz-col nzFlex="1">
+                    <span class="detail-name">公司內職稱</span>
+                    <span class="detail-value">{{data.relationType=='08'||data.relationType=='09'? data.jobTitle:''}}</span>
+                </div>
+                <div nz-col nzFlex="1">
+                    <span class="detail-name">公司備註</span>
+                    <span class="detail-value">{{data.relationType=='08'||data.relationType=='09'?
+                        data.remarkContent:''}}</span>
+    
+                </div>
+                <span *ngIf="rcaData.length>1" class="black-line"></span>
+            </div>
+        </div>
+    </div>
+    <div class="card-title" style="margin-left: 4%;">Step5</div>
+     <div class="card-info" style="margin: 0 4% 30px;padding:10px">
+        <div style="display: flex">
+            <div class="card-detail black " style="width: 25%;margin:0 auto" >
+                <span class="detail-name">結清日期</span>
+                <span class="detail-value"  *ngIf="applicationDebtStrgy=='03'">{{newSettleDate}}</span>
+            </div>
+            
+           
+        </div>
+      
+            <ng-container >
+                <div class="card-title" style="background-color: white;">代償明細</div>
+                <div class="card-info" style="margin: 0 0 30px">
+        
+                    <nz-table #goUp nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzSimple]="true"
+                        [nzData]="debtData" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
+                        [nzPageIndex]="pageIndex" [nzScroll]="{ x: '1000px', y: '400px' }">
+                        <thead>
+                            <tr>
+                                <th>產品別</th>
+                                <th>銀行名稱</th>
+                                <th>結清金額</th>
+                                <th>匯款帳號</th>
+                                <th>結清卡號</th>
+                                <th>匯款戶名</th>
+                                <th nzWidth="120px">匯款分行別</th>
+                                <th>匯款附言</th>
+                                <th>備註</th>
+        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of debtData">
+                                <td>{{ data.MERG_DEBT_PROD }}</td>
+                                <td>{{ data.BANK_CODE }}&nbsp;{{ data.BANK_NAME }}</td>
+                                <td>{{ data.SETTLE_AMT ? f06004Service.toCurrency(data.SETTLE_AMT.toString()) : "" }}</td>
+                                <td>{{ data.ACCOUNT_NO }}</td>
+                                <td>{{ data.SETTLE_CARD_NO }}</td>
+                                <td>{{ data.ACCOUNT_NM }}</td>
+                                <td nzWidth="120px">{{ data.BRANCH_CD + '-' + data.BRANCH_NM }}</td>
+                                <td>{{ data.TRANS_MEMO }}</td>
+                                <td>{{ data.REMARK }}</td>
+        
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </ng-container>
+    </div>
+    <!-- <div class="card-title" style="margin-left: 4%;">申請資訊</div>
+    <div class="card-info" style="margin: 0 4% 30px;padding:10px">
+        <div style="display: flex">
+            <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">姓名</span>
+                <span class="detail-value">{{cuCname}}</span>
+            </div>
+            <div class="card-detail black " style="width: 20%;margin:0 auto">
+                <span class="detail-name">客戶ID</span>
+                <span class="detail-value">{{custId}}</span>
+            </div>
+            <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">身分證</span>
+                <span class="detail-value">{{nationalId}}</span>
+            </div>
+        </div>
+       
+        <div  style="padding:10px;display: flex"  >
+            <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">案件編號</span>
+                <span class="detail-value">{{applno}}</span>
+            </div>
+            <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">撥款銀行</span>
+                <span class="detail-value"  [hidden]="ajstlnamt=='0'">{{bankName}}</span>
+            </div>
+            <div class="card-detail black " style="width: 20%;margin:0 auto"  >
+                <span class="detail-name">撥款銀行分行</span>
+                <span class="detail-value"  [hidden]="ajstlnamt=='0'">{{branchName}}</span>
+            </div>
+            <div class="card-detail black " style="width: 20%;margin:0 auto"  >
+                <span class="detail-name">撥款帳號</span>
+                <span class="detail-value"  [hidden]="ajstlnamt=='0'">{{dsbsacctnbr}}</span>
+            </div>
+
+
+        </div>
+        <div style="padding:10px;display: flex" >
+              <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">申請產品</span>
+                <span class="detail-value">{{prodName}}</span>
+            </div>
+            <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">BT核准額度</span>
+                <span class="detail-value" *ngIf="applicationDebtStrgy=='03'">${{aprvDebtAmt}}</span>
+            </div>
+              <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">還款銀行</span>
+                <span class="detail-value">{{rpaybankName}}</span>
+            </div>
+              <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">還款帳號</span>
+                <span class="detail-value">{{rpayacctnbr}}</span>
+            </div>
+           
+        </div>
+        <div style="padding:10px;display: flex" >
+             <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">現金撥款核准額度</span>
+                <span class="detail-value">${{aprvInstCashAmt}}</span>
+            </div>
+             <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">現金撥款申請額度</span>
+                <span class="detail-value">${{ajstlnamt}}</span>
+            </div>
+             <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">期數</span>
+                <span class="detail-value">{{period}}</span>
+            </div>
+             <div class="card-detail black " style="width: 20%;margin:0 auto" >
+                <span class="detail-name">每月還款金額</span>
+                <span class="detail-value">${{monthLowAmt}}</span>
+            </div>
+        </div>
+        <span class="black-line"></span>
+
+
+        <div style="display: flex">
+            <div class="card-detail black " style="width: 20%;margin:0 auto">
+                <span class="detail-name">結清日</span>
+                <span class="detail-value"  *ngIf="applicationDebtStrgy=='03'">{{newSettleDate}}</span>
+            </div>
+            <div class="card-detail black" style="width: 20%;margin:0 auto;text-align: center;">
+                <span class="detail-name">利率異動通知方式</span>
+                <span class="detail-value" style="display:list-item;color:black"
+                    [hidden]="oanotiyn!='Y'">{{checkOptionsForStep3[0].label}}</span>
+                <span class="detail-value" style="display:list-item;color:black"
+                    [hidden]="emalnotiyn!='Y'">{{checkOptionsForStep3[1].label}}</span>
+                <span class="detail-value" style="display:list-item;color:black"
+                    [hidden]="pushnotiyn!='Y'">{{checkOptionsForStep3[2].label}}</span>
+            </div>
+        </div>
+
+
+    </div> -->
+
+    <br>
+   
+    <br>
+
+   
+
+
+
+    <!-- <div class="srp-title">
+        <span class="srp-title-detail card-title" style="justify-content: flex-start;">同一關係人</span>
+        <span class="srp-title-detail"
+            style="display: flex;justify-content: flex-end;padding-bottom: 12px;width: 130px;">
+
+        </span>
+    </div>
+    <div class="srp-body">
+        <div class="srp-info-detail">
+            <div class="srp-function">
+                <div nz-row [nzGutter]="16">
+                    <div nz-col nzFlex="1">
+                        <div class="srp-input" style="margin-right: 15px;">
+                            <span>關係</span>
+                            <input [ngModel]="relationType" maxlength="200">
+                        </div>
+                    </div>
+                    <div nz-col nzFlex="1">
+                        <div class="srp-input width130">
+                            <span>姓名</span>
+                            <input [ngModel]="relationName" maxlength="200">
+                        </div>
+                    </div>
+                    <div nz-col nzFlex="1">
+                        <div class="srp-input width130">
+                            <span>身分證字號</span>
+                            <input [ngModel]="rcanationalId" maxlength="10" minlength="10">
+                        </div>
+                    </div>
+                    <div nz-col nzFlex="1">
+                        <div class="srp-input width130">
+                            <span>公司名稱</span>
+                            <input [ngModel]="rcanationalId" maxlength="200">
+                        </div>
+                    </div>
+                    <div nz-col nzFlex="1">
+                        <div class="srp-input width130">
+                            <span>公司統一編號</span>
+                            <input [ngModel]="taxId" maxlength="8" minlength="8">
+                        </div>
+                    </div>
+                    <div nz-col nzFlex="1">
+                        <div class="srp-input width130">
+                            <span>公司內職稱</span>
+                            <input [ngModel]="jobTitle" maxlength="200">
+                        </div>
+                    </div>
+                    <div nz-col nzFlex="1">
+                        <div class="srp-input width130">
+                            <span>公司備註</span>
+                            <input [ngModel]="remarkContent" maxlength="2000">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div> -->
+
+</div>

@@ -1,0 +1,52 @@
+<div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title" style="font-weight:bold;">基本資料-公司名稱正規化</div>
+    <div style="padding-bottom:20px">
+
+        <div class="container" >
+            <div nz-row>
+                <div nz-col nzSpan="20">
+                    <div class="form" style="padding:25px;">
+                        <span class="form-title-actions">公司名稱</span>
+                        <div><input style="width: 100%;outline: none;border-radius: 5px;" matInput #input
+                                class="form-control" [(ngModel)]="cuCpNameCa" placeholder="請輸入公司名稱" name="cuCpName"
+                                maxlength="20" required>
+                            <!-- <mat-error *ngIf="formControl.invalid  && (cuCpName=='' || cuCpName== null) ">
+                                {{getErrorMessage()}}</mat-error> -->
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="1">
+
+                </div>
+                <div nz-col nzSpan="3">
+                    <div class="form" style="padding-top: 45px;">
+                        <button nz-button [nzSize]="'small'" nzType="primary" (click)="search()"
+                            style="margin:0px 5px;">查詢</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line_bank_card_no_padding">
+            <nz-table nzShowSizeChanger [nzLoading]="loading" [nzData]="companyData" [nzFrontPagination]="false" [nzSimple]="true"
+                nzSize="small">
+                <thead>
+                    <tr>
+                        <th nzWidth="50px" class="table-header"></th>
+                        <th nzWidth="230px" class="table-header">公司名稱</th>
+                        <th nzWidth="100px" class="table-header">公司行號</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of companyData; let i = index;">
+                        <td class="table-data" style="text-align: center;">
+                            <button nz-button [nzSize]="'small'" nzType="primary" style="margin:0px 5px"
+                                (click)="save(data.company,data.tax_id_number )">新增</button>
+                        </td>
+                        <td class="table-data">{{ data.company }}</td>
+                        <td class="table-data">{{ data.tax_id_number }}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</div>

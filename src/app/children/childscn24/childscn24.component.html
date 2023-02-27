@@ -1,0 +1,158 @@
+<app-block *ngIf="block"></app-block>
+<div class="line_bank_card_no_padding" style="min-height:140px;">
+  <div class="line_bank_form_header_title">執行退件作業</div>
+
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <!-- 授信退件 -->
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;" *ngIf="stepName=='APPLCreditL2'">
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="20">
+          <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30" rows="10"
+            maxlength="480" required></textarea>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+        </div>
+      </div>
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="4"> <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="confirm()">確定</button></div>
+        <div nz-col nzSpan="4"><button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()"
+            tabindex="-1">離開</button></div>
+        <div nz-col nzSpan="4"></div>
+      </div>
+      <br>
+    </div>
+
+    <!-- 授信覆核退件 -->
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;" *ngIf="stepName=='APPLCreditL1'">
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="20">
+          <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30" rows="10"
+            maxlength="480" required></textarea>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+        </div>
+      </div>
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="4"><button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="L1sendbackL3()">退回徵信案件</button></div>
+        <div nz-col nzSpan="4"><button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="L1sendbackL2()">退回授信案件</button></div>
+        <div nz-col nzSpan="4"></div>
+      </div>
+      <br>
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()" tabindex="-1">離開</button>
+      <br>
+      <br>
+    </div>
+
+    <!-- 主管退件 -->
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;" *ngIf="stepName=='APPLCreditL0'">
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="20">
+          <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30" rows="10"
+            maxlength="480" required></textarea>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+        </div>
+      </div>
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="4"> <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="L0sendbackL3()">退回徵信案件</button></div>
+        <div nz-col nzSpan="4"> <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="L0sendbackL2()">退回授信案件</button></div>
+        <div nz-col nzSpan="4"></div>
+      </div>
+      <br>
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()" tabindex="-1">離開</button>
+    </div>
+
+    <!-- 總經理&處長退件 -->
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;"
+      *ngIf="stepName=='xxtS1' || stepName=='xxtS2'">
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="20">
+          <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30" rows="10"
+            maxlength="480" required></textarea>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="4"><button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="sendbackS1S2('L3')">退回徵信案件</button></div>
+        <div nz-col nzSpan="4"><button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="sendbackS1S2('L2')">退回授信案件</button></div>
+            <div nz-col nzSpan="4" *ngIf="stepName=='xxtS2'"><button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+              (click)="sendbackS1S2('last')">退回上一關</button></div>
+        <div nz-col nzSpan="4"></div>
+      </div>
+      <br>
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()" tabindex="-1">離開</button>
+    </div>
+
+    <!-- 無擔放款部主管&產品處處長退件 -->
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;"
+      *ngIf="stepName=='xxtS4' || stepName=='xxtS3'">
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="20">
+          <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30" rows="10"
+            maxlength="480" required></textarea>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="4"> <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="sendBackS3S4('L2')">退回授信案件</button></div>
+        <div nz-col nzSpan="4"> <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="sendBackS3S4('last')">退回上一關</button></div>
+        <div nz-col nzSpan="4"></div>
+      </div>
+      <br>
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()" tabindex="-1">離開</button>
+    </div>
+
+    <!-- 合約複審退件 -->
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;" *ngIf="level=='D1'">
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="20">
+          <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30" rows="10"
+            maxlength="480" required></textarea>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+        </div>
+      </div>
+      <br>
+      <div nz-row nzJustify="space-around">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="4"> <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+            (click)="contract()">確定</button></div>
+        <div nz-col nzSpan="4"><button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()"
+            tabindex="-1">離開</button></div>
+        <div nz-col nzSpan="4"></div>
+      </div>
+      <br>
+    </div>
+
+  </form>
+
+
+
+
+
+</div>

@@ -1,0 +1,28 @@
+<br>
+<div class="line_bank_bankground_color">
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="materialSource" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="貸後異常名單比對">
+      <thead>
+        <tr>
+          <th class="table-header" [width]="100">行動電話</th>
+          <th class="table-header" [width]="120">市內電話</th>
+          <th class="table-header" [width]="300">地址</th>
+          <th class="table-header">數據源說明1</th>
+          <th class="table-header">數據源說明2</th>
+          <th class="table-header">數據源說明3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of materialSource">
+          <td class="table-data">{{data.cuMTel}}</td>
+          <td class="table-data">{{data.cuHTel}}</td>
+          <td class="table-data">{{data.cuHAddr}}</td>
+          <td class="table-data">{{data.sourceMemo1}}</td>
+          <td class="table-data">{{data.sourceMemo2}}</td>
+          <td class="table-data">{{data.sourceMemo3}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

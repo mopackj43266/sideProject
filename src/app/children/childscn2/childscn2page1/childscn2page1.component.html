@@ -1,0 +1,33 @@
+<br>
+<!-- 最外層卡片包覆 -->
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newData" [nzSimple]="true"
+  [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+  [nzScroll]="{ x: '1300px', y: '240px' }"   (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="資料異動歷程">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="80px">No</th>
+        <th class="table-header" nzWidth="120px">欄位名稱</th>
+        <th class="table-header" nzWidth="180px">原欄位值</th>
+        <th class="table-header" nzWidth="180px">新欄位值</th>
+        <th class="table-header"  nzWidth="100px">異動程式名稱</th>
+        <th class="table-header"  nzWidth="120px" >異動日期</th>
+        <th class="table-header"  nzWidth="120px">異動員工編號</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of newData;let i=index">
+        <td style="text-align: center;" nzWidth="80px">{{i+1}}</td>
+
+        <td class="table-data" nzWidth="120px"> {{ data.columnName != 'null'?  data.columnName: " " }}</td>
+        <td class="table-data" nzWidth="180px">{{ data.originalValue != 'null'?  data.originalValue: " "}}</td>
+        <td class="table-data" nzWidth="180px">{{ data.currentValue!= 'null'?  data.currentValue: " " }}</td>
+        <td class="table-data" nzWidth="120px">{{ data.transApName }}</td>
+        <td class="table-data" nzWidth="100px">{{ data.transDate| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+        <td class="table-data" nzWidth="120px">{{ data.empNoAndName }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+

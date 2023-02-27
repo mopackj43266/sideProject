@@ -1,0 +1,27 @@
+<div class="line_bank_bankground_color">
+  <div class="main-card" >
+    <nz-steps [nzCurrent]="this.f06002Service.current" [nzProgressDot]="progressTemplate">
+      <nz-step nzTitle="2700" nzDescription="方案選擇"></nz-step>
+      <nz-step nzTitle="2900" nzDescription="儲存債整明細"></nz-step>
+      <nz-step nzTitle="2910" nzDescription="填寫申請書"></nz-step>
+      <nz-step nzTitle="2920" nzDescription="Outbound填寫債整匯款明細"></nz-step>
+      <nz-step nzTitle="2930" nzDescription="分期型等待身分驗證"></nz-step>
+      <nz-step nzTitle="2940" nzDescription="分期型等待簽約對保"></nz-step>
+    </nz-steps>
+    <ng-template #progressTemplate let-dot let-status="status" let-index="index">
+      <span nz-popover style="margin-left: -100%;">
+        <ng-template [ngTemplateOutlet]="dot"></ng-template>
+      </span>
+    </ng-template>
+    <app-block *ngIf="block"></app-block>
+    <div class="steps-action action-btn">
+      <button nz-button nzType="primary" (click)="pre()" *ngIf="this.f06002Service.current > 0" [hidden]="hidden">
+        <span>重選方案</span>
+      </button>&nbsp;
+      <button nz-button nzType="primary" (click)="next()" *ngIf="this.f06002Service.current < 3">
+        <span>{{step}}</span>
+      </button>
+    </div>
+    <ng-container *ngComponentOutlet="component"></ng-container>
+  </div>
+</div>

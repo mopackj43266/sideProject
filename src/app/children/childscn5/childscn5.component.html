@@ -1,0 +1,936 @@
+<div [ngClass]="getStepName() == 'APPLFraud' ? 'all-disable' : ''">
+  <div class="line_bank_bankground_color">
+    <br>
+    <form [formGroup]="customerInfoForm" style="width:95%;margin:10px auto" #formControl="ngForm">
+      <div class="line_bank_card_no_padding_child">
+        <!-- 基本資料 -->
+        <div class="line_bank_form_header_title">基本資料</div>
+        <div nz-row style="padding:5px">
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">中文姓名</span>
+              <input style="display: block;" formControlName="CUCNAME" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">身分證字號</span>
+              <input style="display: block;" formControlName="NATIONAL_ID" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">性別</span>
+              <input style="display: block;" formControlName="CU_SEX" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">生日</span>
+              <input style="display: block;" formControlName="CU_BIRTHDAY" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">婚姻</span>
+              <input style="display: block;" formControlName="CU_MARRIED_STATUS" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">學歷</span>
+              <input style="display: block;" formControlName="CU_EDUCATION" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">居住狀況</span>
+              <input style="display: block;" formControlName="LIVING_STATUS" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">居住年數</span>
+              <input style="display: block;" formControlName="RESIDENCE_YEAR" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">email</span>
+              <input style="display: block;" formControlName="CU_EMAIL" readonly disabled>
+            </div>
+          </div>
+        </div>
+        <!-- 聯絡資訊 -->
+        <div class="line_bank_form_header_title_middle">聯絡資訊</div>
+        <div nz-row style="padding:5px">
+          <div nz-col nzSpan="2">
+            <div style="padding:3px">
+              <span class="form-title">住宅郵遞區號</span>
+              <input style="display: block;" formControlName="CU_H_ADDR_CODE" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:3px">
+              <span class="form-title">住宅地址1</span>
+              <input style="display: block;" formControlName="CU_H_ADDR1" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:3px">
+              <span class="form-title">住宅地址2</span>
+              <input style="display: block;" formControlName="CU_H_ADDR2" readonly disabled>
+            </div>
+          </div>
+
+        </div>
+        <div nz-row style="padding:5px">
+          <div nz-col nzSpan="4">
+            <div style="padding:3px">
+              <span class="form-title">行動電話</span>
+              <input style="display: block;" formControlName="CU_M_TEL" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="2">
+            <div style="padding:3px">
+              <span class="form-title">住宅電話區碼</span>
+              <input style="display: block;" formControlName="CU_H_TEL_INO" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
+            <div style="padding:3px">
+              <span class="form-title">住宅電話</span>
+              <input style="display: block;" formControlName="CU_H_TEL" readonly disabled>
+            </div>
+          </div>
+
+        </div>
+        <div nz-row style="padding:5px">
+          <div nz-col nzSpan="5">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">其他-手機(非本行主要)</span>
+              <input style="display: block;" [(ngModel)]="cuMTelOther" placeholder="輸入手機號碼" name="cuMTelOther"
+                maxlength="20" formControlName="CU_M_TEL_OTHER">
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">其他-手機(非本行主要)</span>
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther"
+                formControlName="CU_M_TEL_OTHER" disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="5">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">其他-聯絡資訊</span>
+              <input style="display: block;" placeholder="輸入聯絡資訊" [(ngModel)]="contactOther" name="contactOther"
+                maxlength="20" formControlName="CONTACT_OTHER">
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">其他-聯絡資訊</span>
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther"
+                formControlName="CONTACT_OTHER" disabled>
+            </div>
+          </div>
+        </div>
+        <!-- 任職資訊 -->
+        <div class="line_bank_form_header_title_middle">任職資訊</div>
+        <div nz-row style="padding:5px 5px 0px 5px">
+          <div nz-col nzSpan="4">
+            <div style="padding:3px">
+              <span class="form-title">公司名稱</span>
+              <input style="display: block;" formControlName="CU_CP_NAME" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">徵信確認公司名稱</span>
+              <input style="display: block;" placeholder="輸入公司名稱" formControlName="CU_CP_NAME_CA" name="CuCpNameCa"
+                maxlength="45" disabled>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">徵信確認公司名稱</span>
+              <input style="display: block;" formControlName="CU_CP_NAME_CA" name="CuCpNameCa" disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="1" style="text-align: center;padding:3px" *ngIf="yn==true && getSearch()=='N'">
+            <br>
+            <button nz-button [nzSize]="'small'" nzType="primary" (click)="chooseCompanyNumber()"
+              [disabled]=" pag == 2? false:true ">正規化</button>
+            <!-- <a class="chooseCompany" type="button" [disabled]="pag == 2? false:true" nzsize="small" (click)="chooseCompanyNumber()">正規化</a> -->
+          </div>
+          <div nz-col nzSpan="1" style="text-align: center;padding:3px" *ngIf="yn==false || getSearch()!='N'">
+            <br>
+            <button nz-button [nzSize]="'small'" nzType="primary" (click)="chooseCompanyNumber()"
+              [disabled]=" pag == 2? false:true ">正規化</button>
+          </div>
+          <div nz-col nzSpan="4">
+            <div style="padding:3px">
+              <span class="form-title">公司統編</span>
+              <input style="display: block;" formControlName="CU_CP_NO" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="5">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">徵信確認公司統編</span>
+              <input style="display: block;" placeholder="輸入公司名稱" formControlName="CU_CP_NO_CA" name="CuCpNoCa"
+                maxlength="45" disabled>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">徵信確認公司統編</span>
+              <input style="display: block;" formControlName="CU_CP_NO_CA" name="CuCpNoCa" disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">現職年資</span>
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear"
+                formControlName="CURR_JOB_YEAR" disabled>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">現職年資</span>
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" disabled
+                formControlName="CURR_JOB_YEAR">
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">目前工作年資</span>
+              <mat-select [(ngModel)]="hiredDateValue" name="hiredDate" formControlName="HIRED_DATE"
+                style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#ffffff;">
+                <mat-option *ngFor="let code of hiredDateCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">目前工作年資</span>
+              <mat-select [(ngModel)]="hiredDateValue" name="hiredDate" formControlName="HIRED_DATE" readonly disabled
+                style="  width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;">
+                <mat-option *ngFor="let code of hiredDateCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <!-- <div nz-col nzSpan="3">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">當前工作在職時長(月數)</span>
+              <input style="display: block;" [(ngModel)]="currJobMonth" name="currJobMonth" maxlength="2"
+                formControlName="CURR_JOB_MONTH" oninput="value=value.replace(/[^\d]/g,'')">
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">當前工作在職時長(月數)</span>
+              <input style="display: block;" [(ngModel)]="currJobMonth" name="currJobMonth" readonly disabled
+              formControlName="CURR_JOB_MONTH">
+
+            </div>
+          </div> -->
+
+        </div>
+
+
+        <div nz-row style="padding:5px 5px 0px 5px">
+          <div nz-col nzSpan="2">
+            <div style="padding:3px">
+              <span class="form-title">公司郵遞區號</span>
+              <input style="display: block;" formControlName="CU_CP_ADDR_CODE" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:3px">
+              <span class="form-title">公司地址1</span>
+              <input style="display: block;" formControlName="CU_CP_ADDR1" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:3px">
+              <span class="form-title">公司地址2</span>
+              <input style="display: block;" formControlName="CU_CP_ADDR2" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="2">
+            <div style="padding:3px">
+              <span class="form-title">公司電話區碼</span>
+              <input style="display: block;" formControlName="CU_CP_TEL_INO" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
+            <div style="padding:3px">
+              <span class="form-title">公司電話</span>
+              <input style="display: block;" formControlName="CU_CP_TEL" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">其他-公司電話分機</span>
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" maxlength="20"
+                formControlName="CU_CP_TEL_EXT">
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">其他-公司電話分機</span>
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT"
+                disabled>
+            </div>
+          </div>
+
+        </div>
+        <div nz-row style="padding:5px 5px 0px 5px">
+          <div nz-col nzSpan="2">
+            <div style="padding:3px">
+              <span class="form-title">行職業代碼</span>
+              <input style="display: block;" formControlName="INDU_CODE" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="12">
+            <div style="padding:3px">
+              <span class="form-title">行業別Level1&Level2(客戶填寫)</span>
+              <input style="display: block;" formControlName="CU_TYPE" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:3px">
+              <span class="form-title">職稱代碼(客戶填寫)</span>
+              <input style="display: block;" formControlName="JOB_CODE" readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="4">
+            <div style="padding:3px">
+              <span class="form-title">年收入</span>
+              <input style="display: block;" formControlName="ANNUAL_INCOME" readonly disabled>
+            </div>
+          </div>
+
+        </div>
+        <div nz-row style="padding:5px" *ngIf="pag!='07'">
+          <div nz-col nzFlex="1">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">徵信認列行業Level1</span>
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca"
+                required formControlName="CU_LEVEL1_CA">
+                <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (cuLevel1CaValue=='' || cuLevel1CaValue== null)">
+                {{getErrorMessage()}}</mat-error>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">徵信認列行業Level1</span>
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca"
+                disabled formControlName="CU_LEVEL1_CA"
+                style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;">
+                <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">徵信認列行業Level2</span>
+              <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
+                required id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
+                <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (cuLevel2CaValue=='' || cuLevel2CaValue== null)">
+                {{getErrorMessage()}}</mat-error>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">徵信認列行業Level2</span>
+              <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
+                id="cuLevel2Ca" formControlName="CU_LEVEL2_CA" disabled
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+                <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">徵信認列職業碼</span>
+              <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa"
+                required
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
+                <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (jobCodeCaValue=='' || jobCodeCaValue== null)">
+                {{getErrorMessage()}}</mat-error>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">徵信認列職業碼</span>
+              <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa"
+                disabled
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+                <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">公司是否為白名單</span>
+              <mat-select [(ngModel)]="companyWhitelistValue" name="companyWhitelist" required
+                formControlName="COMPANY_WHITELIST" id="companyWhitelist"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:rgba(255,255,255);color:white">
+                <mat-option *ngFor="let code of companyWhitelistCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (companyWhitelistValue=='' || companyWhitelistValue== null)">
+                {{getErrorMessage()}}</mat-error>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">公司是否為白名單</span>
+              <mat-select [(ngModel)]="companyWhitelistValue" name="companyWhitelist" disabled
+                formControlName="COMPANY_WHITELIST" id="companyWhitelist"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#E6E6E6;color:white">
+                <mat-option *ngFor="let code of companyWhitelistCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <div class="line_bank_form_header_title" style="border-radius: 0px;">前職資訊</div>
+        <div nz-row style="padding:5px" *ngIf="yn==true && getSearch()=='N'">
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作名稱</span>
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn"
+                maxlength="200" placeholder="輸入公司名稱">
+              <!-- <mat-error *ngIf="formControl.invalid && (preCompNm=='' || preCompNm== null)">{{getErrorMessage()}}</mat-error> -->
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作公司職稱</span>
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle"
+                name="preJobTitle" maxlength="200" placeholder="輸入工作公司職稱">
+              <!-- <mat-error *ngIf="formControl.invalid && (preJobTitle=='' || preJobTitle== null)">{{getErrorMessage()}}</mat-error> -->
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前職工作年資(客戶填寫)</span>
+              <mat-select [(ngModel)]="preJobYear" name="preJobYear" formControlName="PRE_JOB_YEAR"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white">
+                <mat-option *ngFor="let code of preJobYearCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+
+              </mat-select>
+              <!-- <mat-error *ngIf="formControl.invalid && (preJobYear=='' || preJobYear== null)">{{getErrorMessage()}}</mat-error> -->
+            </div>
+          </div>
+          <!-- <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作在職時長(月數)</span>
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" >
+            </div>
+          </div> -->
+          <!-- <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作在職時長(月數)</span>
+              <mat-select [(ngModel)]="preJobMonthValue" name="preJobMonthValue" formControlName="PRE_JOB_MONTH"
+                id="preJobMonth"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white">
+                <mat-option *ngFor="let code of prvJobMonthCode" [value]="code.value" >
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div> -->
+        </div>
+        <div nz-row style="padding:5px" *ngIf="yn==false || getSearch()!='N'">
+          <div nz-col nzSpan="8">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作名稱</span>
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn"
+                disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作公司職稱</span>
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle"
+                name="preJobTitle" disabled>
+            </div>
+          </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:3px">
+              <span class="form-title">前職工作年資(客戶填寫)</span>
+              <mat-select [(ngModel)]="preJobYear" name="preJobYear" disabled formControlName="PRE_JOB_YEAR"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#E6E6E6;color:white">
+                <mat-option *ngFor="let code of preJobYearCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+
+              </mat-select>
+              <!-- <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear"
+                disabled> -->
+            </div>
+          </div>
+          <!-- <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作在職時長(月數)</span>
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth"
+                name="preJobMonth" disabled>
+            </div>
+          </div> -->
+        </div>
+        <div class="line_bank_form_header_title_middle" style="margin-bottom:0px">貸款申請資訊</div>
+        <div nz-row style="padding:5px">
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">貸款金額</span>
+              <input style="display: block;" formControlName="APPLICATION_AMOUNT"  readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">貸款目的</span>
+              <input style="display: block;" formControlName="APPLICATION_TYPE_CODE"  readonly disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+          
+          </div>
+          <div nz-col nzFlex="1">
+          
+          </div>
+          
+        </div>
+        <div class="line_bank_form_header_title_middle" style="margin-bottom:0px">公司是否為白名單(系統比對)</div>
+        <nz-table nzShowSizeChanger nzSize="small" [nzData]="setmaterial" nzSize="small" [nzFrontPagination]="false"
+          [nzSimple]="true">
+          <thead>
+            <tr>
+
+              <th class="table-header" style="width:10%">公司統編</th>
+              <th class="table-header" style="width:10%">公司名稱</th>
+              <th class="table-header" style="width:10%">公司簡稱</th>
+              <th class="table-header" style="width:10%">分類1</th>
+              <th class="table-header" style="width:10%">分類2</th>
+              <th class="table-header" style="width:10%">分類3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of setmaterial;let i = index">
+              <td class="table-data">{{data.cuCpNo}}</td>
+              <td class="table-data">{{data.cuCpName}}</td>
+              <td class="table-data">{{data.cuCpSname}}</td>
+              <td class="table-data">{{data.cuCpType1}}</td>
+              <td class="table-data">{{data.cuCpType2}}</td>
+              <td class="table-data">{{data.cuCpType3}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <div class="line_bank_form_header_title_middle" style="margin:0px">聲明暨同意事項</div>
+        <nz-table nzShowSizeChanger nzSize="small" [nzData]="agreementsListList" nzSize="small" [nzFrontPagination]="false"
+          [nzSimple]="true">
+          <thead>
+            <tr>
+
+              <th class="table-header" style="width:5%">No</th>
+              <th class="table-header" style="width:10%">同意條款代碼</th>
+              <th class="table-header" style="width:40%">同意條款名稱</th>
+              <th class="table-header" style="width:5%">是否同意</th>
+              <th class="table-header" style="width:10%">客戶同意日期</th>
+              <th class="table-header" style="width:10%">客戶同意時間</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of agreementsListList;let i = index">
+              <td class="table-data" style="text-align: center;">{{i+1}}</td>
+              <td class="table-data">{{data.termsTypeCode}}</td>
+              <td class="table-data">{{data.termsTypeName}}</td>
+              <td class="table-data" style="text-align: center;">{{data.agreeYn}}</td>
+              <td class="table-data">{{data.agreeDate| date:"yyyy-MM-dd"}}</td>
+              <td class="table-data">{{data.agreeDate| date:"HH:mm:ss"}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <div style="padding-top:10px;text-align: center">
+          <div *ngIf="getSearch() == 'N'">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()"
+              [disabled]=" pag == 2? false:true ">儲存</button>
+          </div>
+          <div *ngIf="getSearch() != 'N'">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()"
+              [disabled]=" pag == 2? false:true ">儲存</button>
+          </div>
+        </div>
+        <br>
+
+
+      </div>
+
+    </form>
+    <!-- 20220929_公司資料庫發查比對-->
+    <div nz-row>
+      <div nz-col class="gutter-row" [nzSpan]="12">
+        <div class="line_bank_card_no_padding" style="width:98%">
+          <div class="line_bank_form_header_title">公司資料庫(客戶或徵信填寫資訊查回)</div>
+          <div nz-row style="padding:10px">
+            <div nz-col nzSpan="3">
+
+            </div>
+            <div nz-col nzSpan="8">
+            
+                <span class="form-title">公司資料庫查回結果:{{elResult}}</span>
+
+              
+            </div>
+            <div nz-col nzSpan="2">
+
+            </div>
+            <div nz-col nzSpan="8">
+              
+                <span class="form-title" style="text-align:right">公司資料庫回查日期:{{elTimeStep| date:"yyyy-MM-dd"}}</span>
+
+            
+            </div>
+            <div nz-col nzSpan="3">
+
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzSpan="6">
+              <div style="padding:3px">
+                <span class="form-title">統一編號</span>
+                <input style="display: block;" [(ngModel)]="elTaxIdNumber" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">公司種類</span>
+                <input style="display: block;" [(ngModel)]="elCompanyType" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="6">
+              <div style="padding:3px">
+                <span class="form-title">負責人</span>
+                <input style="display: block;" [(ngModel)]="elOwner" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">公司名稱</span>
+                <input style="display: block;" [(ngModel)]="elCompany" nz-popover [nzPopoverContent]="elCompany" readonly style="background-color:#E6E6E6;color: #727171">
+              </div>
+            </div>
+
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">公司狀況</span>
+                <input style="display: block;" [(ngModel)]="elStatus" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">外文公司名稱</span>
+                <input style="display: block;" [(ngModel)]="elForeignCompanyName" nz-popover [nzPopoverContent]="elForeignCompanyName" readonly style="background-color:#E6E6E6;color: #727171">
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">縣市</span>
+                <input style="display: block;" [(ngModel)]="elCity" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">緯度</span>
+                <input style="display: block;" [(ngModel)]="elLat" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">經度</span>
+                <input style="display: block;" [(ngModel)]="elLng" readonly disabled>
+              </div>
+            </div>
+
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">地址</span>
+                <input style="display: block;" [(ngModel)]="elAddress" [nzPopoverContent]="elAddress" nz-popover readonly style="background-color:#E6E6E6;color: #727171">
+              </div>
+            </div>
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">空格分割的地址</span>
+                <input style="display: block;" [(ngModel)]="elCuttedAdds" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">資本總額</span>
+                <input style="display: block;" [(ngModel)]="elCapital" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">實收資本額</span>
+                <input style="display: block;" [(ngModel)]="elPaidInCapital" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">登記機關</span>
+                <input style="display: block;" [(ngModel)]="elRegister" readonly nz-popover [nzPopoverContent]="elRegister" readonly style="background-color:#E6E6E6;color: #727171">
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">核准設立日期</span>
+                <input style="display: block;" [(ngModel)]="elEstablishmentDate" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">最後核准變更日期</span>
+                <input style="display: block;" [(ngModel)]="elUpdateDate" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">財稅 行業資料</span>
+                <input style="display: block;" [(ngModel)]="elServicesEtax" readonly nz-popover [nzPopoverContent]="elServicesEtax" readonly style="background-color:#E6E6E6;color: #727171">
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">財稅 是否使用統一發票</span>
+                <input style="display: block;" [(ngModel)]="elUseInvoice" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">貼標 (行業大類)</span>
+                <input style="display: block;" [(ngModel)]="elIndustry" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">貼標 (行業中類)</span>
+                <input style="display: block;" [(ngModel)]="elIndustryMid" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">其他組織類型識別碼</span>
+                <input style="display: block;" [(ngModel)]="elOtherCode" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">難字、亂碼標籤</span>
+                <input style="display: block;" [(ngModel)]="elSpecialCharType" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">進口資格</span>
+                <input style="display: block;" [(ngModel)]="elImportQualification" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">出口資格</span>
+                <input style="display: block;" [(ngModel)]="elExportQualification" readonly disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div nz-col class="gutter-row" [nzSpan]="12">
+        <div class="line_bank_card_no_padding" style="width:98%">
+          <div class="line_bank_form_header_title">公司資料庫(T52查回)</div>
+          <div nz-row style="padding:10px">
+            <div nz-col nzSpan="3">
+
+            </div>
+            <div nz-col nzSpan="8">
+            
+                <span class="form-title">公司資料庫查回結果:{{t52Result}}</span>
+
+              
+            </div>
+            <div nz-col nzSpan="2">
+
+            </div>
+            <div nz-col nzSpan="8">
+              
+                <span class="form-title" style="text-align:right ;">
+                  公司資料庫回查日期:{{t52TimeStep| date:"yyyy-MM-dd"}}</span>
+
+            
+            </div>
+            <div nz-col nzSpan="3">
+
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzSpan="6">
+              <div style="padding:3px">
+                <span class="form-title">統一編號</span>
+                <input style="display: block;" [(ngModel)]="t52TaxIdNumber" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">公司種類</span>
+                <input style="display: block;" [(ngModel)]="t52CompanyType" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="6">
+              <div style="padding:3px">
+                <span class="form-title">負責人</span>
+                <input style="display: block;" [(ngModel)]="t52Owner" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">公司名稱</span>
+                <input style="display: block;" [(ngModel)]="t52Company" nz-popover [nzPopoverContent]="t52Company" readonly style="background-color:#E6E6E6;color: #727171;">
+              </div>
+            </div>
+
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">公司狀況</span>
+                <input style="display: block;" [(ngModel)]="t52Status" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">外文公司名稱</span>
+                <input style="display: block;" [(ngModel)]="t52ForeignCompanyName" readonly nz-popover [nzPopoverContent]="t52ForeignCompanyName" readonly style="background-color:#E6E6E6;color: #727171;">
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">縣市</span>
+                <input style="display: block;" [(ngModel)]="t52City" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">緯度</span>
+                <input style="display: block;" [(ngModel)]="t52Lat" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">經度</span>
+                <input style="display: block;" [(ngModel)]="t52Lng" readonly disabled>
+              </div>
+            </div>
+
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">地址</span>
+                <input style="display: block;" [(ngModel)]="t52Address" nz-popover [nzPopoverContent]="t52Address" readonly style="background-color:#E6E6E6;color: #727171;">
+              </div>
+            </div>
+            <div nz-col nzSpan="7">
+              <div style="padding:3px">
+                <span class="form-title">空格分割的地址</span>
+                <input style="display: block;" [(ngModel)]="t52CuttedAdds" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">資本總額</span>
+                <input style="display: block;" [(ngModel)]="t52Capital" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">實收資本額</span>
+                <input style="display: block;" [(ngModel)]="t52PaidInCapital" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">登記機關</span>
+                <input style="display: block;" [(ngModel)]="t52Register" readonly nz-popover [nzPopoverContent]="t52Register" readonly style="background-color:#E6E6E6;color: #727171">
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">核准設立日期</span>
+                <input style="display: block;" [(ngModel)]="t52EstablishmentDate" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">最後核准變更日期</span>
+                <input style="display: block;" [(ngModel)]="t52UpdateDate" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <div style="padding:3px">
+                <span class="form-title">財稅 行業資料</span>
+                <input style="display: block;" [(ngModel)]="t52ServicesEtax" readonly nz-popover [nzPopoverContent]="t52ServicesEtax" readonly style="background-color:#E6E6E6;color: #727171">
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">財稅 是否使用統一發票</span>
+                <input style="display: block;" [(ngModel)]="t52UseInvoice" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">貼標 (行業大類)</span>
+                <input style="display: block;" [(ngModel)]="t52Industry" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">貼標 (行業中類)</span>
+                <input style="display: block;" [(ngModel)]="t52IndustryMid" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">其他組織類型識別碼</span>
+                <input style="display: block;" [(ngModel)]="t52OtherCode" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">難字、亂碼標籤</span>
+                <input style="display: block;" [(ngModel)]="t52SpecialCharType" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">進口資格</span>
+                <input style="display: block;" [(ngModel)]="t52ImportQualification" readonly disabled>
+              </div>
+            </div>
+            <div nz-col nzSpan="4">
+              <div style="padding:3px">
+                <span class="form-title">出口資格</span>
+                <input style="display: block;" [(ngModel)]="t52ExportQualification" readonly disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- !formControl.valid && -->

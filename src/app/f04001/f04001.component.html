@@ -1,0 +1,53 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">流程解除鎖定作業</div>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">選擇流程:</span>
+          <mat-select [(ngModel)]="selectedPagValue" name="pagCode" (ngModelChange)="choosePoint()">
+            <mat-option *ngFor="let code of pagCode"
+            [value]="code.value">{{code.label}}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">案件關卡:</span>
+          <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()">
+            <mat-option *ngFor="let code of sysCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
+      nzSize="small" nzTitle="流程解除鎖定案件" #middleTable>
+      <thead>
+        <tr>
+          <th class="table-header">
+            <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)" ngModel required>全選
+            </mat-checkbox>
+          </th>
+          <th class="table-header">案件編號</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData; let i = index;">
+          <td class="table-data">
+            <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
+          </td>
+          <td class="table-data">{{ data.applno }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div style="text-align:center;margin:10px auto">
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="unlock()">解除鎖定</button>
+    </div>
+    <br>
+  </div>
+</div>

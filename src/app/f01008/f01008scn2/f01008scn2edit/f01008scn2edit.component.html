@@ -1,0 +1,22 @@
+<app-block *ngIf="block"></app-block>
+<div class="line_bank_card_no_padding" style="min-height:170px">
+  <div class="line_bank_form_header_title">審核意見-編輯</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">審核意見</span><textarea matInput
+            style="width: 100%;height:200px;background-color:#ffffff;border-radius:10px;border:none;border: 2px solid;"
+            [(ngModel)]="data.creditaction" name="creditaction" required></textarea>
+          <mat-error *ngIf="formControl.invalid && (data.creditaction=='' || data.creditaction== null) ">
+            {{getErrorMessage()}}</mat-error>
+        </div>
+        <div mat-dialog-actions style="margin:0 auto;width:12vw;">
+          <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+            style="margin:0px 5px" (click)="save()">儲存</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+            style="margin:0px 5px">取消</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

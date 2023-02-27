@@ -1,0 +1,60 @@
+<div style="min-height: 330px;">
+    <div class="card-container">
+        <div class="select-card" [ngClass]="{'highlight-green': strgy==strgyCode[0].value}" [hidden]="radioGroupTwo" (click)="selectStep(strgyCode[0].value)">
+            <!-- 03 -->
+            <nz-radio-group [(ngModel)]="strgy" name="strgy">
+                <label class="radio-label" nz-radio [nzValue]="strgyCode[0].value" (click)="selectStep(strgyCode[0].value)">{{strgyCode[0].label}}</label>
+            </nz-radio-group>
+            <span class="black-line"></span>
+            <div class="bold-label">貸款利率</div>
+            <div class="card-detail" [hidden]="!hidden">
+                <span>利率</span>
+                <span>{{aplyIntRt}}%</span>
+            </div>
+            <div class="card-detail" [hidden]="hidden">
+                <span>前{{ sgmtIntRtCntChange }}期</span>
+                <span>{{sgmtIntRt}}%</span>
+            </div>
+            <div class="card-detail" [hidden]="hidden">
+                <span>後續每期</span>
+                <span>{{aplyIntRt}}%</span>
+            </div>
+            <div class="card-detail bold-label">
+                <span>可貸額度(總額度)</span>
+                <span>${{sumAmt}}</span>
+            </div>
+            <div class="card-detail">
+                <span>轉貸現有貸款(債整額度)</span>
+                <span>${{mergDebitAmt}}</span>
+            </div>
+            <div class="card-detail">
+                <span>新貸(現金額度)</span>
+                <span>${{lnLmtAmt}}</span>
+            </div>
+        </div>
+        <div class="select-card" [ngClass]="{'highlight-green': strgy==strgyCode[1].value}" [hidden]="radioGroupOne" (click)="selectStep(strgyCode[1].value)">
+            <!-- 01 -->
+            <nz-radio-group [(ngModel)]="strgy" name="strgy">
+                <label class="radio-label" nz-radio [nzValue]="strgyCode[1].value" (click)="selectStep(strgyCode[1].value)">{{strgyCode[1].label}}</label>
+            </nz-radio-group>
+            <span class="black-line"></span>
+            <div class="bold-label">貸款利率</div>
+            <div class="card-detail" [hidden]="!hidden_1">
+                <span>利率</span>
+                <span>{{aplyIntRt_1}}%</span>
+            </div>
+            <div class="card-detail" [hidden]="hidden_1">
+                <span>前{{ sgmtIntRtCntChange_1 }}期</span>
+                <span>{{sgmtIntRt_1}}%</span>
+            </div>
+            <div class="card-detail" [hidden]="hidden_1">
+                <span>後續每期</span>
+                <span>{{aplyIntRt_1}}%</span>
+            </div>
+            <div class="card-detail bold-label">
+                <span>可貸額度(總額度)</span>
+                <span>${{lnLmtAmt_1}}</span>
+            </div>
+        </div>
+    </div>
+</div>

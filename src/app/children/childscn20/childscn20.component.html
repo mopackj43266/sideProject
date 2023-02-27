@@ -1,0 +1,143 @@
+<app-block *ngIf="block"></app-block>
+<cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 750px;   width: 900px;">
+  <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="blockListForm">
+    <div class="line_bank_card_no_padding" style="padding-bottom: 20px;">
+      <div class="line_bank_form_header_title">提報黑名單</div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">通報單位</span>
+            <input style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6"
+            disabled  value="{{ no }}" formControlName="REPORT_UNIT">
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">通報原因1</span>
+            <mat-select [(ngModel)]="reportReason1Value" formControlName="REPORT_REASON1" required
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of reportReason1" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid && (reportReason1Value=='' || reportReason1Value== null)">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">通報原因2</span>
+            <mat-select [(ngModel)]="reportReason2Value" formControlName="REPORT_REASON2"
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of reportReason2" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">通報原因3</span>
+            <mat-select [(ngModel)]="reportReason3Value" formControlName="REPORT_REASON3"
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of reportReason3" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">通報補充</span>
+            <input style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6"
+              formControlName="REPORT_CONTENT" maxlength="20">
+              
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">使用中</span>
+            <mat-select [(ngModel)]="useFlagValue" formControlName="USE_FLAG"
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of useFlag" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+
+          </div>
+        </div>
+       
+
+        <div nz-col nzSpan="12"></div>
+        <nz-divider></nz-divider>
+        <div nz-col nzSpan="6"></div>
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">建檔項目欄位標題</span>
+              <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
+                  (click)="checkboxSelect($event.target.checked,'CU_CNAME')">姓名
+              </div>
+              <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
+                  (click)="checkboxSelect($event.target.checked,'NATIONAL_ID')">身分證字號
+              </div>
+              <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
+                  (click)="checkboxSelect($event.target.checked,'CU_H_TEL')">住家電話
+              </div>
+              <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
+                  (click)="checkboxSelect($event.target.checked,'CU_CP_TEL')">公司電話
+              </div>
+              <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
+                  (click)="checkboxSelect($event.target.checked,'CU_M_TEL')">手機號碼
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">建檔項目欄位值內容</span>
+              <div style="height: 35px;"><input  #input disabled class="form-control"  formControlName="CU_CNAME" ></div>
+              <div style="height: 35px;"><input  #input disabled class="form-control"  formControlName="NATIONAL_ID"></div>
+              <div style="height: 35px;"><input  #input disabled class="form-control"  formControlName="CU_H_TEL"></div>
+              <div style="height: 35px;"><input  #input disabled class="form-control"  formControlName="CU_CP_TEL"></div>
+              <div style="height: 35px;"><input  #input disabled class="form-control"  formControlName="CU_M_TEL"></div>
+            </div>
+          </div>
+          <div nz-col nzSpan="6"></div>
+      </div>
+      <div style="text-align: center;">
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="insertData()" style="margin:0px 5px"  [disabled]="!formControl.valid">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="cancel()" tabindex="-1">離開</button>
+        <!-- <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="test1()" tabindex="-1">test</button> -->
+      </div>
+    </div>
+  </form>
+
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="blockListDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+      (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+      [nzPageIndex]="pageIndex" nzSize="small" nzTitle="黑名單">
+      <thead>
+        <tr>
+          <th class="table-header">通報單位</th>
+          <th class="table-header">建檔項目欄位標題</th>
+          <th class="table-header">建檔項目欄位值內容</th>
+          <th class="table-header">通報原因1</th>
+          <th class="table-header">通報原因2</th>
+          <th class="table-header">通報原因3</th>
+          <th class="table-header">通報補充</th>
+          <th class="table-header">使用中</th>
+          <th class="table-header">資料新增日期時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of blockListDataSource">
+          <td class="table-data">{{ data.reportUnit }}</td>
+          <td class="table-data">{{ data.bkColumn }}</td>
+          <td class="table-data">{{ data.bkContent }}</td>
+          <td class="table-data">{{ data.reportReason1 }}</td>
+          <td class="table-data">{{ data.reportReason2 }}</td>
+          <td class="table-data">{{ data.reportReason3 }}</td>
+          <td class="table-data">{{ data.reportContent }}</td>
+          <td class="table-data">{{ data.useFlag }}</td>
+          <td class="table-data">{{ data.createDatetime | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</cdk-virtual-scroll-viewport>

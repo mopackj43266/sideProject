@@ -1,0 +1,39 @@
+.ant-btn-dangerous{
+    color: #f80000;;
+    background:white;
+    border-color:#f80000;
+    border-radius:5px;
+  
+  }
+  .ant-btn-dangerous:hover{
+    color:#ffffff;
+    background:#f80000;
+    border-color:#f80000;
+    border-radius:5px;
+    box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+  }
+  .ant-btn-dangerous:active{
+    color:#ffffff;
+    background:#f80000;
+    border-color:#f80000;
+    border-radius:5px;
+  }
+  .progress {
+    position:relative; 
+    width:400px; 
+    border: 1px solid #ddd; 
+    padding: 1px; 
+    border-radius: 3px; 
+  }
+  .bar { 
+    background-color: #7cc7ee; 
+    width:0%; 
+    height:20px; 
+    border-radius: 3px; 
+  }
+  .percent { 
+    position:absolute; 
+    display:inline-block; 
+    top:3px; 
+    left:48%; 
+  }

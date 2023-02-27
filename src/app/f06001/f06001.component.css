@@ -1,0 +1,48 @@
+::ng-deep.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+  /* width:620px; */
+  border:none;
+  background-color:#a19d9d;
+  border-radius: 10px;
+
+}
+.button-group{
+  padding:10px;
+}
+
+.file_input {
+  width: 43%;
+  /* height: 40px; */
+  position: relative;
+  top: -10px;
+  font-size: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.icon_size {
+  position: relative;
+  top:3px;
+  left: -122px;
+  font-size:25px
+}
+
+.ant-btn-dangerous{
+  color: #f80000;;
+  background:white;
+  border-color:#f80000;
+  border-radius:5px;
+
+}
+.ant-btn-dangerous:hover{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-dangerous:active{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+}

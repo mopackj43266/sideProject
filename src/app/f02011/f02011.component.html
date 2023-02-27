@@ -1,0 +1,176 @@
+<div class="line_bank_bankground_color">
+    <br>
+    <div class="line_bank_card_no_padding">
+        <div nz-row>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+                        [(ngModel)]="applno" name="applno" placeholder="請輸入案件編號">
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;"
+                        [(ngModel)]="nationalId" name="nationalId" placeholder="請輸入身分證字號">
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
+                        [(ngModel)]="custId" name="custId" placeholder="請輸入客戶ID">
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">申請回饋處理狀態</span>
+                    <mat-select [(ngModel)]="applyStatus" name="applyStatus">
+                        <mat-option *ngFor="let code of applyStatusCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">核保回饋回覆結果</span>
+                    <mat-select [(ngModel)]="underwriteStatus" name="underwriteStatus">
+                        <mat-option *ngFor="let code of underwriteStatusCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">通知單回饋狀態</span>
+                    <mat-select [(ngModel)]="noticeStatus" name="noticeStatus">
+                        <mat-option *ngFor="let code of noticeStatusCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">本行進件日期</span>
+                    <nz-range-picker [(ngModel)]="applyTime" name="applyTime"
+                        (ngModelChange)="dateNull(applyTime,'applyTime')">
+                    </nz-range-picker>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">申請回饋排程處理日期</span>
+                    <nz-range-picker [(ngModel)]="applyFeedbackDate" name="applyFeedbackDate"
+                        (ngModelChange)="dateNull(applyFeedbackDate,'applyFeedbackDate')">
+                    </nz-range-picker>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">核保回饋回覆日期</span>
+                    <nz-range-picker [(ngModel)]="underwriteDate" name="underwriteDate"
+                        (ngModelChange)="dateNull(underwriteDate,'underwriteDate')">
+                    </nz-range-picker>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">通知單回饋排程處理日期</span>
+                    <nz-range-picker [(ngModel)]="noticeDate" name="noticeDate"
+                        (ngModelChange)="dateNull(noticeDate,'noticeDate')">
+                    </nz-range-picker>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">徵信人員</span>
+                    <mat-select [(ngModel)]="L3Empno" name="L3Empno">
+                        <mat-option *ngFor="let code of L3EmpnoCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzFlex="1">
+                <div style="padding:10px"><span class="form-title">授信人員</span>
+                    <mat-select [(ngModel)]="L2Empno" name="L2Empno">
+                        <mat-option *ngFor="let code of L2EmpnoCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+        </div>
+        <div style="padding:10px;text-align:center">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
+            <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>&nbsp;
+        </div>
+    </div>
+    <div class="line_bank_card_no_padding">
+        <div class="line_bank_form_header_title">信保基金回饋檔查詢-結果:(案件數:{{total}}件)</div>
+        <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"    [nzPageSizeOptions]="true"
+        [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"  [nzLoading]="false" [nzScroll]="{ x: '4000px', y: '400px' }"  id="box" #scrollToTop
+            (nzQueryParams)="onQueryParamsChange($event)"  nzSize="small">
+            <thead>
+                <tr>
+                    <th nzLeft nzWidth="40px">序號</th>
+                    <th nzLeft nzWidth="110px" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="false"
+                        [nzSortDirections]="['ascend', 'descend']">案件編號</th>
+                    <th nzLeft nzWidth="90px">身分證字號</th>
+                    <th nzLeft nzWidth="90px">客戶ID</th>
+                    <th nzLeft nzWidth="90px">客戶姓名</th>
+                    <th nzWidth="180px">本行進件日期時間</th>
+                    <th nzWidth="180px">申請回饋排程處理日期</th>
+                    <th nzWidth="180px">申請回饋處理狀態</th>
+                    <th nzWidth="180px">核保回饋回覆日期</th>
+                    <th nzWidth="180px">核保回饋回覆結果</th>
+                    <th nzWidth="180px">核保回饋回覆案號</th>
+                    <th nzWidth="180px">通知單回饋保證案號</th>
+                    <th nzWidth="180px">通知單回饋通知單號</th>
+                    <th nzWidth="180px">通知單回饋排程處理日期</th>
+                    <th nzWidth="180px">通知單回饋處理狀態</th>
+                    <th nzWidth="180px">徵信人員員編姓名</th>
+                    <th nzWidth="180px">授信人員員編姓名</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let newData of newData; let index = index;">
+                    <!--序號-->
+                    <td nzLeft style="text-align: center;">{{index+1}}</td>
+                    <!--案件編號-->
+                    <td nzLeft>
+                        <button nz-button [nzSize]="'middle'" nzType="link" style="padding:0px;"
+                            (click)="detail(newData.APPLNO,newData.CUSTOMER_ID,newData.NATIONAL_ID,newData.REASON_CODE,
+                        newData.EXECUTE_TYPE,newData.CREDIT_TIME,newData.CREDIT_EMPNO,newData.REASON_DETAIL,
+                        newData.LIMIT_NO,newData.CONTACT_YN,newData.CONTACT_TYPE,newData.CONTACT_CONTENT,newData.CREDIT_MEMO,newData.RESERVE_LIMIT,newData.MOBILE)">
+                            {{newData.APPLNO}}</button>
+                    </td>
+                    <!--身分證字號-->
+                    <td nzLeft>{{ newData.NATIONAL_ID }}</td>
+                    <!--客戶ID-->
+                    <td nzLeft>{{ newData.CUST_ID }}</td>
+                    <!--客戶姓名-->
+                    <td nzLeft>{{ newData.CU_CNAME }}</td>
+                    <!--本行進件日期時間-->
+                    <td>{{ newData.APPLY_TIME | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <!--申請回饋排程處理日期-->
+                    <td>{{ newData.APPLY_FEEDBACK_DATE | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <!--申請回饋處理狀態-->
+                    <td>{{ newData.APPLY_CODE_DESC }}</td>
+                    <!--核保回饋回覆日期-->
+                    <td>{{ newData.UNDERWRITE_DATE | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <!--核保回饋回覆結果-->
+                    <td>{{ newData.UNDERWRITE_CODE_DESC }}</td>
+                    <!--核保回饋回覆案號-->
+                    <td>{{ newData.WLFBRSLT_GRNTPAPER }}</td>
+                    <!--通知單回饋保證案號-->
+                    <td>{{ newData.NT145FEEDBACK_GRNTPAPER }}</td>
+                    <!--通知單回饋通知單號-->
+                    <td>{{ newData.SRLNO }}</td>
+                    <!--通知單回饋排程處理日期-->
+                    <td>{{ newData.NOTICE_DATE | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <!--通知單回饋處理狀態-->
+                    <td>{{ newData.NOTICE_CODE_DESC }}</td>
+                    <!--徵信員姓名-->
+                    <td>{{ newData.L3EMPNO }}</td>
+                    <!--授信員編-->
+                    <td>{{ newData.L2EMPNO }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

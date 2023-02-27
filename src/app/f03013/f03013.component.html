@@ -1,0 +1,68 @@
+<div class="line_bank_bankground_color" style="padding-top:20px">
+    <div class="line_bank_card_no_padding">
+        <div nz-row>
+            <div nz-col nzSpan="3">
+                <div style="padding:10px;"><span class="form-title">行事曆</span>
+                    <mat-select [(ngModel)]="selectedValue" name="yearCode">
+                        <mat-option *ngFor="let code of yearCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <div nz-col nzSpan="3">
+                <div style="padding:28px"><span class="form-title"></span><button nz-button [nzSize]="'middle'"
+                        nzType="primary" (click)="createCalendar()">建立年度行事曆</button></div>
+            </div>
+            <div nz-col nzSpan="2"> </div>
+            <div nz-col nzSpan="3">
+                <div style="padding:10px;"><span class="form-title">年分</span>
+                    <mat-select [(ngModel)]="yearValue" name="yearCode">
+                        <mat-option *ngFor="let code of yearCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="3">
+                <div style="padding:10px;"><span class="form-title">月份</span>
+                    <mat-select [(ngModel)]="monthValue" name="monthCode">
+                        <mat-option *ngFor="let code of monthCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="3">
+                <div style="padding:28px;"><span class="form-title"></span><button nz-button [nzSize]="'middle'"
+                        nzType="primary" (click)="queryIsWorkDay()">查詢</button></div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="line_bank_card_no_padding">
+        <nz-table nzShowSizeChanger [nzData]="workingDateDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small" nzTitle="工作日清單">
+            <thead>
+                <tr>
+                    <th class="table-header" style="width: 100px;">修改</th>
+                    <th class="table-header" style="width: 200px;">日期</th>
+                    <th class="table-header">是否工作日</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of workingDateDataSource">
+                    <td class="table-data" style="text-align: center;">
+                        <button nz-button nzType="primary" [nzSize]="'small'"
+                            (click)="updateWorkingDate(data.wdate, data.isWork)">修改</button>
+                    </td>
+                    <td class="table-data">{{ data.wdate|date: 'yyyy/MM/dd' }}</td>
+                    <td class="table-data">{{ data.isWork }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <br><br>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzFlex="1.3">
+        <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+            [(ngModel)]="applno" name="applno">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
+            [(ngModel)]="custId" name="custId">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">婉拒時間</span>
+          <nz-range-picker [(ngModel)]="rejectTime" name="rejectTime"
+            (ngModelChange)="dateNull(rejectTime,'rejectTime')"></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1.5">
+        <div style="padding:10px;text-align:center;margin-top:28px">
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
+          <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>&nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">准入婉拒查詢-結果:(案件數:{{total}}件)</div>
+    <nz-table id="box" #scrollToTop nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true"
+      [nzData]="data" [nzSimple]="true" [nzLoading]="false" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+      <thead>
+        <tr>
+          <th nzWidth="30px">序號</th>
+          <th nzWidth="150px" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="false"
+            [nzSortDirections]="['ascend', 'descend']">案件編號</th>
+          <th nzWidth="100px">客戶ID</th>
+          <th nzWidth="130px">產品名稱</th>
+          <th nzWidth="300px">徵審代碼</th>
+          <th nzWidth="400px">婉拒原因</th>
+          <th nzWidth="130px" (nzSortOrderChange)="sortChange($event,'REJECT_TIME')" [nzSortFn]="false" [nzSortDirections]="['ascend', 'descend']">婉拒時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of data;let i = index">
+          <td style="text-align: center;">{{i+1}}</td>
+          <td>{{ data.APPLNO }}</td>
+          <td>{{ data.CUST_ID }}</td>
+          <td>{{ data.PROD_NAME }}</td>
+          <td>{{ data.D002_CODE }}</td>
+          <td>{{ data.REJECT_NAME }}</td>
+          <td>{{ data.REJECT_TIME | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

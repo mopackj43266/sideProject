@@ -1,0 +1,25 @@
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color" style="padding: 20px 20px;">
+  <nz-steps [nzCurrent]="current">
+    <nz-step nzTitle="1"></nz-step>
+    <nz-step nzTitle="2"></nz-step>
+    <nz-step nzTitle="3"></nz-step>
+    <nz-step nzTitle="4"></nz-step>
+    <nz-step nzTitle="5"></nz-step>
+  </nz-steps>
+  <br>
+  <ng-container *ngComponentOutlet="component.get(nowPage)"></ng-container>
+  <br>
+  <div class="steps-action">
+    <button nz-button nzType="primary" (click)="pre()" *ngIf="current > 0">
+      <span>Previous</span>
+    </button>
+    <button nz-button nzType="primary" (click)="next()" *ngIf="current === 0">
+      <span>Apply Loan</span>
+    </button>
+    <button nz-button nzType="primary" (click)="next()" *ngIf="current < 4 && current > 0">
+      <span>Next</span>
+    </button>
+  </div>
+</div>
+

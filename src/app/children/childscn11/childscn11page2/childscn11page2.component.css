@@ -1,0 +1,77 @@
+input{
+  background-color:#E6E6E6;
+  border-radius: 5px;
+  height:30px;
+  width:100%;
+  border: 1px solid #c9c9c9;
+}
+.table-header-x{
+  color:#2E4765; 
+  background-color:#BFECD0;
+  font-size:18px;
+  text-align: center;
+  border: 1px solid rgb(214, 214, 214);
+  margin-bottom: 1px;
+}
+.table-header-y{
+  color:#848E9C; 
+  background-color:#ededed;
+  font-size:16px;
+  text-align: center;
+  border: 1px solid rgb(214, 214, 214);
+  margin-bottom: 1px;
+}
+.table-data-x{
+  color:rgb(255, 0, 0); 
+  background-color:white;
+  font-size:16px;
+  text-align: center;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+}
+.table-data-z{
+  border: 1px solid #e8e8e8;
+  text-align: center;
+  font-size:16px;
+  margin-bottom: 1px;
+
+}
+.table-data-text{
+  color:rgb(13, 199, 34);
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+}
+.table-data-text-y{
+  color:rgb(238, 204, 14);
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+}
+.height{
+  color:red;
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+}
+:host::ng-deep.ant-table-pagination.ant-pagination{
+margin:0px 0px;
+}
+.table-data-text-compare{
+  color:black;
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+}
+.table-data-text-compare-none{
+  color:black;
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+  background-color: rgb(194, 194, 194);
+}

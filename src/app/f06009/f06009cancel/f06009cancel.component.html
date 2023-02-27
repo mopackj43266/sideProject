@@ -1,0 +1,39 @@
+<app-block *ngIf="block"></app-block>
+<div id="top">
+  <app-ob-history [applno]="data.applno" [statusDesc]="data.statusDesc"></app-ob-history>
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title">案件取消</div>
+    <div class="container" style="padding:15px;">
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px;"><span class="form-title">取消原因</span>
+            <input matInput #input class="form-control" [(ngModel)]="cancelReason" disabled>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div>
+            <div style="padding:10px;"><span class="form-title">其他原因</span><textarea matInput
+                [ngClass]="'textarea-disable'" [(ngModel)]="cancelOtherReason" name="cancelOtherReason"
+                disabled></textarea></div>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div>
+            <div style="padding:10px;"><span class="form-title">覆核理由</span><textarea matInput
+                [ngClass]="'textarea-nodisable'" [(ngModel)]="aprvReason" name="cancelOtherReason"
+                maxLength="300"></textarea></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:10px;text-align:center">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="agree()">同意</button>&nbsp;
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="reject()">拒絕</button>&nbsp;
+    </div>
+    <br>
+  </div>
+</div>

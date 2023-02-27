@@ -1,0 +1,84 @@
+.ant-btn-primary{
+    color:#24C875;
+    font-size:16px;
+    background:white;
+    border-color:#24C875;
+    border-radius:5px;
+
+  }
+  .ant-btn-primary:hover{
+    color:#ffffff;
+    background:#24C875;
+    border-color:#24C875;
+    border-radius:5px;
+    box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+  }
+  .ant-btn-primary:active{
+    color:#ffffff;
+    background:#24C875;
+    border-color:#24C875;
+    border-radius:5px;
+
+  }
+
+
+  .EL_DSS_form_header_title3{
+    width:99%;
+    /* margin-bottom: 10px; */
+    text-align: center;
+    color:#2E4765;
+    font-weight: 500;
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+    background-color: #BFECD0;
+    padding:10px 0;
+  }
+  .search_row{
+    width:95%;
+    margin:0 auto;
+  }
+  .tabs_row{
+    box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
+    background-color: #96CABC;
+    border-radius:10px
+  }
+  .mat-select{
+    width:100%;
+    display:inline-block;
+    height:30px;
+    font-size:14px;
+    border-radius:10px;
+    border:1px solid #c9c9c9;
+    padding:4px;
+    background-color:#E6E6E6;
+  }
+  :host::ng-deep.mat-select-value{
+    color:gray;
+  }
+  .table-header{
+    background-color:#ededed;
+    color:#848E9C;
+    margin-bottom: 1px;
+    font-size: 14px;
+  }
+  .table-data{
+    background-color:white;
+    border: 1px solid #e8e8e8;
+    color:rgb(87, 87, 87);
+    margin-bottom: 0px;
+    font-size: 14px;
+  }
+  .ant-table.ant-table-small .ant-table-tbody>tr>td{
+    padding:8px;
+  }
+  .form-title{
+    color:#2E4765;
+    font-weight: 500;
+    text-align:left;
+    width:88%;
+    margin:0 auto;
+    display:block;
+  }
+
+

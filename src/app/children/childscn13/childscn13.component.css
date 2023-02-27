@@ -1,0 +1,43 @@
+table{
+    width: 100%;
+  }
+
+  .mat-column-applno {
+    max-width: 10%;
+  }
+
+  .mat-column-web {
+    max-width: 5%;
+  }
+
+  .mat-column-webAddr {
+    max-width: 35%;
+  }
+
+  .mat-column-messageContent {
+    max-width: 20%;
+  }
+
+  .mat-column-daytime {
+    max-width: 15%;
+  }
+
+  .mat-column-empno {
+    max-width: 10%;
+  }
+
+  .mat-column-image {
+    max-width: 5%;
+  }
+
+  .position_top_left{
+    position: relative;
+    top:-2px;
+  }
+
+  .icon_size{
+    position: relative;
+    top:-5px;
+    font-size:20px
+  }
+

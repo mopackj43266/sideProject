@@ -1,0 +1,57 @@
+<div class="line_bank_bankground_color">
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzData]="ruleParamCondition"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史案件清單"  (nzQueryParams)="onQueryParamsChange($event)">
+      <thead>
+        <tr>
+          <th class="table-header" (nzSortOrderChange)="sortChange($event)"  [nzSortFn]="true"
+          [nzSortOrder]="'ascend'" >NO</th>
+          <th class="table-header">案件編號</th>
+          <th class="table-header">客戶ID</th>
+          <th class="table-header">身分證號</th>
+          <th class="table-header">產品代碼</th>
+          <th class="table-header">案件狀態</th>
+          <th class="table-header">審核結果</th>
+          <!-- <th class="table-header">曾因特定原因婉拒</th> -->
+          <!-- <th class="table-header">徵審代碼</th> -->
+          <th class="table-header">徵審評估年收入</th>
+          <th class="table-header">原始申請金額</th>
+          <th class="table-header">本行核准金額/額度</th>
+          <!-- <th class="table-header">合約金額/額度</th> -->
+          <!-- <th class="table-header">實際撥款金額/建立額度</th> -->
+          <th class="table-header">徵信員</th>
+          <th class="table-header">授信員</th>
+          <th class="table-header">准入時間</th>
+          <!-- <th class="table-header">信用資訊發查日期時間</th> -->
+          <th class="table-header">准駁日期時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ruleParamCondition;let  i= index;">
+          <td class="table-data">{{ i+1 }}</td>
+          <td class="table-data"> <button nz-button [nzSize]="'middle'" nzType="link" (click)="Inquire(data.applnoOld)"> {{data.applnoOld}}</button></td>
+          <!-- <td style="text-align: center;"><button nz-button [nzSize]="'small'" nzType="primary" (click)="Inquire(data.applnoOld)">{{data.applno}}</button></td> -->
+          <td class="table-data">{{ data.custId }}</td>
+          <!-- <td class="table-data">{{ data.custId }}</td> -->
+          <td class="table-data">{{ data.nationalId }}</td>
+          <td class="table-data">{{ data.prodCode}}{{data.prodCodeDes}}</td>
+          <td class="table-data">{{data.opId}} {{data.opDesc}} </td>
+          <!-- <td class="table-data"></td> -->
+          <td class="table-data">{{ data.creditResult }}{{data.creditResultDes}}</td>
+          <!-- <td class="table-data">{{ data.reasonCode }}</td> -->
+          <!-- <td class="table-data"></td> -->
+          <td class="table-data" style="text-align:right">{{data.income}}</td>
+          <td class="table-data" style="text-align:right">{{data.applicationAmount}}</td>
+          <td class="table-data" style="text-align:right">{{data.approveAmt}}</td>
+          <td class="table-data">{{ data.l3empno }}{{data.l3empnoDes}}</td>
+          <td class="table-data">{{ data.l2empno }}{{data.l2empnoDes}}</td>
+          <!-- <td class="table-data"></td> -->
+          <td class="table-data">{{ data.applyTime }}</td>
+          <td class="table-data">{{ data.creditTime }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+

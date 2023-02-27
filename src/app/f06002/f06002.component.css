@@ -1,0 +1,34 @@
+.ant-btn-dangerous{
+  color: #f80000;;
+  background:white;
+  border-color:#f80000;
+  border-radius:5px;
+
+}
+.ant-btn-dangerous:hover{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-dangerous:active{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+}
+.gray{
+  background-color: #E6E6E6!important
+}
+.white{
+  background-color: white!important
+}
+:host::ng-deep.ant-checkbox-group-item {
+margin-left:5px;
+margin-right:0px;
+}
+:host::ng-deep.ant-checkbox+span {
+padding-left:2px;
+padding-right:2px;
+}

@@ -1,0 +1,92 @@
+<div class="line_bank_bankground_color">
+    <br>
+    <div nz-row class="search_row">
+      <th style="padding-left: 30px;">主管解凍/凍結/降額清單 共{{this.total}}件</th>
+      <div class="search_row_header">
+        <div nz-col>
+          <div nz-row>
+            <div nz-col nzSpan="5">
+              <span class="form-title line_bank_h4"> 案件編號</span>
+              <div class="form" style="margin:0 auto;width:90%">
+                <div><input matInput #input class="form-control" placeholder="請輸入案件編號" [(ngModel)]="applno" name="applno"
+                    required>
+                </div>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <span class="form-title line_bank_h4">身分證號</span>
+              <div class="form" style="margin:0 auto;width:90%">
+                <div><input matInput #input class="form-control" placeholder="請輸入身分證號" [(ngModel)]="nationalID"
+                    name="nationalID" required>
+                </div>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+              <span class="form-title line_bank_h4">客戶編號</span>
+              <div class="form" style="margin:0 auto;width:90%">
+                <div><input matInput #input class="form-control" placeholder="請輸入客戶編號" [(ngModel)]="custID" name="custID"
+                    required>
+                </div>
+              </div>
+            </div>
+            <div nz-col nzSpan="5">
+            </div>
+            <div nz-col nzSpan="2" style="margin-top:15px;">
+              <div>
+                <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
+              </div>
+            </div>
+            <div nz-col nzSpan="2" style="margin-top:15px;">
+              <div>
+                <button nz-button [nzSize]="'middle'" nzDanger  (click)="clear()">清除資料</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div #absBox class="abs-box">
+        <div nz-col nzSpan="24">
+          <div class="line_bank_card_no_padding">
+            <nz-table nzShowSizeChanger [nzData]="suiManagerSource" [nzFrontPagination]="false" [nzSimple]="true"
+              [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
+              [nzScroll]="{y:tableHeight}"
+              (nzQueryParams)="onQueryParamsChange($event)">
+              <thead>
+                <tr>
+                  <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'applno')" [nzSortFn]="true" [nzWidth]="'180px'">案件編號</th>
+                  <th class="table-header" style="color: black;" >身分證字號 </th>
+                  <th class="table-header" style="color: black;" >客戶編號CID </th>
+                  <th class="table-header" style="color: black;"  >本次執行措施策略 </th>
+                  <th class="table-header" style="color: black;" >本次執行原因</th>
+                  <th class="table-header" style="color: black;"  >執行員編 </th>
+                  <th class="table-header" style="color: black;" >本次執行時間 </th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of suiManagerSource">
+                  <td class="table-data"[nzWidth]="'180px'">
+                    <button nz-button [nzSize]="'middle'" nzType="link"
+                      (click)="toCalloutPage(data.applno, data.creditEmpno, data.creditTime)">
+                      {{data.applno}}
+                    </button>
+                  </td>
+                  <td class="table-data">{{ data.nationalId }}</td>
+                  <td class="table-data">{{ data.customerId }}</td>
+                  <td class="table-data">{{ data.executeType }}</td>
+                  <td class="table-data">{{changeDetailChinese(data.reasonDetail)}}</td>
+                  <td class="table-data">{{  data.creditEmpno }}</td>
+                  <td class="table-data">{{ data.creditTime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

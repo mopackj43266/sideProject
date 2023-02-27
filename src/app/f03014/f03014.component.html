@@ -1,0 +1,98 @@
+<div class="line_bank_bankground_color">
+<br>
+  <div class="line_bank_card_no_padding" style="margin:0 auto 10px auto">
+    <div nz-row>
+      <div nz-col nzSpan="3">
+        <div style="padding:10px"><span class="form-title">客戶姓名</span><input style="display: block;"
+            [(ngModel)]="NameValue" name="NameValue" value="">
+        </div>
+      </div>
+      <div nz-col nzSpan="3">
+        <div style="padding:10px"><span class="form-title">客戶身分證字號</span><input style="display: block;"
+            [(ngModel)]="IdentityValue" name="IdentityValue" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
+            maxlength="10" value="">
+        </div>
+      </div>
+      <div nz-col nzSpan="5">
+        <div style="padding:10px"><span class="form-title">簡述一</span><input style="display: block;"
+            [(ngModel)]="NarrateValue" name="NarrateValue" value="">
+        </div>
+      </div>
+      <div nz-col nzSpan="5">
+        <!-- (ngModelChange)="dateNull()" -->
+
+        <div style="padding:10px "><span class="form-title">生效日</span>
+          <nz-range-picker [(ngModel)]="Efficient" name="Efficient "(ngModelChange)="dateNull(Efficient,'Efficient')"></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="5">
+        <div style="padding:10px"><span class="form-title">失效日</span>
+          <nz-range-picker [(ngModel)]="Invalidation" name="Invalidation" (ngModelChange)="dateNull(Invalidation,'Invalidation')">
+          </nz-range-picker>
+        </div>
+      </div>
+
+      <div nz-col nzSpan="2">
+        <div style="padding:10px"><span class="form-title">使用中</span>
+          <mat-select [(ngModel)]="usingValue" name="usingValue">
+            <mat-option *ngFor="let code of usingType" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+    </div>
+    <div style="padding:10px;text-align: center">
+      <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢資料</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="AddTable()">新增</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="openup()">上傳Excel</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+        (click)="execlExport()">匯出Excel</button>
+    </div>
+  </div>
+  <div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">客戶身份名單註記</div>
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="ruleParamCondition" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      nzSize="small" (nzQueryParams)="onQueryParamsChange($event)">
+      <!-- <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total"
+    [nzData]="ruleParamCondition" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" nzSize="small"> -->
+      <thead>
+        <tr>
+          <th class="table-header" [width]="80" ></th>
+          <th class="table-header" [width]="100">客戶姓名</th>
+          <th class="table-header" [width]="100">客戶身份證字號</th>
+          <th class="table-header"[width]="200">簡述1</th>
+          <th class="table-header"[width]="200">簡述2</th>
+          <th class="table-header"[width]="200">備註資訊</th>
+          <th class="table-header"[width]="100" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">生效日</th>
+          <th class="table-header"[width]="100">失效日</th>
+          <th class="table-header"[width]="50">使用中</th>
+          <th class="table-header"[width]="100">建立日期</th>
+          <th class="table-header"[width]="100"(nzSortOrderChange)="sortCHANGEDATE($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">更新日期時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of ruleParamCondition;">
+          <td style="text-align: center;" ><button nz-button [nzSize]="'middle'" nzType="primary"
+              (click)="EditTable(i, [row.ROW_ID,row.CUST_NAME,row.CUST_NID,row.CONTENT1,row.CONTENT2,row.REMARK,row.EFFECTIVE_DATE,row.EXPIRATION_DATE,row.USE_FLAG,row.CHANGE_DATE])">編輯</button>
+          </td>
+          <td class="table-data">{{ row.CUST_NAME }}</td>
+          <td class="table-data">{{ row.CUST_NID }}</td>
+          <td class="table-data">{{ row.CONTENT1 }}</td>
+          <td class="table-data">{{ row.CONTENT2 }}</td>
+          <td class="table-data">{{ row.REMARK }}</td>
+          <td class="table-data">{{ row.EFFECTIVE_DATE |date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ row.EXPIRATION_DATE |date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data" style="text-align:center">{{ getOptionDesc(usingType, row.USE_FLAG) }}</td>
+          <td class="table-data">{{ row.FRST_CRT_DB_TMSTMP |date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ row.CHANGE_DATE| date:'yyyy-MM-dd hh:mm' }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

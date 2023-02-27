@@ -1,0 +1,62 @@
+input{
+  background-color:#E6E6E6;
+  border-radius: 10px;
+  height:28px;
+  margin:2px 0;
+  width:100%;
+  border: 1px solid #E6E6E6;
+}
+#check{
+  height:20px;
+}
+input:disabled{
+  color: darkgrey;
+  background-color:#E6E6E6
+}
+.check_title{
+  color:#2E4765;
+  flex:1;
+  font-weight:500;
+  padding-top:5px;
+}
+/* 功能按鈕樣式 */
+button{
+  color:#24C875;
+  background:white;
+  border:1px solid #24C875;
+  border-radius:5px;
+
+}
+button:hover{
+  color:#ffffff;
+  background:#24C875;
+  border:1px solid #24C875;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+button:active{
+  color:#ffffff;
+  background:#24C875;
+  border:1px solid #24C875;
+  border-radius:5px;
+}
+.ant-btn-dangerous{
+  color: #f80000;;
+  background:white;
+  border-color:#f80000;
+  border-radius:5px;
+
+}
+.ant-btn-dangerous:hover{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-dangerous:active{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+}

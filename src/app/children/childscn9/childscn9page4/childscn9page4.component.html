@@ -1,0 +1,25 @@
+<!-- 本行Debit Card交易明細 -->
+<br>
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="dcTransDetailSource" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" nzTitle="本行Debit Card交易明細">
+    <thead>
+      <tr>
+        <th class="table-header">交易日期時間</th>
+        <th class="table-header">交易特店代號</th>
+        <th class="table-header">MCC</th>
+        <th class="table-header">交易金額（台幣）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of dcTransDetailSource">
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
+        <td class="table-data">{{ data.TRANS_STORE_CODE }}</td>
+        <td class="table-data">{{ data.MCC }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.TRANS_AMOUNT) }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

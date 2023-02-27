@@ -1,0 +1,171 @@
+<!-- 覆審資訊 -->
+<br>
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_form_header_title">覆審資訊</div>
+  <div nz-row style="padding:5px" *ngFor="let data of bwCreditMainList">
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">案件編號</span><input matInput #input class="form-control"
+          [(ngModel)]="applno" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
+          [(ngModel)]="nationalId" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">客戶ID</span><input matInput #input class="form-control"
+          [(ngModel)]="custId" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">姓名</span><input matInput #input class="form-control"
+          [(ngModel)]="data.cuCname" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">符合貸後異常名單</span><input matInput #input class="form-control"
+          [(ngModel)]="data.abnormalFlag" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">客戶身分名單註記</span><input matInput #input class="form-control"
+           readonly disabled></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DSS決策結果 -->
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto" *ngFor="let data of bwCreditAuditinfoList">
+  <div class="line_bank_form_header_title">DSS決策結果</div>
+  <div  nz-row  style="padding:5px;" >
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">系統流程</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvprcscd" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">貸後管理狀態</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvstatcd" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">貸後管理註記</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvcollflag" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">本次客戶風險等級CRL</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvcrl" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">本次執行審查使用之JCIC資料日期</span><input matInput #input class="form-control"
+        [(ngModel)]="data.jcicdatadt" readonly disabled></div>
+    </div>
+  </div>
+  <div nz-row style="padding:5px">
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">風險模型子模型</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvRiskmdsub" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">分數</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvRiskmdscore" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">等級</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvRiskmdgrade" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">等級分群</span><input matInput #input class="form-control"
+        [(ngModel)]="data.rvRiskmdgradeGp" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">等級(策略調整後)</span><input matInput #input
+          class="form-control" [(ngModel)]="data.rvRiskmdgradeAdj" readonly disabled></div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div style="padding:3px"><span class="form-title">等級分群(策略調整後)</span><input matInput #input
+          class="form-control" [(ngModel)]="data.rvRiskmdgradeGpAdj" readonly disabled></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DSS決策結果 -->
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_form_header_title">審核結果</div>
+  <div nz-row style="padding:5px">
+    <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  required>
+      <div nz-row>
+        <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code" >
+          <div style="width:100%; height:30px">
+            <label (click)="radio_change()" nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+          </div>
+        </div>
+      </div>
+    </nz-radio-group>
+  </div>
+
+  <div nz-row style="padding:5px">
+    <div style="padding:2px"><span class="form-title">是否需通知客戶</span>
+      <mat-select style="height:25px" value="Y" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  >
+        <mat-option *ngFor="let code of ynCode" [value]="code.value">
+          {{code.viewValue}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">凍額/觀察時間(起)</span><input matInput #input
+          class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">凍額/觀察時間(迄)</span><input matInput #input
+          class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
+    </div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+  </div>
+</div>
+
+<!-- 審核註記 -->
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_form_header_title">審核註記</div>
+
+  <div nz-row style="padding:5px;text-align: center;">
+    <div nz-col nzSpan="24">
+      <div class="form">
+        <div><span class="form-title"></span><textarea [(ngModel)]="creditaction" name='creditaction' matInput class="input-textarea" style="text-align: left;"
+            [(ngModel)]="mark" name="mark" (keyup)="creditaction_keyup()" maxlength="300"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:3px;text-align: center;">
+    <button *ngIf="(getPage()=='9'|| getPage()=='10') && size == 0 && search !='Y' " nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+    <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+  </div>
+
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="creditmemoSource" [nzFrontPagination]="false" [nzSimple]="true"
+    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
+    nzSize="small" nzTitle="審核意見">
+    <thead>
+      <tr>
+        <th class="table-header">Date</th>
+        <th class="table-header">User</th>
+        <th class="table-header" style="max-width: 200px;">Action</th>
+        <th class="table-header">Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of creditmemoSource">
+        <td class="table-data">{{ data.CREDITDATE | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td class="table-data">{{ data.CREDITUSER }}</td>
+        <td class="table-data" style="max-width: 200px;">{{ data.CREDITACTION }}</td>
+        <td class="table-data">{{ changeLevel(data.CREDITLEVEL) }}</td>
+        <!-- <td class="table-data" style="text-align: center;">
+          <button *ngIf="creditlevel==data.CREDITLEVEL && (getPage()=='9'|| getPage()=='10') && search !='Y' " id="test" nz-button [nzSize]="'small'" nzType="primary"
+            (click)="startEdit(data.CREDITACTION , data.ID)">編輯</button>
+            <button *ngIf="creditlevel!=data.CREDITLEVEL || (getPage()!='9' && getPage()!='10')|| search=='Y'" id="test" nz-button [nzSize]="'small'" nzType="primary"
+            disabled (click)="startEdit(data.CREDITACTION , data.ID)">編輯</button>
+        </td> -->
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

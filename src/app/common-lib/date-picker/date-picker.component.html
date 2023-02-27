@@ -1,0 +1,71 @@
+<div class="line_bank_card_no_padding" style="padding:10px;min-width:100%">
+  <div nz-row style="min-width:100%;text-align: center;margin:10px auto">
+    <div nz-col nzSpan="6">
+
+      <button nz-button [nzSize]="'small'" nzType="link" (click)="calculateMonth('')">< 前兩個月</button>
+    </div>
+    <div nz-col nzSpan="12"></div>
+    <div nz-col nzSpan="6">
+
+      <button nz-button [nzSize]="'small'" nzType="link" (click)="calculateMonth('add')">後兩個月 ></button>
+    </div>
+  </div>
+
+
+  <div nz-row style="min-width:480px;">
+    <div nz-col nzSpan="12">
+      <div>
+        <p class="detail-value" style="text-align: center;margin-bottom: 5px;">{{year}}/{{(month + 1) == 0 ? 12 : (month + 1)}}</p>
+        <nz-table nzTemplateMode style="margin:0px 2px">
+          <thead class="detail-name" style="display:revert;text-align: center;">
+            <th  nzWidth="10%">Sun</th>
+            <th nzWidth="10%">Mon</th>
+            <th nzWidth="10%">Tue</th>
+            <th nzWidth="10%">Wed</th>
+            <th nzWidth="10%">Thu</th>
+            <th nzWidth="10%">Fri</th>
+            <th nzWidth="10%">Sat</th>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let data of firstMonthRange;let i = index">
+              <ng-container *ngIf="i % 7 == 0">
+                <tr>
+              </ng-container>
+              <td>
+                <button (click)="chooseDateFunction(data.day, month + 1)" [disabled]="data.dis"
+                  [ngStyle]="{'background-color': data.dis ? '' :  disColor(data.day, month + 1) ? 'darkkhaki' : 'darkgray'}">{{data.day}}</button>
+              </td>
+            </ng-container>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+    <div nz-col nzSpan="12">
+      <div>
+        <p class="detail-value" style="text-align: center;margin-bottom: 5px;">{{year}}/{{(month + 2) == 0 ? 12 : (month + 2)}}</p>
+
+        <nz-table nzTemplateMode style="margin:0px 2px">
+          <thead class="detail-name" style="display:revert;text-align: center">
+            <th nzWidth="10%">Sun</th>
+            <th nzWidth="10%">Mon</th>
+            <th nzWidth="10%">Tue</th>
+            <th nzWidth="10%">Wed</th>
+            <th nzWidth="10%">Thu</th>
+            <th nzWidth="10%">Fri</th>
+            <th nzWidth="10%">Sat</th>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let data of secondMonthRange;let i = index">
+              <ng-container *ngIf="i % 7 == 0">
+                <tr>
+              </ng-container>
+              <td>
+                <button (click)="chooseDateFunction(data.day, month + 2)" [disabled]="data.dis"
+                  [ngStyle]="{'background-color': data.dis ? '' :  disColor(data.day, month + 2) ? 'darkkhaki' : 'darkgray'}">{{data.day}}</button>
+              </td>
+            </ng-container>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>

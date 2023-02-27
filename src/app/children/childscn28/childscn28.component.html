@@ -1,0 +1,63 @@
+<br>
+<!-- <div style="padding:10px;text-align:center">
+  </div> -->
+<div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%" (keydown.enter)="$event.preventDefault()">
+    <div [ngClass]="!(getPage() == '1' || getPage() == '2'|| getPage() == '10') ? 'all-disable' : ''">
+        <!-- Email功能 -->
+        <div class="line_bank_form_header_title" style="border-radius:0px;">Email訊息</div>
+        <div nz-row>
+            <div nz-col nzSpan="7">
+                <div style="padding:10px"><span class="form-title">eMail</span>
+                    <input [(ngModel)]="email"  maxlength="40"  >
+                </div>
+            </div>
+            <div nz-col nzSpan="7">
+                <div style="padding:10px"><span class="form-title">E-MAIL字串</span>
+                    <mat-select [(ngModel)]="emailSet" name="emailCode" (ngModelChange)="changeSelect(emailSet)">
+                        <mat-option class="option" *ngFor="let code of emailCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="7">
+                <div style="padding:10px"><span class="form-title">主旨</span>
+                    <input [(ngModel)]="emailTitle" disabled>
+                </div>
+            </div>
+
+            <div nz-col nzSpan="24">
+                <div style="padding:10px;"><span class="form-title">E-MAIL內容</span><textarea matInput style="background-color:#ffffff;border-radius:5px;border:none;width:100%;height:100px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);" [(ngModel)]="content" name="content" disabled required></textarea></div>
+            </div>
+            <div style="text-align:center;margin:10px auto">
+                <button nz-button [nzSize]="'large'" nzType="primary" (click)="addMail()"[disabled]="page=='3'||page=='7'?true:false">發送eMail</button>
+            </div>
+        </div>
+        <!-- 簡訊發送檔 -->
+        <nz-table nzShowSizeChanger [nzData]="emailDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="Email發送檔">
+            <thead>
+                <tr>
+                    <th class="table-header">Email</th>
+                    <th class="table-header">主旨</th>
+                    <th class="table-header">內容</th>
+                    <th class="table-header">發送時間</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of emailDataSource">
+                    <td class="table-data">{{ data.email }}</td>
+                    <td class="table-data">{{ data.emailTitle }}</td>
+                    <td class="table-data">{{ data.messageContent }}</td>
+                    <td class="table-data">{{ data.daytime|date: 'yyyy-MM-dd HH:mm' }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+    <div style="text-align: center;">
+        <br>
+        <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
+    </div>
+    <br>
+    <br>
+</div>

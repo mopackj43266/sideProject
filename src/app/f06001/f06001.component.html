@@ -1,0 +1,219 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">進件類別</span>
+          <mat-select [(ngModel)]="applyType" name="applyType">
+            <mat-option *ngFor="let item of applyTypeCode" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">進件流程</span>
+          <mat-select [(ngModel)]="applyProcess" name="applyProcess">
+            <mat-option *ngFor="let item of applyProcessCode" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+  </div>
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">申請表格</div>
+    <div class="container" style="padding:20px">
+      <form class="mat-dialog-content" #formControl="ngForm">
+        <div nz-row>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">客戶姓名</span>
+              <input matInput #input type="text" [(ngModel)]="custName" name="custName" maxlength="100" required>
+              <mat-error *ngIf="formControl.invalid && (custName =='' || custName == null)">{{
+                getErrorMessage("custName") }}
+              </mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">客戶ID</span>
+              <input matInput #input type="text" [(ngModel)]="custId" name="custId" maxlength="10" required>
+              <mat-error *ngIf="formControl.invalid && (custId =='' || custId == null)">{{ getErrorMessage("custId")
+                }}</mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">身分證字號</span>
+              <input matInput #input type="text" [(ngModel)]="nationalId" name="nationalId" maxlength="10" required>
+              <mat-error *ngIf="formControl.invalid && (nationalId =='' || nationalId == null || !checkId(nationalId))">
+                {{
+                getErrorMessage("nationalId") }}</mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">教育程度</span>
+              <mat-select [(ngModel)]="education" name="education" required>
+                <mat-option *ngFor="let item of educationCode" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (education =='' || education == null)">{{
+                getErrorMessage("education") }}</mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">貸款金額
+              </span>
+              <input matInput #input type="text" [(ngModel)]="loanAmount" name="loanAmount" maxlength="10"
+                (keypress)="numberOnly($event)" (keyup)="loanAmount = toCurrency(toNumber(loanAmount))" required>
+              <mat-error
+                *ngIf="formControl.invalid && (loanAmount == '' || loanAmount == null || stringToNumber(loanAmount) == 0)">
+                {{ getErrorMessage("loanAmount")
+                }}</mat-error>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div nz-row>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">貸款用途</span>
+              <mat-select [(ngModel)]="loanPurpose" name="loanPurpose" required>
+                <mat-option *ngFor="let item of loanPurposeCode" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (loanPurpose =='' || loanPurpose == null)">{{
+                getErrorMessage("loanPurpose") }}</mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">行業Level1</span>
+              <mat-select [(ngModel)]="inducLevel1" name="inducLevel1" (ngModelChange)="selectChangeLevel1()" required>
+                <mat-option *ngFor="let item of level1Code" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (inducLevel1 =='' || inducLevel1 == null)">{{
+                getErrorMessage("level1Value") }}</mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">行業Level2</span>
+              <mat-select [(ngModel)]="inducLevel2" name="inducLevel2" (ngModelChange)="selectChangeLevel2()" required>
+                <mat-option *ngFor="let item of level2Code" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (inducLevel2 =='' || inducLevel2 == null)">{{
+                getErrorMessage("level2Value") }}</mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">職稱</span>
+              <mat-select [(ngModel)]="jobValue" name="jobValue" required>
+                <mat-option *ngFor="let item of jobCode" [value]="item.value">
+                  {{item.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid && (jobValue =='' || jobValue == null)">{{
+                getErrorMessage("jobValue") }}</mat-error>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">年收入</span>
+              <input matInput #input type="text" [(ngModel)]="income" name="income" maxlength="10"
+                (keypress)="numberOnly($event)" (keyup)="income = toCurrency(toNumber(income))" required>
+              <mat-error *ngIf="formControl.invalid && (income == '' || income == null || stringToNumber(income) == 0)">
+                {{
+                getErrorMessage("income")
+                }}</mat-error>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div nz-row>
+          <div nz-col nzFlex="1">
+            <div style="padding:2px"><span class="form-title-actions">文件類型</span>
+              <mat-select [(ngModel)]="fileType" name="fileType" placeholder="請選擇" style="width: 80%;">
+                <mat-option *ngFor="let code of fileTypeCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div nz-col nzFlex="1" style="text-align: center;">
+            <div style="padding:2px"><span class="form-title" style="margin:0px">上傳財力證明（請先選擇文件類型）</span>
+              <div style="text-align: left;margin-top: -20px;">
+                <br><input [disabled]="fileType == '' || fileType == null" class='file_input' type="file"
+                  (change)="onChange($event)" required>
+                <fa-icon class="icon_size" [icon]="['fas', 'folder-open']"></fa-icon>
+                <span style="margin-left: -110px;">請選擇檔案</span>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzFlex="1"></div>
+          <div nz-col nzFlex="1"></div>
+          <div nz-col nzFlex="1"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1" style="text-align: center;">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="start()" [disabled]="!formControl.valid"
+        style="margin:0px 5px">開始進件</button>
+    </div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+  </div>
+  <br>
+  <div nz-row>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1">
+      <nz-table *ngIf="fileList.length > 0" nzShowSizeChanger [nzData]="fileList" [nzFrontPagination]="false"
+        [nzSimple]="true" nzSize="small" [nzTitle]="'財力證明列表'">
+        <thead>
+          <tr>
+            <th class="table-header">檔案名稱</th>
+            <th class="table-header">文件類型</th>
+            <th class="table-header">檢視</th>
+            <th class="table-header" width="33%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of fileList">
+            <td class="table-data">{{ data.fileName }}</td>
+            <td class="table-data">{{ data.fileType }}</td>
+            <td class="table-data"><button nz-button [nzSize]="'small'" nzType="primary"
+                (click)="showPic(data.fileToUpload)">檢視檔案</button></td>
+            <td class="table-data"><button nz-button nzDanger [nzSize]="'small'"
+                (click)="delete(data.fileNum)">刪除檔案</button></td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div nz-col nzFlex="1"></div>
+  </div>
+
+  <br>
+  <div class="container" style="text-align: center;">
+    <div nz-row style="padding:10px">
+      <div nz-col nzFlex="1">
+        財力證明顯示區
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="20"
+        style="padding:10px;border:2px solid black;width:80vw;height:80vh;margin:auto; display: table-cell;   vertical-align: middle;">
+        <img [src]="image" *ngIf="image" style="width:100%;height: 100%;object-fit: contain;">
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

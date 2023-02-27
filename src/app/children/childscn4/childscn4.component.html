@@ -1,0 +1,69 @@
+<br>
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+  <!-- 最外層卡片包覆 -->
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newData"
+      [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="案件歷程">
+      <thead>
+        <tr>
+          <th class="table-header">NO</th>
+          <th class="table-header">狀態碼</th>
+          <th class="table-header">狀態說明</th>
+          <th class="table-header">狀態結果</th>
+          <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzSortOrder]="'ascend'">
+            開始日期時間</th>
+          <th class="table-header">結束日期時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData;let i = index;">
+          <td class="table-data">{{ i+1}}</td>
+          <td class="table-data">{{ data.opId }}</td>
+          <td class="table-data">{{ data.opDesc }}</td>
+          <td class="table-data">{{ data.stepType }}</td>
+          <td class="table-data">{{ data.startDate }}</td>
+          <td class="table-data">{{ data.endDate }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <br>
+  <ng-container *ngIf="cancelCaseExist">
+    <!-- 最外層卡片包覆 -->
+    <div class="line_bank_card_no_padding">
+      <!-- 表格 -->
+      <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="cancelCaseSource"
+        [nzSimple]="true" [nzLoading]="loading" nzSize="small" nzTitle="案件取消">
+        <thead>
+          <tr>
+            <th class="table-header">案件編號</th>
+            <th class="table-header">取消原因</th>
+            <th class="table-header" style="max-width: 500px;">取消理由</th>
+            <th class="table-header">取消時間</th>
+            <th class="table-header">取消人員</th>
+            <th class="table-header">案件取消狀態</th>
+            <th class="table-header" style="max-width: 500px;">覆核理由</th>
+            <th class="table-header">覆核主管</th>
+            <th class="table-header">覆核時間</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of cancelCaseSource">
+            <td class="table-data">{{ data.applno }}</td>
+            <td class="table-data">{{ getCancelText(data.cancelCode) }}</td>
+            <td class="table-data" style="max-width: 500px;">{{ data.cancelReason }}</td>
+            <td class="table-data">{{ data.cancelDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td class="table-data">{{ data.cancelUser }}</td>
+            <td class="table-data">{{ changeStatus(data.cancelStatus) }}</td>
+            <td class="table-data" style="max-width: 500px;">{{ data.aprvReason }}</td>
+            <td class="table-data">{{ data.aprvEmp }}</td>
+            <td class="table-data">{{ data.aprvDate != null && data.aprvDate != '' ? (data.aprvDate | date: 'yyyy-MM-dd HH:mm:ss') : '' }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </ng-container>
+</div>

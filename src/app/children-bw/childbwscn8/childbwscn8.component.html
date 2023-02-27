@@ -1,0 +1,32 @@
+<br>
+<div class="line_bank_bankground_color">
+  <!-- 最外層卡片包覆 -->
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="BwtransactionLogSource" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzFooter="案件數: {{quantity}} 件"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="資料異動歷程">
+      <thead>
+        <tr>
+          <th class="table-header" style="color: black;">No</th>
+          <th class="table-header" style="color: black;">欄位名稱</th>
+          <th class="table-header" style="color: black;">原欄位值</th>
+          <th class="table-header" style="color: black;">新欄位值</th>
+          <th class="table-header" style="color: black;">異動程式名稱</th>
+          <th class="table-header" style="color: black;">異動日期</th>
+          <th class="table-header" style="color: black;">異動員工編號</th>
+        </tr>
+      </thead>
+      <tbody style="height: 100%">
+        <tr *ngFor="let data of BwtransactionLogSource;let i=index">
+          <td style="text-align: center;">{{i+1}}</td>
+          <td class="table-data">{{data.columnName!= 'null'? data.columnName: " "}}</td>
+          <td class="table-data">{{data.originalValue!= 'null'? data.originalValue: " " }}</td>
+          <td class="table-data">{{data.currentValue!= 'null'? data.currentValue: " "}}</td>
+          <td class="table-data">{{data.transApName}}</td>
+          <td class="table-data" style="text-align: right;">{{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+          <td class="table-data">{{data.transEmpNo}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

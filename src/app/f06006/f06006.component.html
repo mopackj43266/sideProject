@@ -1,0 +1,89 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+      <div nz-row>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">案件編號	</span>
+                  <div><input  name="applno" matInput #input class="form-control"
+                    [(ngModel)]="applno"  placeholder="請輸入案件編號" required>
+                  </div>
+              </div>
+          </div>
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">身分證字號	</span>
+                  <div><input  name="nationalId" matInput #input class="form-control"
+                    [(ngModel)]="nationalId"  placeholder="請輸入身分證字號" required>
+                  </div>
+              </div>
+          </div>
+          <div nz-col nzFlex="1"></div>
+          <div nz-col nzFlex="1"></div>
+          <!-- <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">客戶ID	</span>
+                  <div><input  name="customerId" matInput #input class="form-control"
+                      placeholder="請輸入客戶ID" required>
+                  </div>
+
+              </div>
+          </div>
+
+          <div nz-col nzFlex="1">
+              <div style="padding:10px"><span class="form-title-actions">撥款帳號</span>
+                  <div><input  name="dsbsacctnbr" matInput #input class="form-control"
+                      placeholder="請輸入撥款帳號" required>
+                  </div>
+              </div>
+          </div> -->
+
+
+
+
+      </div>
+
+      <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+          (click)="searchTable()">查詢資料</button>
+          <button nz-button [nzSize]="'middle'" (click)="clear()" nzDanger style="margin:0px 5px" >清除資料</button>
+      </div>
+  </div>
+  <div class="line_bank_card_no_padding">
+      <div class="line_bank_form_header_title">OP人員審查債整方案查詢結果</div>
+      <nz-table nzShowSizeChanger [nzData]="opData" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"   [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+          <thead>
+              <tr>
+                  <th></th>
+                  <th (nzSortOrderChange)="sortChange($event,'SIGN_UP_TIME')" [nzSortFn]="false"
+                  [nzSortDirections]="sortArry">合約確認日期時間</th>
+                  <th>案件編號</th>
+                  <th>產品名稱</th>
+                  <th (nzSortOrderChange)="sortChange($event,'APPLYEND_TIME')" [nzSortFn]="false"
+                  [nzSortDirections]="sortArry">貸款申請日期時間</th>
+                  <th>客戶ID</th>
+                  <th>客戶NID</th>
+                  <th>客戶姓名</th>
+                  <th>貸款金額</th>
+                  <th (nzSortOrderChange)="sortChange($event,'SETTLE_DATE')" [nzSortFn]="false"
+                  [nzSortDirections]="sortArry">指定結清日期</th>
+                  <th>貸款專員員編</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let data of newopData">
+                  <td><button nz-button [nzSize]="'middle'" nzType="primary"  (click)="pickup(data.APPLNO, data.CUST_ID)">取件</button></td>
+                  <td>{{data.SIGN_UP_TIME}}</td>
+                  <td>{{data.APPLNO}}</td>
+                  <td>{{data.PROD_NAME}}</td>
+                  <td>{{data.APPLYEND_TIME}}</td>
+                  <td>{{data.CUST_ID}}</td>
+                  <td>{{data.NATIONAL_ID}}</td>
+                  <td>{{data.CU_CNAME}}</td>
+                  <td>{{f06006Service.toCurrency(data.AMT.toString())}}</td>
+                  <td>{{data.SETTLE_DATE}}</td>
+                  <td>{{data.O2_EMPNO}}</td>
+              </tr>
+          </tbody>
+      </nz-table>
+  </div>
+
+</div>

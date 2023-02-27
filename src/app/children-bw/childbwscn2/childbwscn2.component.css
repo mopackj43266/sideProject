@@ -1,0 +1,34 @@
+/* 功能按鈕樣式 */
+.ant-btn-primary{
+  color:#24C875;
+  background:white;
+  border-color:#24C875;
+  border-radius:5px;
+
+}
+.ant-btn-primary:hover{
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-primary:active{
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+}
+
+.mat-dialog-actions{
+  padding-left:20px;
+}
+
+.oncloick{
+  color: blueviolet!important;
+}
+
+.unclock{
+  color: cornflowerblue!important;
+}
+

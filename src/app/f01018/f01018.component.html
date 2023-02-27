@@ -1,0 +1,184 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div nz-row class="search_row">
+    <th style="padding-left: 30px;">產品處處長案件清單 共{{this.total}}件</th>
+    <div class="search_row_header">
+      <div nz-col>
+        <div nz-row>
+          <div nz-col nzFlex="1">
+            <span class="form-title line_bank_h4"> 案件編號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
+                  placeholder="請輸入案件編號" required>
+              </div>
+            </div>
+          </div>
+          <div nz-col  nzFlex="1">
+            <span class="form-title line_bank_h4">身分證號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId"
+                  placeholder="請輸入身分證編號" required>
+              </div>
+            </div>
+          </div>
+          <div nz-col  nzFlex="1">
+            <span class="form-title line_bank_h4">客戶ID</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcCustId" name="swcCustId"
+                  placeholder="請輸入客戶ID" required>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <span class="form-title line_bank_h4">C3憑證</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div>
+                <mat-select [(ngModel)]="swcC3Flag" name="swcC3Flag" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of swcC3FlagList" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col  nzFlex="1">
+            <span class="form-title line_bank_h4">案件類別</span>
+            <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
+              <div style="color:gray">
+                <mat-select [(ngModel)]="caseType" name="caseTypeCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of caseTypeCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          
+          <div nz-col  nzFlex="1">
+            <span class="form-title line_bank_h4">產品名稱</span>
+            <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
+              <div style="color:gray">
+                <mat-select [(ngModel)]="product_NAME" name="caseTypeCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of productList" [value]="code.value">
+                    {{code.value+code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col  nzFlex="1">
+            <span class="form-title line_bank_h4">代理人別</span>
+            <div class="form" style="width:90%;height:25px;margin:0 auto">
+              <div>
+                <mat-select [(ngModel)]="agentEmpNo" name="agentEmpNoCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of agentEmpNoCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="2" style="margin-top:18px;">
+            <div>
+              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
+            </div>
+          </div>
+          <div nz-col nzSpan="2" style="margin-top:18px;">
+            <div>
+              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="clear()">清除資料</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div #absBox class="abs-box">
+      <div nz-col nzSpan="24">
+        <div class="line_bank_card_no_padding">
+          <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+            [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
+            [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)" id="matTable">
+            <thead style="max-height: 100vh;">
+              <tr>
+                <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
+                <th class="table-header" [nzWidth]="'90px'" nzLeft>案件類別</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplyNum')" [nzSortFn]="false"
+                  [nzWidth]="'80px'" nzLeft>累進</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'F_StartTime')" [nzWidth]="'120px'"
+                  [nzSortFn]="true" [nzSortOrder]="sort" nzLeft>進件日期時間</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcCustTag')" [nzSortFn]="false"
+                  [nzWidth]="'100px'" nzLeft>客群標籤</th>
+                  <th class="table-header"  [nzWidth]="'100px'" nzLeft>C3憑證</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplno')" [nzSortFn]="false"
+                  [nzWidth]="'160px'" nzLeft>案件編號</th>
+                <th class="table-header" [nzWidth]="'90px'">重查完成</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcRiskGrade')" [nzSortFn]="false"
+                  [nzWidth]="'80px'">等級gp</th>
+                <th class="table-header">身分證號</th>
+                <th class="table-header">客戶ID</th>
+                <th class="table-header">姓名</th>
+                <th class="table-header">公司名稱</th>
+                <th class="table-header">產品名稱</th>
+                <th class="table-header">申請金額</th>
+                <th class="table-header">審核結果</th>
+                <th class="table-header">通知</th>
+                <th class="table-header" [nzWidth]="'140px'" nzRight>案件註記</th>
+                <th class="table-header" nzRight>儲存</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of newData; let i =index">
+                <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
+                <td *ngIf="data.swcCreditLevel == 'T';else template" class="table-data" nzLeft>暫存件</td>
+                <ng-template #template>
+                  <td class="table-data" nzLeft>{{ getOptionCaseType(data.swcFlowType) }}</td>
+                </ng-template>
+                <td class="table-data" nzLeft>{{ data.swcApplyNum }}</td>
+                <td class="table-data" nzWidth="'70px'" nzLeft>{{ data.F_StartTime | date: 'yyyy-MM-dd HH:mm:ss' :
+                  "-0600" }}</td>
+                <td class="table-data" nzLeft>{{ data.swcCustTag }}</td>
+                <td class="table-data" [ngClass]=" data.swcC3Flag!='Y' ?'cssBlack':'cssRed' "
+                  nzLeft>{{ data.swcC3Flag != "" && data.swcC3Flag != undefined ? data.swcC3Flag :'N' }}</td>
+                <td class="table-data" nzLeft>
+                  <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
+                    [disabled]="true">
+                    {{data.swcApplno}}
+                  </button>
+                  <button nz-button [nzSize]="'middle'" nzType="link"
+                    *ngIf="data.swcReadyForReview=='Y'||data.swcReadyForReview==''"
+                    (click)="getLockCase(data.swcApplno, data.swcNationalId, data.swcCustId)">
+                    {{data.swcApplno}}
+                  </button>
+                </td>
+                <td class="table-data">{{ data.swcReadyForReview }}</td>
+                <td class="table-data">{{ data.swcRiskGrade }}</td>
+                <td class="table-data">{{ data.swcNationalId }}</td>
+                <td class="table-data">{{ data.swcCustId }}</td>
+                <td class="table-data" style="text-align:left;">{{ data.swcName }}</td>
+                <td class="table-data" style="text-align:left;">{{ data.swcCompany }}</td>
+                <td class="table-data">{{ data.swcProdCode==''?'':product(data.swcProdCode) }}</td>
+                <td class="table-data" style="text-align: right;">{{ data.swcApplyAmount != undefined? data_number(
+                  data.swcApplyAmount): data.swcApplyAmount }}</td>
+                <td class="table-data">{{ data.swcResult }}</td>
+                <td class="table-data" style="text-align: center;">
+                  <button nz-button id="test" nzSize='small' (click)="openNotifyMsg(data.swcApplno)"
+                    nzType="primary">通知</button>
+                </td>
+                <td class="table-data" nzRight style="text-align: center;">
+                  <input matInput id="input" style="text-align:left;" class="form-control"
+                    [(ngModel)]="data.swcCaseMemo" name="note" placeholder="請輸入註記" required>
+                </td>
+                <td class="table-data btn_test" nzRight style="text-align: center;">
+                  <button nz-button id="test" nzType="primary" nzSize='small'
+                    (click)="saveCaseMemo(data.swcApplno, data.swcCaseMemo)">儲存</button>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

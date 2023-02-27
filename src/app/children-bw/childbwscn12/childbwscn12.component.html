@@ -1,0 +1,56 @@
+<app-block *ngIf="block"></app-block>
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">重查</div>
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTemplateMode>
+    <thead>
+      <tr>
+        <th>客戶類別</th>
+        <th>核心資訊</th>
+        <th>JCIC組合查詢SC3</th>
+        <th>額度中心</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>申請人-{{swcID}}</td>
+        <td><input class="inpu1" type="checkbox" value="swcBank" (click)="chkArray($event.target.checked,'swcBank')">
+        </td>
+        <td><input class="inpu1" type="checkbox" value="swcJCIC" (click)="chkArray($event.target.checked,'swcJCIC')">
+        </td>
+        <td><input class="inpu1" type="checkbox" value="swcLimit" (click)="chkArray($event.target.checked,'swcLimit')">
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div style="padding:10px;text-align:center">
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="recheck()">重查</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="closure()">關閉</button>
+    <button nz-button nzType="primary" nzSize="middle" (click)="course(k)">歷程</button>
+  </div>
+  <div *ngIf="k">
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzSimple]="true" nzSize="small"
+      nzTitle="複審案件重查歷程" [nzData]="newData" [nzScroll]="{ y: '500px' }" [nzLoading]="false">
+      <thead>
+        <tr>
+          <th class="table-header">NO</th>
+          <th class="table-header">狀態碼</th>
+          <th class="table-header">狀態說明</th>
+          <th class="table-header">狀態結果</th>
+          <th class="table-header">開始日期時間</th>
+          <th class="table-header">結束日期時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData;let i = index;">
+          <td class="table-data">{{ i+1}}</td>
+          <td class="table-data">{{ data.opId }}</td>
+          <td class="table-data">{{ data.opDesc }}</td>
+          <td class="table-data">{{ data.stepType }}</td>
+          <td class="table-data">{{ data.startDate }}</td>
+          <td class="table-data">{{ data.endDate }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>

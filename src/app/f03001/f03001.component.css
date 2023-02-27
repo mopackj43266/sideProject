@@ -1,0 +1,25 @@
+.f01_th{
+  font-size: 20px;
+  padding: 20px 20px;
+}
+
+.matCard{
+    box-shadow: 5px 5px 5px 5px dimgray;
+  }
+
+  .mat-card-content{
+    background-color: linen;
+  }
+
+  th{
+    font-size: 15px;
+  }
+
+  td{
+    font-size: 15px;
+    text-align: left;
+    padding-left: 30px;
+  }
+  table {
+    width: 100%;
+  }

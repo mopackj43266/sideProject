@@ -1,0 +1,97 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+    <ng-container *ngIf="first; else tem">
+      <div class="line_bank_form_header_title">Input Loan Info</div>
+      <div class="line_bank_form_header_child_title">Loan info
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="edit()">Edit</button>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Loan amount</span><input matInput #input
+              class="form-control" value=""></div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Select loan purpose</span><input matInput #input
+              class="form-control" value=""></div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #tem>
+      <div class="line_bank_form_header_title">Confirm applocation</div>
+      <div class="line_bank_form_header_child_title">Loan info
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="edit()">Edit</button>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Amount</span><input matInput #input class="form-control"
+              value="$1,000,000" readonly></div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Period</span><input matInput #input class="form-control"
+              value="1year" readonly></div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Purpose</span><input matInput #input class="form-control"
+              value="Buying a Car" readonly></div>
+        </div>
+      </div>
+      <br>
+      <div class="line_bank_form_header_child_title">Customer info
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="edit()">Edit</button>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Address</span><input matInput #input class="form-control"
+              value="台北市州子街" readonly></div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">E-mail</span><input matInput #input class="form-control"
+              value="111@gmail.com" readonly></div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Phone</span><input matInput #input class="form-control"
+              value="0912345678" readonly></div>
+        </div>
+      </div>
+      <br>
+      <div class="line_bank_form_header_child_title">Occupation info
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="edit()">Edit</button>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Occupa...</span><input matInput #input class="form-control"
+              value="ITPL" readonly></div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Office</span><input matInput #input class="form-control"
+              value="Line Taiwan" readonly></div>
+        </div>
+      </div>
+      <br>
+      <div class="line_bank_form_header_child_title">Additional occupation info
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="edit()">Edit</button>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Office num...</span><input matInput #input class="form-control"
+              value="080-1234-1234" readonly></div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Annual inco</span><input matInput #input class="form-control"
+              value="$8,000,000" readonly></div>
+        </div>
+      </div>
+      <br>
+      <div class="line_bank_form_header_child_title">Others
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="edit()">Edit</button>
+      </div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">Educati...</span><input matInput #input class="form-control"
+              value="High school" readonly></div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

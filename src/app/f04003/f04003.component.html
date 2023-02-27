@@ -1,0 +1,115 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">派件層級</span>
+            <mat-select [(ngModel)]="Level" name="Level" placeholder="請選擇" (ngModelChange)="Dispatch()">
+              <mat-option *ngFor="let code of LevelCode" [value]="code.value">
+                {{ code.viewValue }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div nz-col nzSpan="3" *ngIf="this.bo">
+          <div style="padding:10px"><span class="form-title">產品名稱</span>
+            <mat-select [(ngModel)]="pord" name="pord" placeholder="請選擇" (ngModelChange)="Dispatch2()">
+              <mat-option *ngFor="let code of prodList" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div nz-col nzSpan="3">
+          <div style="padding:10px"><span class="form-title">客群標籤</span>
+            <mat-select [(ngModel)]="cust_FLAG_Value" name="cust_FLAG_Value" placeholder="請選擇">
+              <mat-option *ngFor="let code of cust_FLAG" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">派件人員</span>
+            <mat-select [(ngModel)]="personnel" name="personnel" placeholder="請選擇">
+              <mat-option *ngFor="let code of personnelCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding-left: 20px; margin-top: 30px;">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Search()"  [disabled]="this.h">查詢</button>
+
+          </div>
+          <!-- <div style="padding-left: 20px; margin-top: 30px;">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+              (click)="test()">test</button>
+
+          </div>
+        </div> -->
+        </div>
+
+      </div>
+      <div nz-row *ngIf="i>0">
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">選擇轉件人員</span>
+            <mat-select [(ngModel)]="Transfer" name="Transfer" placeholder="請選擇" (selectionChange)="Select()">
+              <mat-option *ngFor="let code of TransferCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <br>
+        <div nz-col nzSpan="6">
+          <div style="padding-left: 20px; margin-top: 30px;">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="change()">轉件</button>
+          </div>
+        </div>
+      </div>
+      <!-- <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="案件重新指派"
+     [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"> -->
+    </div>
+    <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" nzSize="small"
+      nzTitle="案件重新指派">
+      <thead>
+        <tr>
+          <th class="table-header" style="width: 10px;">
+            <mat-checkbox color="primary" (change)="setAll($event.checked)" [(ngModel)]="isAllCheck" name="isAllCheck"
+              [disabled]="locknumber">全選</mat-checkbox>
+          </th>
+          <th class="table-header" style="width:50px"(nzSortOrderChange)="sortChange($event,'empNo')" [nzSortFn]="false"
+          [nzSortDirections]="sortArry">處理人員</th>
+          <th class="table-header" style="width: 80px;"(nzSortOrderChange)="sortChange($event,'empName')" [nzSortFn]="false"
+          [nzSortDirections]="sortArry">處理人員姓名</th>
+          <th class="table-header" style="width: 50px;" (nzSortOrderChange)="sortChange($event,'custTag')" [nzSortFn]="false" [nzSortDirections]="sortArry">客群標籤</th>
+          <th class="table-header" style="width: 50px;"(nzSortOrderChange)="sortChange($event,'swcApplno')" [nzSortFn]="false"  [nzSortDirections]="sortArry">案件編號</th>
+          <th class="table-header" style="width: 50px;">身份證號</th>
+          <th class="table-header" style="width: 60px;">客戶姓名</th>
+          <th class="table-header" style="width: 400px;"(nzSortOrderChange)="sortChange($event,'swcCompany')" [nzSortFn]="false"[nzSortDirections]="sortArry">公司名稱</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData;let i = index;">
+          <td class="table-data">
+            <mat-checkbox color="primary" [(ngModel)]="data.bool" (change)="addchkArray($event.checked,data.swcApplno)"
+              [disabled]="Transfer==data.empNo? true:false">
+            </mat-checkbox>
+          </td>
+          <td class="table-data">{{ data.empNo }}</td>
+          <td class="table-data">{{ data.empName }}</td>
+          <td class="table-data">{{ data.custTag }}</td>
+          <td class="table-data">{{ data.swcApplno }}</td>
+          <td class="table-data">{{ data.swcNationalId }}</td>
+          <td class="table-data">{{ data.swcName }}</td>
+          <td class="table-data">{{ data.swcCompany }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

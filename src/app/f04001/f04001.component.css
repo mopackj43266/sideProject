@@ -1,0 +1,10 @@
+.mat-select{
+    width:100%;
+    display:inline-block;
+    height:30px;
+    font-size:14px;
+    border-radius:5px;
+    border:1px solid #c9c9c9;
+    padding:4px;
+    background-color:#ffffff;
+  }

@@ -1,0 +1,63 @@
+<div class="line_bank_card_no_padding_child">
+  <div class="line_bank_form_header_title">債整拆分明細</div>
+  <nz-table id="box" #goUp nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="splitData" nzTemplateMode
+    [nzSimple]="true" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex">
+    <thead>
+      <tr>
+        <th nzWidth="10%"></th>
+        <th nzWidth="10%">產品別</th>
+        <th nzWidth="10%">銀行名稱</th>
+        <th nzWidth="10%">結清金額</th>
+        <th nzWidth="10%">匯款帳號</th>
+        <th nzWidth="10%">結清卡號</th>
+        <th nzWidth="10%">匯款戶名</th>
+        <th nzWidth="10%">匯款分行別</th>
+        <th nzWidth="10%">匯款附言</th>
+        <th nzWidth="10%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let debt of splitData;let i = index">
+        <td><button *ngIf="i == 0"  nz-button [nzSize]="'middle'" nzType="primary" (click)="add(debt)">新增</button></td>
+        <td>{{debt.MERG_DEBT_PROD}}</td>
+        <td>{{debt.BANK_CODE+debt.BANK_NAME}}</td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.SETTLE_AMT" name="settleAmt"
+            [ngStyle]="getStyle(f06006Service.toNumber(debt.SETTLE_AMT.toString()))" (keypress)="numberOnly($event)"
+            (keyup)="debt.SETTLE_AMT = f06006Service.toCurrency(f06006Service.toNumber(debt.SETTLE_AMT.toString()))"
+            maxlength="17">
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.ACCOUNT_NO" name="accountNo"
+            [ngStyle]="getStyle(debt.ACCOUNT_NO)" (keypress)="numberOnly($event)"
+            (keyup)="debt.ACCOUNT_NO = f06006Service.toNumber(debt.ACCOUNT_NO)" maxlength="16" [disabled]="!searchDisabled">
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.SETTLE_CARD_NO" name="settleCardNo"
+            [ngStyle]="getStyle(debt.SETTLE_CARD_NO)" (keypress)="numberOnly($event)"
+            (keyup)="debt.SETTLE_CARD_NO = f06006Service.toNumber(debt.SETTLE_CARD_NO)" maxlength="16">
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.ACCOUNT_NM" name="accountNm"
+            [ngStyle]="getStyle(debt.ACCOUNT_NM)" maxlength="16">
+        </td>
+        <td>
+          <mat-select [(ngModel)]="debt.BRANCH_CD" name="branchCd">
+            <mat-option *ngFor="let code of branchCdCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </td>
+        <td>
+          <input matInput #input class="form-control" [(ngModel)]="debt.TRANS_MEMO" name="transMemo"
+            [ngStyle]="getStyle(debt.TRANS_MEMO)" maxlength="16">
+        </td>
+        <td><button *ngIf="i != 0" nz-button [nzSize]="'middle'" nzDanger (click)="del(debt)">刪除</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div style="padding:10px;text-align:center">
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>&nbsp;
+    <button  nz-button [nzSize]="'middle'" nzDanger (click)="close()">離開</button>&nbsp;
+  </div>
+</div>

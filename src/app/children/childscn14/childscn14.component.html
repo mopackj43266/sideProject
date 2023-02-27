@@ -1,0 +1,53 @@
+<!-- class="line_bank_bankground_color" -->
+<div class="closeButton == true ? '':'line_bank_bankground_color;">
+  <div style="margin-top: 30px; margin-left: 5px; width: 100%;">
+    <!-- 本案影像 -->
+
+    <div class="line_bank_card_no_padding">
+      <!-- 表格 -->
+      <nz-table nzShowSizeChanger [nzData]="imageSource" [nzFrontPagination]="false" [nzSimple]="true"
+        [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
+        nzTitle="本案影像">
+        <thead>
+          <tr>
+            <th class="table-header" style="width:5%"></th>
+            <th class="table-header" style="width:3%">No</th>
+            <th class="table-header" style="width:15%">文件類型</th>
+            <th class="table-header" style="width:15%">文件名稱</th>
+            <th class="table-header" style="width:10%">文件Key值</th>
+            <th class="table-header"style="width:30%">備註</th>
+            <th class="table-header" style="width:15%">上傳日期時間</th>
+            <th class="table-header">上傳人員</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of imageSource;let i = index">
+            <td class="table-data">
+              <button class="btn" nz-button [nzSize]="'middle'" *ngIf= "data.IS_IMG == 'Y'" nzType="primary"
+                style="margin-bottom: 5px; margin-left: 5px;" (click)="openUrl(data.FILE_ATTACHMENT_ID)">
+                <!-- <a href="{{ host }}:18443/LineBankViewOne/system/viewer.html?docKey={{ data.FILE_ATTACHMENT_ID }}&cuId={{ cuid }}&cuNm={{ cuNm }}"
+                 target="_blank">本案影像</a> -->
+                 本案影像</button>
+              <button nz-button [nzSize]="'middle'" *ngIf= "data.IS_IMG == 'N' || data.IS_IMG == '' || data.IS_IMG == null" nzType="primary" nzDanger (click)="downloadFile(data.FILE_ATTACHMENT_ID)" tabindex="-1"
+              style="margin:0px 5px" >下載圖檔
+              </button>
+              <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="deleteFile(data.UPLOAD_USER, data.FILE_ATTACHMENT_ID)" tabindex="-1"
+                      style="margin:0px 5px" [disabled]="getSearch(data.UPLOAD_USER) == 'Y'">刪除圖檔
+              </button>
+            </td>
+            <td class="table-data">{{i+1 }}</td>
+            <td class="table-data">{{ data.CODE_DESC }}</td>
+            <td class="table-data">{{ data.DOC_NAME }}</td>
+            <td class="table-data">{{ data.FILE_ATTACHMENT_ID }}</td>
+            <td class="table-data">{{ data.REMARK }}</td>
+            <td class="table-data">{{ data.UPLOAD_TIME | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+            <td class="table-data">{{ data.UPLOAD_USER }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <div style="text-align: center;padding:10px">
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadImage()" [disabled]="getSearch('K') == 'Y'">新增上傳</button>
+      </div>
+    </div>
+  </div>
+</div>

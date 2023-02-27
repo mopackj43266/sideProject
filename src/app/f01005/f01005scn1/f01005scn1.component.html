@@ -1,0 +1,171 @@
+<app-block *ngIf="block"></app-block>
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+    <br>
+    <div style="position:fixed;top:48px;width:100%;z-index:50">
+      <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'Y' ">
+        <div style="padding:0 10px;background-color:white">
+          <div style="background-color:white;margin:0px -8px -20px -8px;">
+            <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+              (click)="leave()">離開</button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'N' ">
+        <div style="padding:0 10px;background-color:white">
+          <div style="background-color:white;margin:0px -8px -20px -8px;">
+            <!-- <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="leave()">離開</button> -->
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="getSearch() == 'N'">
+        <div style="padding:0 10px;background-color:white">
+          <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
+            <!-- <mat-grid-tile><span (click)="reSearch()">重查</span></mat-grid-tile>
+            <mat-grid-tile><span (click)="recalculate()">重算</span></mat-grid-tile> -->
+            <mat-grid-tile><span style="font-size: 10px;" (click)="save('f01/childscn0','案件完成')">案件完成</span></mat-grid-tile>
+            <!-- <mat-grid-tile><span (click)="reScan()">補件</span></mat-grid-tile> -->
+            <!-- <mat-grid-tile><span (click)="save('f01/childscn0action1','暫存成功')">暫存</span></mat-grid-tile> -->
+            <!-- <mat-grid-tile><span>發送簡訊</span></mat-grid-tile>
+            <mat-grid-tile><span>發送Email</span></mat-grid-tile> -->
+            <!-- <mat-grid-tile><span (click)="sendBack('f01/childscn0action1','退件成功')">退件</span></mat-grid-tile>
+            <mat-grid-tile><span (click)="blockList()">提報黑名單</span></mat-grid-tile> -->
+          </mat-grid-list>
+        </div>
+      </ng-container>
+      <br>
+      <nz-tabset nzLinkRouter>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN1']">
+            <button nz-button nzType="primary" id="firstBtn" nzSize="small"> 審核資料</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN8']">
+            <button nz-button nzType="primary" id="secondBtn"nzSize="small">
+              徵信照會</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN5']">
+            <button nz-button nzType="primary" id="secondBtn"nzSize="small">
+              基本資料</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN12']">
+            <button nz-button nzType="primary" id="secondBtn"nzSize="small">
+              收入試算</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN23']">
+            <button nz-button nzType="primary" id="secondBtn"nzSize="small">
+              DBR收支比</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN13']">
+            <button nz-button nzType="primary" id="secondBtn"nzSize="small">
+              網頁資訊</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN14']">
+            <button nz-button nzType="primary" nzSize="small">
+              本案影像</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN6']">
+            <button nz-button nzType="primary" nzSize="small">
+              行外資料</button>
+          </a>
+        </nz-tab>
+        <ng-container>
+          <nz-tab>
+            <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN15']">
+              <button nz-button nzType="primary" nzSize="small">
+                偽冒案件處理</button>
+            </a>
+          </nz-tab>
+        </ng-container>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN9']">
+            <button nz-button nzType="primary" nzSize="small">
+              核心資訊</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN16']">
+            <button nz-button nzType="primary" nzSize="small">
+              歷史資料</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN3']">
+            <button nz-button nzType="primary" nzSize="small">
+              偽冒通報</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN17']">
+            <button nz-button nzType="primary" nzSize="small">
+              申覆資料</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN10']">
+            <button nz-button nzType="primary" nzSize="small">
+              決策結果</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN21']">
+            <button nz-button nzType="primary" nzSize="small">
+              額度資訊</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN11']">
+            <button nz-button nzType="primary" nzSize="small">
+              資料比對</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN4']">
+            <button nz-button nzType="primary" nzSize="small">
+              案件歷程</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN2']">
+            <button nz-button nzType="primary" nzSize="small">資料異動歷程</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN7']">
+            <button nz-button nzType="primary" nzSize="small">
+              AML/FDS/CSS</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN25']">
+            <button nz-button nzType="primary" nzSize="small">
+              RPM&同一關係人</button>
+          </a>
+        </nz-tab>
+       
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN29']">
+            <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">審核歷程</button>
+          </a>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+    <router-outlet (activate)="scrollToTop($event)" style="padding-top: 70px;display: block;"></router-outlet>
+  </div>
+
+  <app-childscn8add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-childscn8add>
+  <app-childscn8edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-childscn8edit>
+  <app-childscn8items *ngIf="isShowItems" cdkDrag></app-childscn8items>

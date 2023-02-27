@@ -1,0 +1,15 @@
+<nz-table nzShowSizeChanger [nzData]="nzData" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+  [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" nzSize="small"
+  [nzTitle]="tableData.title"  [nzScroll]="{ x: tableData.nzScroll }">
+  <thead>
+    <tr>
+      <th class="table-header" *ngFor="let dataItem of tableData.dataList" [nzRight]="dataItem.nzRight || false" [nzWidth]="dataItem.width"
+        [nzLeft]="dataItem.nzLeft || false">{{ dataItem.name }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzData">
+      <th class="table-data" *ngFor="let dataItem of tableData.dataList" [nzRight]="dataItem.nzRight || false" [nzLeft]="dataItem.nzLeft || false">{{data[dataItem.bodyKey] != undefined && dataItem.type=='number'? data_number( data[dataItem.bodyKey]): data[dataItem.bodyKey]}}</th>
+    </tr>
+  </tbody>
+</nz-table>

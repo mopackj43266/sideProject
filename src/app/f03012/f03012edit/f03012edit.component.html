@@ -1,0 +1,109 @@
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">資料比對編輯</div>
+
+  <div nz-row>
+    <div nz-col nzSpan="12">
+      <div style="padding:10px">
+        <span class="form-title">比對table</span>
+        <mat-select [(ngModel)]="data.compareTable" name="compareTable" (ngModelChange)="changeSelect()" style="color: #727171;background-color:#E6E6E6">
+          <mat-option *ngFor="let code of compareTableCode" [value]="code.value" disabled>
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div nz-col nzSpan="12">
+      <div style="padding:10px">
+        <span class="form-title">比對欄位</span>
+        <mat-select [(ngModel)]="data.compareColumn" name="compareColumn" value="data.compareColumn" style="color: #727171;background-color:#E6E6E6">
+          <mat-option *ngFor="let code of compareColumnCode" [value]="code.value" disabled>
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col nzSpan="8">
+      <div style="padding:10px">
+        <span class="form-title">比對方式</span>
+        <mat-select [(ngModel)]="data.compareType" name="compareType" [value]="data.compareType"  (ngModelChange)="test123($event)">
+          <mat-option *ngFor="let code of options" [value]="code.option">
+            {{code.opDesc}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div nz-col nzSpan="8">
+      <div style="padding:10px">
+        <span class="form-title">設定最低門檻</span>
+        <input type="text" maxlength="10" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" (keyup)="numberOnly(low)"  [(ngModel)]="low" name="low"  required>
+      </div>
+    </div>
+    <div nz-col nzSpan="8">
+      <div style="padding:10px">
+        <span class="form-title">設定最高高檻</span>
+        <input type="text" maxlength="10" [disabled]="myDiv" onkeyup="value=value.replace(/\D/g,'')" (keyup)="numberhingt(hingt)"  [(ngModel)]="hingt" name="hingt"  required>
+
+      </div>
+    </div>
+    <div mat-dialog-actions style="margin:5px auto">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" nzDanger tabindex="-1" (click)="onNoClick()">取消</button>
+      <!-- <button nz-button [nzSize]="'middle'"  (click)="test(low,hingt)">test</button> -->
+
+    </div>
+  </div>
+  <!-- <div class="container">
+  <h2 mat-dialog-title>資料比對編輯</h2>
+  <form class="mat-dialog-content" #formControl="ngForm">
+      <div class="form">
+          <th nowrap="nowrap">比對table</th>
+          <mat-form-field color="accent">
+              <mat-select [(ngModel)]="data.compareTable" name="compareTable" (ngModelChange)="changeSelect()">
+                  <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+                      {{code.viewValue}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="form">
+          <th nowrap="nowrap">比對欄位</th>
+          <mat-form-field color="accent">
+              <mat-select [(ngModel)]="data.compareColumn" name="compareColumn" value = "11111">
+                  <mat-option *ngFor="let code of compareColumnCode" [value]="code.value">
+                      {{code.viewValue}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="form">
+          <mat-form-field color="accent">
+              <th nowrap="nowrap">比對方式</th>
+
+              <mat-select [(ngModel)]="data.compareType" name="compareType" [value] = "data.compareType">
+                <mat-option *ngFor="let code of options" [value]="code.option">
+                    {{code.opDesc}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="form">
+          <mat-form-field color="accent">
+              <th nowrap="nowrap">設定最低門檻</th>
+              <input matInput [(ngModel)]="data.setValueLow" name="setValueLow" required>
+          </mat-form-field>
+      </div>
+      <div class="form">
+          <mat-form-field color="accent">
+              <th nowrap="nowrap">設定最高高檻</th>
+              <input matInput [(ngModel)]="data.setValueHight" name="setValueHight" required>
+          </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+          <button mat-button [disabled]="!formControl.valid" (click)="save()">儲存</button>
+          <button mat-button  tabindex="-1">取消</button>
+      </div>
+  </form>
+</div> -->

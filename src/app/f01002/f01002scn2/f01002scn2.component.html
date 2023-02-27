@@ -1,0 +1,70 @@
+<app-block *ngIf="block"></app-block>
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+  <br>
+  <div style="position:fixed;top:48px;width:100%;z-index:100">
+    <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'Y' ">
+      <div style="padding:0 10px;background-color:white;">
+        <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
+          <mat-grid-tile><span style="font-size: 10px;" (click)="leave()">離開</span></mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'N' ">
+      <div style="padding:0 10px;background-color:white">
+        <div style="background-color:white;margin:0px -8px -20px -8px;">
+          <!-- <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="leave()">離開</button> -->
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+  <div
+    [ngClass]="{'classA': changeValue==true,'classB': changeValue==false,'classC':getSearch() == 'Y' && getWinClose() == 'N'}">
+    <br>
+    <nz-tabset nzLinkRouter>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN1']">
+          <button nz-button nzType="primary" id="firstBtn" nzSize="small" (click)="changeRoute(true)">審核資料</button>
+        </a>
+      </nz-tab>
+
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN5']">
+          <button nz-button nzType="primary" id="secondBtn" nzSize="small" (click)="changeRoute(false)">
+            基本資料</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN14']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">
+            本案影像</button>
+        </a>
+      </nz-tab>
+
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN9']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">
+            核心資訊</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN4']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">
+            案件歷程</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN29']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">審核歷程</button>
+        </a>
+      </nz-tab>
+
+    </nz-tabset>
+  </div>
+  <router-outlet (activate)="scrollToTop($event)" style="padding-top: 70px;display: block;"></router-outlet>
+</div>
+<app-childscn8add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-childscn8add>
+<app-childscn8edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-childscn8edit>
+<app-childscn8items *ngIf="isShowItems" cdkDrag></app-childscn8items>

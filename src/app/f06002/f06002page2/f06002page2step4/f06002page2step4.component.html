@@ -1,0 +1,147 @@
+<app-block *ngIf="block"></app-block>
+<!-- <div class="line_bank_form_header_title" onkeydown="monitorKeyDown(event)" onkeyup="monitorKeyUp(event)">Outbound填寫債整匯款明細(2920)</div> -->
+<!-- <div style="margin-top: 0px;" class="EL_DSS_form_header_title3">申請資訊</div> -->
+<div class="card-title" style="margin-left: 4%;">申請資訊</div>
+<div class="card-info" style="margin: 0 4% 30px;padding:10px">
+  <div nz-row style="padding:10px" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+    <div nz-col nzFlex="1">
+      <span class="detail-name">案件編號</span>
+      <span class="detail-value">{{data.applno}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">姓名</span>
+      <span class="detail-value">{{data.cuCname}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">客戶ID</span>
+      <span class="detail-value">{{data.custId}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">身分證字號</span>
+      <span class="detail-value">{{data.nationalId}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">申請產品</span>
+      <span class="detail-value" >{{prodName}}</span>
+    </div>
+  </div>
+  <div nz-row style="padding:10px" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+    <div nz-col nzFlex="1">
+      <span class="detail-name">BT核准額度</span>
+      <span class="detail-value">${{aprvDebtAmt}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">撥款帳號</span>
+      <span class="detail-value" [hidden]="ajstlnamt=='0'">{{dsbsacctnbr}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">撥款銀行</span>
+      <span class="detail-value" [hidden]="ajstlnamt=='0'">{{dsbsbnkcd}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">撥款銀行分行</span>
+      <span class="detail-value" [hidden]="ajstlnamt=='0'">{{dsbsbrcd}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">還款帳號</span>
+      <span class="detail-value">{{rpayacctnbr}}</span>
+    </div>
+
+  </div>
+  <div nz-row style="padding:10px" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+    <div nz-col nzFlex="1">
+      <span class="detail-name">還款帳號銀行</span>
+      <span class="detail-value">{{rpaybnkcd}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">現金撥款核准額度</span>
+      <span class="detail-value">${{aprvInstCashAmt}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">現金撥款申請額度</span>
+      <span class="detail-value">${{ajstlnamt}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">期數</span>
+      <span class="detail-value">{{period}}</span>
+    </div>
+    <div nz-col nzFlex="1">
+      <span class="detail-name">每月還款金額</span>
+      <span class="detail-value">${{monthLowAmt}}</span>
+    </div>
+  </div>
+  <span class="black-line"></span>
+
+
+  <div nz-row style="padding:5px" [nzGutter]="16">
+    <div nz-col nzFlex="1">
+
+      <span class="form-title" style="width: 70%">結清日</span>
+
+      <nz-date-picker style="display:block" [(ngModel)]="settleDate" name="settleDate" [nzDisabledDate]="disabledDate">
+      </nz-date-picker>
+      <!-- <app-date-picker style="min-width:100%;position: absolute;z-index: 2;" *ngIf="settleDate != '' && showDate.length > 0" [chooseDate]="settleDate"
+        [showDate]="showDate" (chooseDateChange)="settleDate = $event"></app-date-picker> -->
+
+    </div>
+    <div nz-col nzFlex="3">
+
+      <span class="form-title" style="width: 70%">客戶身分名單註記</span>
+
+      <textarea matInput class="form-control" [(ngModel)]="custContent" maxlength="200" disabled
+        style="background-color:#e6e6e6;border-radius:5px;border: 1px solid #e6e6e6;width: 100%;">
+  </textarea>
+    </div>
+  </div>
+  <div style="padding:5px;text-align:center">
+    <button nz-button [nzSize]="'small'" nzType="primary" (click)="save()">暫存</button>&nbsp;
+  </div>
+
+</div>
+<br>
+<div class="card-title" style="margin-left:4%">代償明細</div>
+<div class="card-info" style="margin: 0 4% 30px">
+
+  <nz-table #goUp nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="debtData"
+    [nzSimple]="true" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+    [nzScroll]="{ x: '1000px', y: '400px' }">
+    <thead>
+      <tr>
+        <th>產品別</th>
+        <th>銀行名稱</th>
+        <th>結清金額</th>
+        <th>匯款帳號</th>
+        <th>結清卡號</th>
+        <th>匯款戶名</th>
+        <th nzWidth="120px">匯款分行別</th>
+        <th>匯款附言</th>
+        <th>備註</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of debtData">
+        <td>{{ data.MERG_DEBT_PROD }}</td>
+        <td>{{ data.BANK_CODE }}&nbsp;{{ data.BANK_NAME }}</td>
+        <td>{{ data.SETTLE_AMT ? f06004Service.toCurrency(data.SETTLE_AMT.toString()) : "" }}</td>
+        <td>{{ data.ACCOUNT_NO }}</td>
+        <td>{{ data.SETTLE_CARD_NO }}</td>
+        <td>{{ data.ACCOUNT_NM }}</td>
+        <td nzWidth="120px">{{ data.BRANCH_CD + '-' + data.BRANCH_NM }}</td>
+        <td>{{ data.TRANS_MEMO }}</td>
+        <td>{{ data.REMARK }}</td>
+        <td><button nz-button [nzSize]="'middle'" [nzType]="data.IS_SETTLED == 'Y' ? '' : 'primary'"
+            (click)="edit(data.GUID, data.ORI_GUID, data.MERG_DEBT_AMT, data.IS_SELECTED, data.MERG_DEBT_PROD)"
+            [disabled]="data.IS_SETTLED == 'Y'">編輯</button>
+        </td>
+        <td><button nz-button [nzSize]="'middle'" nzDanger (click)="del(data.GUID, data.BANK_CODE, data.BRANCH_CD)"
+            [disabled]="data.IS_SETTLED == 'Y'">刪除</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div style="padding:10px;text-align:center">
+  <button nz-button [nzSize]="'small'" nzType="primary" (click)="finish(data.FRST_CRTN_GUID)">完成</button>&nbsp;
+  <!-- <button  nz-button [nzSize]="'middle'" nzDanger (click)="close()">離開</button>&nbsp; -->
+</div>

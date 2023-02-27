@@ -1,0 +1,170 @@
+<div class="main">
+  <div class="card-title" [hidden]="hidden">貸款資訊</div>
+
+  <div class="card-info" [hidden]="hidden">
+    <div class="card-detail black">
+      <span class="detail-name">產品名稱</span>
+      <span class="detail-value">{{prodNameForStep3}}</span>
+    </div>
+    <div class="card-detail black">
+      <span class="detail-name">核准方案</span>
+      <span class="detail-value">{{loanForStep3}}</span>
+    </div>
+    <div class="card-detail black">
+      <span class="detail-name">貸款期限</span>
+      <span class="detail-value">{{lnPrdForStep3}}個月</span>
+    </div>
+    <div class="card-detail black">
+      <span class="detail-name">轉貸金額</span>
+      <span class="detail-value">${{mergDebitAmtForStep3str}}</span>
+    </div>
+    <div class="card-detail black">
+      <span class="detail-name">現金申請額度</span>
+      <span class="detail-value">${{custLnAmtForStep3str}}</span>
+    </div>
+  </div>
+
+  <div class="card-title" [hidden]="!hidden">現金撥款資訊</div>
+
+  <div class="card-info" [hidden]="!hidden">
+    <div class="card-detail black" style="width: 15%;">
+      <span class="detail-name">現金核准額度</span>
+      <span class="detail-value">${{ this.toCurrency(lnLmtAmtForStep3?.toString())}}</span>
+    </div>
+    <div class="card-detail black" style="width: 15%;">
+      <span class="detail-name">每月還款金額試算</span>
+      <span class="detail-value">${{ this.toCurrency(tryCalculateForStep3?.toString())}}</span>
+    </div>
+  </div>
+
+  <div class="card-title">申請書資訊</div>
+
+  <div class="card-info" style="flex-flow: column;">
+    <div class="one-row" style="justify-content: flex-start;">
+      <div class="srp-input" [hidden]="hiddenApplyInfo">
+        <span>銀行名</span>
+        <mat-select [(ngModel)]="bcnValueForStep3" (ngModelChange)="checkIs824('checkAcct')" required>
+          <mat-option class="option" *ngFor="let item of bcnListCode" [value]="item.value">
+            {{item.value}}{{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="srp-input" [hidden]="hiddenApplyInfo">
+        <span>分行別</span>
+        <mat-select [(ngModel)]="bbcValueForStep3">
+          <mat-option *ngFor="let item of bbCListCode" [value]="item.value" class="option">
+            {{item.value}}{{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="srp-input" [hidden]="hiddenApplyInfo">
+        <span>撥款帳號</span>
+        <input matInput #input class="form-control" [(ngModel)]="acctNbrForStep3" [ngStyle]="getStyle(acctNbrForStep3)"
+          (keypress)="numberOnly($event)" maxlength="16">
+      </div>
+      <div class="srp-input" [hidden]="hiddenApplyInfo">
+        <span>撥款帳號戶名</span>
+        <input matInput #input class="form-control" [(ngModel)]="accountNameForStep3" [disabled]="true">
+      </div>
+      <div class="srp-input">
+        <span>還款帳號</span>
+        <mat-select [(ngModel)]="rpayAcctNbrForStep3">
+          <mat-option *ngFor="let item of rpayAcctNbrForStep3Code" [value]="item.value" class="option">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <span class="black-line"></span>
+    <div class="one-row" style="justify-content: flex-start;">
+      <div class="srp-input" style="width: 400px;">
+        <span>利率異動通知方式</span>
+        <div style="height:30px;padding-top:3px;">
+          <nz-checkbox-wrapper>
+            <label nz-checkbox nzValue="oaNotiYn" [(ngModel)]="checkOptionsForStep3[0].checked"
+              [hidden]="!lineId">{{checkOptionsForStep3[0].label}}</label>
+            <label nz-checkbox nzValue="emalNotiYn"
+              [(ngModel)]="checkOptionsForStep3[1].checked">{{checkOptionsForStep3[1].label}}</label>
+            <label nz-checkbox nzValue="pushNotiYn"
+              [(ngModel)]="checkOptionsForStep3[2].checked">{{checkOptionsForStep3[2].label}}</label>
+          </nz-checkbox-wrapper>
+        </div>
+      </div>
+    </div>
+    <span class="black-line" [hidden]="!hidden"></span>
+    <div class="one-row" style="justify-content: flex-start;" [hidden]="!hidden">
+      <!-- <div class="srp-input" *ngIf="lnLmtAmtForStep3>0">
+        <mat-checkbox color="primary" [(ngModel)]="custLnAmtcheck" (ngModelChange)="calculate2(custLnAmtcheck)">
+        </mat-checkbox>
+      </div> -->
+      <div class="srp-input">
+        <span>現金申請額度</span>
+        <input matInput #input class="form-control" (keyup)="getAplyintrtData()" (keypress)="numberOnly($event)"
+          [(ngModel)]="custLnAmtForStep3str" [disabled]="(!custLnAmtcheck)" maxlength="10">
+        <mat-error *ngIf="custLnAmtForStep3 > lnLmtAmtForStep3">申請貸款金額不可超過現金核准額度 ${{
+          this.toCurrency(lnLmtAmtForStep3.toString())}}元</mat-error>
+      </div>
+      <div class="srp-input">
+        <span>現金貸款期限</span>
+        <mat-select [(ngModel)]="periodValueForStep3" (ngModelChange)="getAplyintrtData()" name="code"
+          class="mat-select">
+          <mat-option class="option" *ngFor="let code of periodCodeForStep3" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="srp-info" [hidden]="checkRcafn()" [ngClass]="{'only-cash': applicationDebtStrgy == '01'}">
+    <div class="srp-title">
+      <span class="srp-title-detail card-title" style="justify-content: flex-start;">同一關係人</span>
+      <span class="srp-title-detail" style="display: flex;justify-content: flex-end;padding-bottom: 12px;width: 130px;">
+        <div class="add-btn" (click)="addRcal()" *ngIf="checkIsFilled()">
+          <span>+ 加入關係人資訊</span>
+        </div>
+      </span>
+    </div>
+    <div class="srp-body">
+      <div class="srp-info-detail" *ngFor="let rcal of rcaInfo; let i = index">
+        <div class="srp-function">
+          <div class="srp-input" style="margin-right: 15px;">
+            <span>關係</span>
+            <mat-select [(ngModel)]="rcal.lnRltdPrsnTpCd" name="item" (ngModelChange)="empty(rcal.lnRltdPrsnTpCd,i)">
+              <mat-option *ngFor="let item of relCode" [value]="item.value">
+                {{item.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="srp-input width130" *ngIf="handleRelCode(rcal) === 'X'">
+            <span>姓名</span>
+            <input [(ngModel)]="rcal.lnAppRltdPrsnNm" maxlength="200">
+          </div>
+          <div class="srp-input width130" *ngIf="handleRelCode(rcal) === 'X'">
+            <span>身分證字號</span>
+            <input [(ngModel)]="rcal.natlId" maxlength="10" minlength="10">
+          </div>
+          <div class="srp-input width130" *ngIf="handleRelCode(rcal) === 'B'">
+            <span>公司名稱</span>
+            <input [(ngModel)]="rcal.lnAppRltdPrsnNm" maxlength="200">
+          </div>
+          <div class="srp-input width130" *ngIf="handleRelCode(rcal) === 'B'">
+            <span>公司統一編號</span>
+            <input [(ngModel)]="rcal.taxId" maxlength="8" minlength="8">
+          </div>
+          <div class="srp-input width130" *ngIf="handleRelCode(rcal) === 'B'">
+            <span>公司內職稱</span>
+            <input [(ngModel)]="rcal.jobTitlNm" maxlength="200">
+          </div>
+          <div class="srp-input width130" *ngIf="handleRelCode(rcal) === 'B'">
+            <span>公司備註</span>
+            <input [(ngModel)]="rcal.rmkCont" maxlength="2000">
+          </div>
+        </div>
+        <div class="srp-delete" (click)="deleteSrp(i)" *ngIf="rcaInfo.length > 1">
+          <span>X</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

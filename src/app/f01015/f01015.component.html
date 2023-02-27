@@ -1,0 +1,339 @@
+<div class="line_bank_bankground_color">
+    <br>
+    <div class="line_bank_card_no_padding">
+        <div nz-row>
+            <div nz-col nzSpan="12">
+                <div style="padding:10px; color:black;"><span class="title">身分證字號</span>
+                    <input [disabled]="page=='16'" placeholder="輸入身分證字號" style="display: block;width: 95%;"
+                        [(ngModel)]="nationalId" name="nationalId" maxlength="10">
+                </div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div style="padding:10px; color:black;"><span class="title">Customer ID</span>
+                    <input [disabled]="page=='16'" placeholder="輸入Customer ID" style="display: block;width: 95%;"
+                        [(ngModel)]="custId" name="custId" maxlength="10">
+                </div>
+            </div>
+        </div>
+        <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="page=='16'"
+                (click)="getTargetCustList()">查詢</button>
+            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()"
+                [disabled]="page=='16'">清除資料</button>
+        </div>
+    </div>
+    <div class="line_bank_card_no_padding">
+        <nz-table nzShowSizeChanger [nzData]="targetCustSource" [nzFrontPagination]="false" [nzSimple]="true"
+            [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
+            nzSize="small" nzTitle="額度資訊">
+            <thead>
+                <tr>
+                    <th class="table-header " style="color: black;"> 層級</th>
+                    <th class="table-header " style="color: black;">額度號</th>
+                    <th class="table-header " style="color: black;">上層額度號</th>
+                    <th class="table-header " style="color: black;">額度類別</th>
+                    <th class="table-header " style="color: black;">額度起日</th>
+                    <th class="table-header " style="color: black;">額度訖日</th>
+                    <th class="table-header " style="color: black;" nzRight="true">核准額度</th>
+                    <th class="table-header " style="color: black;" nzRight="true">已動撥金額</th>
+                    <th class="table-header " style="color: black;" nzRight="true">預佔額度</th>
+                    <th class="table-header " style="color: black;" nzRight="true">目前可動用額度</th>
+                    <th class="table-header " style="color: black;" >是否凍結</th>
+                    <th class="table-header " style="color: black;">停用註記</th>
+                    <th class="table-header " style="color: black;">停用日期</th>
+                    <th class="table-header " style="color: black;">循環別</th>
+                    <th class="table-header " style="color: black;">是否可撤銷</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of targetCustSource ">
+                    <td class="table-data" style="text-align: center;">{{row.levelNo}}</td>
+                    <td class="table-data">{{row.limitNo}}</td>
+                    <td class="table-data">{{row.upLevel}}</td>
+                    <td class="table-data">{{limitTypeChange(row.limitTypeCode)}}</td>
+                    <td class="table-data">{{row.limitStartDate| date: 'yyyy/MM/dd '}}</td>
+                    <td class="table-data">{{row.limitEndDate| date: 'yyyy/MM/dd '}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.creditLimit)}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.usedLimit)}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.reserveLimit)}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.activeLimit)}}</td>
+                    <td class="table-data" [ngClass]="row.unfrozenFlag==='Y'?'red':'green'" style="text-align:center;">{{row.unfrozenFlag}}</td>
+                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'red':'green'" style="text-align: center;">{{row.stopFlag}}</td>
+                    <td class="table-data">{{row.stopDate| date: 'yyyy/MM/dd '}}</td>
+                    <td class="table-data" style="text-align:center;">
+                        {{row.cycleType}}</td>
+                    <td class="table-data" style="text-align:center;">
+                        {{row.cancelFlag}}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+    <div class="line_bank_card_no_padding" style="border-radius: 0px 0px 0px 0px;">
+        <nz-table [nzData]="creditMainSource" nzShowSizeChanger nzFrontPagination="false" nzSimple="true" nzSize="small"
+            nzTitle="貸後管理紀錄">
+            <thead>
+                <tr>
+                    <th class="table-header" style="color: black;">案件編號</th>
+                    <th class="table-header" style="color: black;">案件狀態</th>
+                    <th class="table-header" style="color: black;">結束時間</th>
+                    <th class="table-header" style="color: black;">核決結果</th>
+                    <th class="table-header" style="color: black;">覆審人員</th>
+                    <th class="table-header" style="color: black;">覆審主管</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of creditMainSource">
+                    <!-- <td class="table-data">
+                        <button nz-button [nzSize]="'middle'" nzType="link"
+                        [disabled]="true" (click)="toCalloutPage(row.swcApplno)">
+                        {{row.swcApplno}}
+                      </button>
+                    </td> -->
+                    <td class="table-data">
+                        <button nz-button nzType="link" (click)="toCalloutPage(row.APPLNO)">
+                            {{row.APPLNO}}
+                        </button>
+                    </td>
+                    <td class="table-data">{{checkDescFn(row.OP_ID)}}{{getCreditDesc(row.OP_ID)}}</td>
+                    <td class="table-data">{{row.CREDIT_END_TIME | date: 'yyyy/MM/dd '}}</td>
+                    <td class="table-data">{{row.CREDIT_RESULT}}</td>
+                    <td class="table-data">{{row.L4EMPNO}}</td>
+                    <td class="table-data">{{row.L3EMPNO}}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+    <div class="line_bank_card_no_padding">
+        <form class="mat-dialog-content" #formControl="ngForm">
+            <div class="line_bank_form_header_title">執行內容</div>
+            <div nz-row style="padding:10px">
+                <div nz-col nzSpan="4">
+                    <div style="padding:3px"><span class="form-title ">本次執行原因</span>
+                        <mat-select [disabled]="page=='16'"
+                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="reasonValue"
+                            name="reasonValue" (ngModelChange)="changereasonDetail()" required>
+                            <mat-option *ngFor="let item of reasonCode" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formControl.invalid && (reasonValue=='' || reasonValue== null) ">
+                            {{getErrorMessage()}}</mat-error>
+                    </div>
+                </div>
+                <div nz-col nzSpan="1">
+                </div>
+                <div nz-col nzSpan="9">
+                    <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
+                        <mat-select [disabled]="page=='16'"
+                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="reasonDetail"
+                            name="reasonDetail" required>
+                            <mat-option value="">請選擇</mat-option>
+                            <mat-option *ngFor="let item of reasonDetailCode" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formControl.invalid && (reasonDetail=='' || reasonDetail== null)  ">
+                            {{getErrorMessage()}}</mat-error>
+                    </div>
+                </div>
+                <div nz-col nzSpan="10">
+                </div>
+            </div>
+            <div nz-row style="padding:10px">
+                <div nz-col nzSpan="4">
+                    <div style="padding:3px"><span class="form-title">本次執行措施策略</span>
+                        <mat-select [disabled]="page=='16'" (ngModelChange)="getlimitCode($event)"
+                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"
+                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="executeValue"
+                            name="executeValue" required>
+                            <mat-option *ngFor="let item of executeCode" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formControl.invalid && (executeValue=='' || executeValue== null) ">
+                            {{getErrorMessage()}}</mat-error>
+                    </div>
+                </div>
+                <div nz-col nzSpan="1">
+                </div>
+                <div nz-col nzSpan="9">
+                    <div style="padding:3px"><span class="form-title">選擇額度號</span>
+                        <mat-select [(ngModel)]="limitNo" name="limitNo" [disabled]="page=='16'"
+                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" required>
+                            <mat-option value="">請選擇</mat-option>
+                            <mat-option *ngFor="let item of limitCode" [value]="item.value"
+                            [disabled]="executeValue == 'DWN' && item.level != '4'">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formControl.invalid && (limitNo=='' || limitNo== null)">{{getErrorMessage()}}
+                        </mat-error>
+                    </div>
+                </div>
+                <div nz-col nzSpan="1">
+                </div>
+                <div nz-col nzSpan="9">
+                    <div style="padding:3px"><span class="form-title">預佔額度</span>
+                        <input matInput #input [(ngModel)]="reserveLimit" (keyup)="data_number(reserveLimit)"
+                            name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16'"
+                            oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                        <span *ngIf="executeValue=='DWN'">
+                            <mat-error *ngIf="formControl.invalid && (reserveLimit=='' || reserveLimit== null)">
+                                {{getErrorMessage()}}
+                            </mat-error>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
+            <div nz-row style="padding:10px">
+                <div nz-col nzSpan="4" style="padding:0px">
+                    <div>
+                        <span class="form-title line_bank_h4">通知客戶</span>
+                        <mat-select [disabled]="page=='16'"
+                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="YNValue"
+                            name="YNValue" required>
+                            <mat-option *ngFor="let item of YNCode" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formControl.invalid && (YNValue=='' || YNValue== null) ">{{getErrorMessage()}}
+                        </mat-error>
+                    </div>
+                    <div style="margin-top:5px">
+                        <span class="form-title">行動電話</span>
+                        <input nz-input placeholder="輸入電話"  [(ngModel)]="mobile" name="mobile" style="padding: 4px;"
+                            [disabled]="YNValue!='Y'" [required]="YNValue=='Y'" oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                       <span *ngIf="YNValue=='Y'">
+                        <mat-error *ngIf="formControl.invalid && (mobile=='' || mobile== null) ">{{getErrorMessage()}}
+                        </mat-error>
+                       </span>
+
+                    </div>
+                    <div style="margin-top:10px">
+                        <span class="form-title">通知方式</span>
+                        <mat-select [disabled]="YNValue!='Y'"
+                            [ngStyle]="{'background-color':YNValue!='Y'?'#e6e6e6':'white'}" [(ngModel)]="contact"
+                            name="contact" [required]="YNValue=='Y'">
+                            <mat-option *ngFor="let item of contactCode" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                        <span *ngIf="YNValue=='Y'">
+                            <mat-error *ngIf="formControl.invalid && (contact=='' || contact== null) ">{{getErrorMessage()}}
+                            </mat-error>
+                        </span>
+
+                    </div>
+
+                </div>
+                <div nz-col nzSpan="1">
+                </div>
+                <div nz-col nzSpan="19">
+                    <div ><span class="form-title">通知內容</span>
+                        <textarea [disabled]="YNValue!='Y'" [ngStyle]="{'background-color':YNValue!='Y'?'#e6e6e6':'white'}"
+                            [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent" maxlength="200"
+                            class="input-textarea" style="text-align: left;height:175px;color: rgb(0, 0, 0);" [required]="YNValue=='Y'">
+                        </textarea>
+                        <span *ngIf="YNValue=='Y'">
+                            <mat-error *ngIf="formControl.invalid && (contactContent=='' || contactContent== null)  ">
+                                {{getErrorMessage()}}</mat-error>
+                        </span>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
+            <div nz-row style="padding:10px">
+                <div nz-col nzSpan="4" style="padding:5px 0px">
+                    <div>
+                        <span class="form-title line_bank_h4">本次執行時間:</span>
+                        <!-- <input matInput #input [(ngModel)]="creditTime" name="creditTime" disabled> -->
+                        <div class="fake-input">
+                            {{creditTime| date: 'yyyy/MM/dd HH:mm:ss' }}
+                        </div>
+                    </div>
+                    <div style="margin-top:20px">
+                        <span class="form-title">執行員編:</span>
+                        <input matInput #input [(ngModel)]="creditEmpno" name="creditEmpno" disabled>
+                    </div>
+
+                </div>
+                <div nz-col nzSpan="1">
+                </div>
+                <div nz-col nzSpan="19">
+                    <div style="padding:3px"><span class="form-title">本次執行說明</span>
+                        <textarea matInput [disabled]="page=='16'"
+                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="creditMemo"
+                            placeholder="請輸入內容" name="creditMemo" class="input-textarea" maxlength="200"
+                            style="text-align: left;height:150px;color: black;" required>
+                    </textarea>
+                        <mat-error *ngIf="formControl.invalid && (creditMemo=='' || creditMemo== null)  ">
+                            {{getErrorMessage()}}</mat-error>
+                    </div>
+                </div>
+
+
+            </div>
+            <div style="text-align: center;">
+                <button nz-button [disabled]="page=='16'" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+                    [disabled]="!formControl.valid" (click)="save()">送出主管</button>
+            </div>
+            <br>
+        </form>
+
+        <div *ngIf="page=='16'">
+            <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
+            <form class="mat-dialog-content" #formControl="ngForm">
+                <div nz-row style="padding:10px">
+                    <div nz-col nzSpan="4" style="padding:55px 0px">
+                        <div>
+                            <span class="form-title line_bank_h4">主管核決</span>
+                            <mat-select [(ngModel)]="bossCreditValue" name="bossCreditValue" required>
+                                <mat-option *ngFor="let item of bossCreditCode" [value]="item.value">
+                                    {{item.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="formControl.invalid && (bossCreditValue=='' || bossCreditValue== null)   ">
+                                {{getErrorMessage()}}</mat-error>
+
+                        </div>
+                        <!-- <div style="margin-top:20px">
+                        <span class="form-title">主管覆核時間:</span>
+                        <input matInput #input [(ngModel)]="bossTime" name="bossTime" disabled>
+
+                    </div>
+                    <div style="margin-top:20px">
+                        <span class="form-title">主管覆核員編:</span>
+                        <input matInput #input [(ngModel)]="bossEmpno" name="bossEmpno" disabled>
+
+                    </div>  -->
+                    </div>
+                    <div nz-col nzSpan="1">
+                    </div>
+                    <div nz-col nzSpan="19">
+                        <div style="padding:3px"><span class="form-title">主管覆核</span>
+                            <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
+                                name="bossContent" style="text-align: left;height:200px"  maxlength="200" required>
+                        </textarea>
+                            <mat-error *ngIf="formControl.invalid && (bossContent=='' || bossContent== null)  ">
+                                {{getErrorMessage()}}</mat-error>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div style="text-align: center;">
+                    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+                        (click)="managerSave()">送出</button>
+                </div>
+                <br>
+            </form>
+        </div>

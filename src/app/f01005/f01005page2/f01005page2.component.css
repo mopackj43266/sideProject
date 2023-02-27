@@ -1,0 +1,11 @@
+/* 表格表頭樣式 */
+.table-header{
+  background-color:#ededed;
+  border: 1px solid #e8e8e8;
+  color:#848E9C;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+::ng-deep.ant-table-tbody>tr>td{
+  border:1px solid #e8e8e8;
+}

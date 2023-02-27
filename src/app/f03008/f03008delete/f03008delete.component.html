@@ -1,0 +1,225 @@
+<div class="container">
+
+  <div class="line_bank_card_no_padding" style="min-height:100px">
+    <div class="line_bank_form_header_title">確定要刪除此筆貸後管理異常名單？</div>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        <div class="form" style="padding:5px">
+          <div><span class="form-title-actions">身分證字號</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.abnormalNid" name="abnormalNid" disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div class="form" style="padding:5px">
+          <div><span class="form-title-actions">客戶ID</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.custId" name="custId" disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div class="form" style="padding:5px">
+          <div><span class="form-title-actions">行動電話</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.mobile" name="mobile" disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div class="form" style="padding:5px">
+          <div><span class="form-title-actions">市內電話</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.phone" name="phone" disabled>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div nz-row>
+      <div nz-col nzFlex="2">
+        <div class="form" style="padding:5px">
+          <div style="flex:2">
+            <span class="form-title-actions">地址</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.address" name="address" disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div class="form" style="padding:5px">
+          <div>
+            <span class="form-title-actions">上傳員編</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.transferEmpno" name="transferEmpno"
+              disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col  nzFlex="1">
+        <div class="form" style="padding:5px">
+          <div><span class="form-title-actions">異動員編</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.changeEmpno" name="changeEmpno" disabled>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div class="form" style="padding:5px">
+          <div><span class="form-title-actions">異常ID</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.abnormalNid" name="abnormalNid" disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div class="form" style="padding:5px">
+          <div>
+            <span class="form-title-actions">數據源說明1</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.dataSource1" name="dataSource1" disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div class="form" style="padding:5px">
+          <div>
+            <span class="form-title-actions">數據源說明2</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.dataSource2" name="dataSource2" disabled>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div class="form" style="padding:5px">
+          <div>
+            <span class="form-title-actions">數據源說明3</span>
+            <input matInput #input class="form-control" [(ngModel)]="data.dataSource3" name="dataSource3" disabled>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        <div class="form" style="padding:5px">
+          <div><span class="form-title-actions">是否比對</span>
+            <mat-select [(ngModel)]="data.onCheck" name="onCheck" disabled
+            style="width:100%;height:30px;border-radius:5px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of YNselect" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div style="padding:3px">
+          <span class="form-title" style="margin:0px">上傳時間</span>
+          <nz-date-picker style="display:block" [(ngModel)]="data.transferDate" name="transferDate" disabled>
+          </nz-date-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div style="padding:3px">
+          <span class="form-title" style="margin:0px">異動時間</span>
+          <nz-date-picker style="display:block" [(ngModel)]="data.changeDate" name="changeDate" disabled>
+          </nz-date-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="6"></div>
+
+    </div>
+<div style="text-align:center">
+  <br>
+  <span style="margin-left: 25px;"> <button nz-button [nzSize]="'middle'" nzType="default" nzDanger
+    (click)="deleteAction(data.abnormalNid)">刪除</button></span>
+  <span style="margin-left: 25px;"> <button nz-button [nzSize]="'middle'" nzType="primary"
+      (click)="onNoClick()">取消</button></span>
+  <br>
+  <br>
+</div>
+
+  </div>
+</div>
+
+
+
+
+
+
+<!-- <div class="container">
+  <h2 mat-dialog-title style="display: inline;">確定要刪除此筆貸貨管理異常名單？</h2>
+
+  <form class="mat-dialog-content"  (ngSubmit)="submit()"  #formControl="ngForm">
+
+
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input disabled="disabled" matInput #input class="form-control" placeholder="異常ID" [(ngModel)]="data.abnormalNid" name="abnormalNid" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select disabled="disabled" placeholder="是否比對" [(ngModel)]="data.onCheck" name="onCheck" required>
+          <mat-option *ngFor="let yn of YNselect" [value]="yn.value">
+            {{yn.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input disabled="disabled" matInput #input class="form-control" placeholder="上傳員編" [(ngModel)]="data.transferEmpno" name="transferEmpno" required >
+      </mat-form-field>
+    </div>
+
+    <td>
+      <mat-form-field appearance="fill">
+        <mat-label>上傳時間</mat-label>
+        <input disabled matInput [matDatepicker]="transferDate" [(ngModel)]="data.transferDate" name="transferDate">
+        <mat-datepicker-toggle matSuffix [for]="transferDate"></mat-datepicker-toggle>
+        <mat-datepicker #transferDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input disabled="disabled" matInput #input class="form-control" placeholder="異動員編" [(ngModel)]="data.changeEmpno" name="changeEmpno" required >
+      </mat-form-field>
+    </div>
+
+    <td>
+      <mat-form-field appearance="fill">
+        <mat-label>異動時間</mat-label>
+        <input disabled matInput [matDatepicker]="changeDate" [(ngModel)]="data.changeDate" name="changeDate">
+        <mat-datepicker-toggle matSuffix [for]="changeDate"></mat-datepicker-toggle>
+        <mat-datepicker #changeDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit"  [mat-dialog-close]="1" (click)="deleteAction(data.abnormalNid)">delete</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>
+ -->

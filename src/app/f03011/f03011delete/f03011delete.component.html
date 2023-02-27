@@ -1,0 +1,28 @@
+<div class="container">
+  <h2 mat-dialog-title style="display: inline;">確定要刪除此筆DSS照會模組？</h2>
+  <span style="margin-left: 25px;"> <button nz-button [nzSize]="'middle'" nzType="default" nzDanger
+      (click)="deleteAction()">刪除</button></span>
+  <span style="margin-left: 25px;"> <button nz-button [nzSize]="'middle'" nzType="primary"
+      (click)="close()">關閉</button></span>
+  <br>
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div class="form" style="padding:20px">
+          <span class="form-title-actions">照會模組</span><input matInput #inputstate class="form-control" type="text"
+            [(ngModel)]="data.tvNo" disabled>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div class="form" style="padding:20px"><span class="form-title-actions">系統徵信比</span><input matInput #inputstate
+            class="form-control" type="text" [(ngModel)]="data.scklv" disabled>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div class="form" style="padding:20px"><span class="form-title-actions">案件等級</span>
+          <input matInput #inputstate class="form-control" [(ngModel)]="data.calv" disabled>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

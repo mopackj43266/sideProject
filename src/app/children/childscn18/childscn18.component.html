@@ -1,0 +1,92 @@
+<app-block *ngIf="block"></app-block>
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">重查</div>
+
+  <div nz-row>
+    <div nz-col nzSpan="12">
+      <div style="padding:10px"><span class="form-title">客戶類別</span><input style="display: block;" value="{{ swcID }}"
+          readonly></div>
+    </div>
+    <div nz-col nzSpan="12"></div>
+  </div>
+  <nz-checkbox-wrapper style="width:100%;padding:10px" (nzOnChange)="log($event)">
+    <div nz-row>
+      <div nz-col nzSpan="3" style="width:450px"><label nz-checkbox nzValue="swcBank"
+          class="checkbox_title">核心資訊</label></div>
+      <div nz-col nzSpan="3" style="width:450px"><label nz-checkbox nzValue="swcCSS" class="checkbox_title">CSS</label>
+      </div>
+      <div nz-col nzSpan="3" style="width:450px"><label nz-checkbox nzValue="swcCondition"
+          class="checkbox_title">資料比對</label></div>
+      <div nz-col nzSpan="3" style="width:450px"><label nz-checkbox nzValue="swcFDS" class="checkbox_title">FDS</label>
+      </div>
+      <div nz-col nzSpan="3" style="width:450px"><label nz-checkbox nzValue="swcRPM" class="checkbox_title">RPM</label>
+      </div>
+      <div nz-col nzSpan="3" style="width:450px"><label nz-checkbox nzValue="swcAML" class="checkbox_title">AML</label>
+      </div>
+      <div nz-col nzSpan="4" style="width:450px"><label nz-checkbox nzValue="swcJCIC" class="checkbox_title">
+          JCIC組合查詢SC1</label></div>
+      <div nz-col nzSpan="5"></div>
+    </div>
+    <br>
+    <div class="f01_div" style="text-align: center;">
+      <button nz-button nzType="primary" nzSize="middle" (click)="reSearch()">重查</button>
+      &nbsp;&nbsp;
+      <button nz-button nzType="primary" nzSize="middle" (click)="close()">關閉</button>
+      &nbsp;&nbsp;
+      <button nz-button nzType="primary" nzSize="middle" (click)="course(k)">歷程</button>
+    </div>
+  </nz-checkbox-wrapper>
+  <!-- 表格 -->
+  <!-- <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newData" [nzSimple]="true"
+[nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+(nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="案件歷程"> -->
+  <div *ngIf="k">
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzSimple]="true" nzSize="small"
+      nzTitle="案件重查歷程" [nzData]="newData" [nzScroll]="{ y: '500px' }" [nzLoading]="false">
+      <thead>
+        <tr>
+          <th class="table-header">NO</th>
+          <th class="table-header">狀態碼</th>
+          <th class="table-header">狀態說明</th>
+          <th class="table-header">狀態結果</th>
+          <th class="table-header">開始日期時間</th>
+          <th class="table-header">結束日期時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData;let i = index;">
+          <td class="table-data">{{ i+1}}</td>
+          <td class="table-data">{{ data.opId }}</td>
+          <td class="table-data">{{ data.opDesc }}</td>
+          <td class="table-data">{{ data.stepType }}</td>
+          <td class="table-data">{{ data.startDate }}</td>
+          <td class="table-data">{{ data.endDate }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+
+</div>
+<!-- <table class="form1">
+  <tr class="tbTitle">
+      <th>客戶類別</th>
+      <th>核心資訊</th>
+      <th>CSS</th>
+      <th>資料比對</th>
+      <th>FDS</th>
+      <th>RPM</th>
+      <th>JCIC組合查詢SC1</th>
+      <th>DSS</th>
+  </tr>
+  <tr class="tbContext">
+      <th>{{ swcID }}</th>
+      <th><input type="checkbox" (click)="checkboxSelect($event.target.checked, 'swcBank');"></th>
+      <th><input type="checkbox" (click)="checkboxSelect($event.target.checked, 'swcCSS');"></th>
+      <th><input type="checkbox" (click)="checkboxSelect($event.target.checked, 'swcCondition');"></th>
+      <th><input type="checkbox" (click)="checkboxSelect($event.target.checked, 'swcFDS');"></th>
+      <th><input type="checkbox" (click)="checkboxSelect($event.target.checked, 'swcRPM');"></th>
+      <th><input type="checkbox" (click)="checkboxSelect($event.target.checked, 'SC1');"></th>
+      <th><input type="checkbox" (click)="checkboxSelect($event.target.checked, 'swcDSS');"></th>
+  </tr>
+</table> -->

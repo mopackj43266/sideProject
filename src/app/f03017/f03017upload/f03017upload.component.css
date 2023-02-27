@@ -1,0 +1,9 @@
+.mat-dialog-actions{
+  margin-left:0px;
+}
+.ant-btn-dangerous {
+  color: #ff4d4f;
+  background: #fff;
+  border-color: #ff4d4f;
+  border-radius:5px;
+}

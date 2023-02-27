@@ -1,0 +1,21 @@
+
+
+.file_input {
+  width: 20%;
+  /* height: 40px; */
+  position: relative;
+  top: -10px;
+  font-size: 0;
+  opacity: 0;
+  cursor: pointer;
+  margin-left: ;
+
+}
+
+.icon_size {
+  position: relative;
+  top:3px;
+  left: -122px;
+  font-size:25px
+}
+

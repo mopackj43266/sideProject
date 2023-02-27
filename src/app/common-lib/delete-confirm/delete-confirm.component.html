@@ -1,0 +1,22 @@
+<ng-container *ngIf="data.msgStr == 'f06008'; else elseTemplate">
+  <div class="line_bank_card_no_padding" style="min-height:140px;">
+    <div class="line_bank_form_header_title">是否取消案件</div>
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;">
+      <br>
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="cancel('cancel')">是</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="close()">否</button>
+    </div>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="line_bank_card_no_padding" style="min-height:140px;">
+    <div class="line_bank_form_header_title">是否刪除</div>
+    <div class="container" style="width:100%;margin: 0 auto;text-align: center;">
+      <br>
+      <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="confirm('confirm')">刪除</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="cancel('cancel')" tabindex="-1">取消</button>
+    </div>
+  </div>
+</ng-template>

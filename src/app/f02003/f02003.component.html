@@ -1,0 +1,163 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+            [(ngModel)]="applno" name="applno" placeholder="輸入案件編號">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;"
+            [(ngModel)]="nationalId" name="nationalId" placeholder="輸入身分證字號">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
+            [(ngModel)]="custId" name="custId" placeholder="輸入客戶ID">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">客戶姓名</span><input style="display: block;"
+            [(ngModel)]="custName" name="custName" placeholder="輸入客戶姓名">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">覆審人員</span>
+          <mat-select [(ngModel)]="l4EMPNO" name="l3EMPNO">
+            <mat-option *ngFor="let item of l4EMPNOArry" [value]="item.value">
+              {{item.viewValue}}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">進件類型</span>
+          <mat-select [(ngModel)]="input" name="input">
+            <mat-option *ngFor="let item of inputArry" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">客戶名單身分註記</span>
+          <mat-select [(ngModel)]="custListFlag" name="custListFlag">
+            <mat-option *ngFor="let item of custListFlagList" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">核決結果</span>
+          <mat-select [(ngModel)]="credit" name="credit">
+            <mat-option *ngFor="let item of creditArry" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">開始時間</span>
+          <!-- 其實是查flow但仍命名creditmain的開始時間 -->
+          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME" style="width: 100%;"
+            (ngModelChange)="dateNull(apply_TIME,'apply_TIME')"></nz-range-picker>
+        </div>
+      </div>
+
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">結束時間</span>
+          <nz-range-picker [(ngModel)]="credit_TIME" name="credit_TIME" style="width: 100%;"
+            (ngModelChange)="dateNull(credit_TIME,'credit_TIME')"></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">是否結案</span>
+          <mat-select [(ngModel)]="isEnd" name="isEnd">
+            <mat-option *ngFor="let item of YNcodeList" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+
+      </div>
+    </div>
+    <div style="padding:5px;text-align:center">
+      <!-- (click)="add()" -->
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="conditionCheck()">查詢資料</button>&nbsp;
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>&nbsp;
+      <!-- <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp; -->
+    </div>
+    <!-- 表格 -->
+  </div>
+
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">覆審案件查詢-結果:(案件數:{{quantity}}件)</div>
+    <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzScroll]="{ x: '1500px', y: '1500px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
+      [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+      <thead>
+        <tr>
+          <th nzLeft nzWidth="15%">序號</th>
+          <th nzLeft nzWidth="40%" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="true"
+            [nzSortOrder]="'ascend'">案件編號</th>
+          <th nzWidth="25%">身分證字號</th>
+          <th nzWidth="25%">客戶ID</th>
+          <th nzWidth="30%">客戶姓名</th>
+          <th nzWidth="30%">覆審人員</th>
+          <th nzWidth="30%">覆審主管</th>
+          <th nzWidth="25%">進件類型</th>
+          <th nzWidth="25%">系統狀態</th>
+          <th nzWidth="20%">核決結果</th>
+          <th nzWidth="20%">客戶風險等級CRL</th>
+          <th nzWidth="30%">開始時間</th>
+          <th nzWidth="30%">結束時間</th>
+          <th nzWidth="30%">核決時間</th>
+          <th nzWidth="25%">符合貸後異常名單</th>
+          <th nzWidth="30%">客戶名單身分註記資料</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newData; let i = index ">
+          <!--序號-->
+          <td nzLeft style="text-align: center;">{{i+1}}</td>
+          <!--案件編號-->
+          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link"
+              (click)="Detail(data.APPLNO,data.NATIONAL_ID, data.CUST_ID,data.CU_CNAME)">{{data.APPLNO}}</button></td>
+          <!--身分證字號-->
+          <td>{{data.NATIONAL_ID}}</td>
+          <!--客戶ＩＤ-->
+          <td>{{data.CUST_ID}}</td>
+          <!--客戶姓名-->
+          <td>{{data.CU_CNAME}}</td>
+          <!--覆審人員-->
+          <td>{{data.L4EMPNO}}</td>
+          <!--覆審主管-->
+          <td>{{data.L3EMPNO}}</td>
+          <!--進件類型-->
+          <td>{{data.INPUT_TYPE}}</td>
+          <!--系統狀態-->
+          <td>{{data.OP_DESC}}</td>
+          <!--核決結果-->
+          <td>{{data.CREDIT_RESULT}}</td>
+          <!--客戶風險等級CRL-->
+          <td>{{data.RVCRL}}</td>
+          <!--進件日期時間-->
+          <td>{{data.START_TIME | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+          <!--覆審結束日期時間-->
+          <td>{{data.CREDIT_END_TIME}}</td>
+          <!--核決日期-->
+          <td>{{data.CREDIT_TIME}}</td>
+          <!--符合貸後異常名單-->
+          <td>{{data.ABNORMAL_FLAG}}</td>
+          <!--客戶名單身分註記-->
+          <td>{{data.CUSTLIST_FLAG}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+:host::ng-deep.ant-table-tbody>tr>td
+{
+  font-size: 14px;
+}

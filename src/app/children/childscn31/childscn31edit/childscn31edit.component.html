@@ -1,0 +1,48 @@
+<!-- 最外層卡片包覆 -->
+<div class="line_bank_card_no_padding">
+  <div>
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="data.integrate"  nzTemplateMode [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="可債整明細">
+      <ng-container>
+
+        <thead>
+          <tr>
+            <th class="table-header">銀行代碼</th>
+            <th class="table-header">債整產品</th>
+            <th class="table-header">可債整-科目別</th>
+            <th class="table-header">可債整-科目別註記</th>
+            <th class="table-header">可債整-用途</th>
+            <th class="table-header">可債整-金額</th>
+            <th class="table-header">可債整-拆分金額</th>
+            <th class="table-header">預留註記</th>
+            <th class="table-header" style="width:30px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of Newintegrate">
+            <td class="table-data">{{i.BANK_CODE}}</td>
+            <td class="table-data">{{i.MERG_DEBT_PROD}}</td>
+            <td class="table-data">{{i.ACCOUNT_CODE}}</td>
+            <td class="table-data">{{i.ACCOUNT_CODE2}}</td>
+            <td class="table-data">{{i.PURPOSE_CODE}}</td>
+            <td class="table-data" style="text-align: right;">{{i.MERG_DEBT_AMT}}</td>
+            <td class="table-data"><input type="text" name="i.MERG_DEBT_AMT_DETAIL" (keyup)="i.MERG_DEBT_AMT_DETAIL=data_number1(i.MERG_DEBT_AMT_DETAIL)" [(ngModel)]="i.MERG_DEBT_AMT_DETAIL"  maxlength="12" style="text-align: right;"></td>
+            <td class="table-data"><input type="text" name="i.MERG_DEBT_FLAG" (keyup)="i.MERG_DEBT_FLAG=data_number1(i.MERG_DEBT_FLAG)"  [(ngModel)]="i.MERG_DEBT_FLAG" maxlength="12" style="text-align: right;"></td>
+            <td class="table-data"><button nz-button [nzSize]="'middle'" nzDanger  (click)="DelOne(i.rid,i.GUID)">刪除</button></td>
+          </tr>
+        </tbody>
+      </ng-container>
+    </nz-table>
+    &nbsp;&nbsp;
+    <div style="text-align: center;padding-bottom: 10px;">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="AddOne()">新增</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="store('')">儲存</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="store('N')">不拆分</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="closure()">離開</button>
+    </div>
+
+  </div>
+</div>

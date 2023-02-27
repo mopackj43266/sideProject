@@ -1,0 +1,134 @@
+<div class="line_bank_bankground_color">
+
+  <div style="padding-left: 20px; padding-top: 20px;">
+
+  </div>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title" style="width:100%">資料比對項目</span>
+          <mat-select  [(ngModel)]="selectedValue1" name="selectedValue1"
+            (selectionChange)="queryByCompareTable($event.value)">
+            <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="3">
+
+      </div>
+      <div nz-col nzSpan="6">
+
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin-top:25px" (click)="add()">新增</button>
+        &nbsp;&nbsp;
+        <button nz-button [nzSize]="'middle'" nzDanger style="margin-top:25px" (click)="Clear()">清除資料</button>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <section class="example-section">
+    <!-- list -->
+
+  </section>
+  <!-- 資料比對設定檔 -->
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="compareDataSetSource.data" [nzFrontPagination]="false" [nzSimple]="true"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" [nzLoading]="false" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="資料比對設定">
+      <thead>
+        <tr>
+          <th class="table-header" *ngIf="useFlag">勾選 </th>
+
+          <th class="table-header">比對table</th>
+          <th class="table-header">比對欄位</th>
+          <th class="table-header">比對方式</th>
+          <th class="table-header">設定最低門檻</th>
+          <th class="table-header">設定最高門檻</th>
+          <th class="table-header">編輯</th>
+          <th class="table-header">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of compareDataSetSource.data; ">
+          <td *ngIf="useFlag" class="table-data" let i=index; (click)="changeChkStatus(row.id)">
+            <mat-checkbox [(ngModel)]="row.isChk" (click)="$event.preventDefault()" [disabled]="useFlag">
+            </mat-checkbox>
+          </td>
+
+          <td class="table-data">{{ getOptionCompareTable(row.compareTable) }}</td>
+          <td class="table-data">{{row.codeDesc }}</td>
+          <td class="table-data">
+              <!-- checkbox為true可修改 -->
+            <div *ngIf="row.isChk==true">
+              <select [(ngModel)]='row.compareType' [compareWith]="test">
+                <option [value]=1>絕對值</option>
+                <option [value]=2>相對值</option>
+              </select>
+            </div>
+             <!-- checkbox為false不能修改 -->
+            <div *ngIf="row.isChk==false">
+              <select disabled [(ngModel)]='row.compareType' [compareWith]="test">
+                <option [value]=1>絕對值</option>
+                <option [value]=2>相對值</option>
+              </select>
+            </div>
+
+          </td>
+          <td class="table-data">
+            <!-- checkbox為true修改最低值 -->
+            <div *ngIf="row.isChk == true&&(row.compareType == 1||row.compareType == 2);">
+              <input class="inpu2" [(ngModel)]="row.setValueLow" maxlength="10"  name="setValueLow"   onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')">
+            </div>
+            <!-- checkbox為false不能修改 -->
+            <div *ngIf="row.isChk == false;" class="data_right">
+             {{row.setValueLow != undefined? data_number(row.setValueLow):row.setValueLow}}
+            </div>
+          </td>
+          <td class="table-data">
+            <!-- checkbox為true修改最高值 -->
+            <div *ngIf="row.isChk == true&&row.compareType == 1;" >
+                <input  class="inpu2" type="text" maxlength="10"  onkeyup="value=value.replace(/\D/g,'')"   [(ngModel)]="row.setValueHight"    name="setValueHight"  [disabled] = "row.compareType == 2? true:false" >
+
+            </div>
+              <!-- checkbox為false不能修改 -->
+            <div *ngIf="row.isChk == false" class="data_right">
+              {{row.setValueHight != undefined? data_number(row.setValueHight):row.setValueHight}}
+            </div>
+          </td>
+          <td class="table-data"  style="text-align: center">
+            <button nz-button [nzSize]="'small'" nzType="primary" *ngIf="selectedValue1==''; " (click)="edit(
+              row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
+          </td>
+          <!-- <ng-template #elseBlock>
+            <td class="table-data" style="text-align: center">
+              <button *ngIf="row.isChk == false;" nz-button [nzSize]="'small'" nzType="primary" (click)="edit(
+                row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
+            </td>
+          </ng-template> -->
+
+
+          <td class="table-data" style="text-align: center">
+            <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="delete(
+              row.compareTable, row.compareColumn, row.compareType, row.setValueHight, row.setValueLow)">刪除</button>
+
+          </td>
+      
+      
+
+        </tr>
+      </tbody>
+
+    </nz-table>
+    <div *ngIf="useFlag" style="padding:10px; text-align:center">
+      <button nz-button (click)="submit()" nzSize="'middle'" nzType="primary">儲存勾選</button>
+    </div>
+  </div>
+</div>
+
+
+

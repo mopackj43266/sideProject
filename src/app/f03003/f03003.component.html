@@ -1,0 +1,69 @@
+<div class="container">
+    <th class="f03_th">產品設定</th>
+    <table style="padding-left: 20px;">
+        <br>
+        <mat-card class="matCard">
+            <mat-card-content>
+                <tr>
+                    <th>請選擇產品：</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <mat-select [(ngModel)]="selectedValue" name="sysCode" (selectionChange)="changeSelect()">
+                                <mat-option *ngFor="let code of sysCode" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <button mat-raised-button color="primary" (click)="save()">儲存</button>
+                    </td>
+                </tr>
+            </mat-card-content>
+        </mat-card>
+    </table>
+    <br>
+    <div style="padding-left: 20px;">
+        <table>
+
+        <mat-card class="matCard">
+            <mat-card-content>
+                <th>背景查詢</th>
+                <tr>
+                    <td *ngFor="let search of backgroundSearch">
+                        <mat-checkbox [(ngModel)]="search.check">
+                            {{search.name}}
+                        </mat-checkbox>&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card class="matCard">
+            <mat-card-content>
+                <th>背景關卡</th>
+                <tr>
+                    <td *ngFor="let class of backgroundClass">
+                        <mat-checkbox [(ngModel)]="class.check">
+                            {{class.name}}
+                        </mat-checkbox>&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card class="matCard">
+            <mat-card-content>
+                <th>徵審人員</th>
+                <tr>
+                    <td *ngFor="let person of persons">
+                        <mat-checkbox [(ngModel)]="person.check">
+                            {{person.name}}
+                        </mat-checkbox>&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </mat-card-content>
+        </mat-card>
+    </table>
+    </div>
+</div>

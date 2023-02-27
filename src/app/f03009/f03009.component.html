@@ -1,0 +1,96 @@
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+
+<br>
+  <div class="line_bank_card_no_padding" style="margin:0 auto 10px auto">
+    <!-- <div class="line_bank_form_header_title">照會模組設定</div> -->
+
+    <div nz-row>
+      <div nz-col nzSpan="3">
+        <div style="padding:10px"><span class="form-title">照會模組：</span>
+          <mat-select [(ngModel)]="selectedValue" name="tvnoCode" (selectionChange)="changeSelect()">
+            <mat-option *ngFor="let code of tvnoCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="3">
+        <div style="padding-left: 20px; margin-top: 27px;">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="mdnoSource.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="照會模組設定">
+      <thead>
+        <tr>
+          <th class="table-header">
+            <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+          </th>
+          <th class="table-header">照會名稱</th>
+          <th class="table-header">照會代碼</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of mdnoSource.data; let i = index;">
+          <td class="table-data">
+            <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
+          </td>
+          <td class="table-data">{{ data.CODE_DESC }}</td>
+          <td class="table-data">{{ data.CODE_NO }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<!-- <div class="container">
+  <th class="f03_th">照會模組設定</th>
+  <table style="padding-left: 20px;">
+      <br>
+      <mat-card class="matCard">
+          <mat-card-content>
+              <tr>
+                  <th>照會模組：</th>
+                  <td>
+                      <mat-form-field color="accent">
+                          <mat-select [(ngModel)]="selectedValue" name="tvnoCode" (selectionChange)="changeSelect()">
+                              <mat-option *ngFor="let code of tvnoCode" [value]="code.viewValue">
+                                  {{code.viewValue}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </td>
+                  <td>
+                      <button mat-raised-button color="primary" (click)="save()">儲存</button>
+                  </td>
+              </tr>
+          </mat-card-content>
+      </mat-card>
+  </table>
+
+  <mat-table [dataSource]="mdnoSource">
+    <ng-container matColumnDef="IS_CHK">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index;">
+          <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+    <ng-container matColumnDef="CODE_DESC">
+      <mat-header-cell *matHeaderCellDef>照會名稱</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.CODE_DESC }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CODE_NO">
+        <mat-header-cell *matHeaderCellDef>照會代碼</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.CODE_NO }}</mat-cell>
+      </ng-container>
+    <mat-header-row *matHeaderRowDef="['IS_CHK', 'CODE_NO', 'CODE_DESC']"></mat-header-row>
+    <mat-row *matRowDef="let mappingCodeRow; columns: ['IS_CHK', 'CODE_NO', 'CODE_DESC']"></mat-row>
+  </mat-table>
+</div> -->

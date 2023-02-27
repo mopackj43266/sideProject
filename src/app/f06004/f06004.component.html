@@ -1,0 +1,146 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+            [(ngModel)]="applno" name="applno">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;"
+            [(ngModel)]="nationalId" name="nationalId">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
+            [(ngModel)]="custId" name="custId">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">客戶姓名</span><input style="display: block;"
+            [(ngModel)]="cuCname" name="cuCname">
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">Outbound人員</span>
+          <mat-select [(ngModel)]="b1EmpNo" name="b1EmpNo">
+            <mat-option *ngFor="let code of b1EmpNoCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">結清日期</span>
+          <nz-date-picker style="display:block" [(ngModel)]="settleDate" name="settleDate">
+          </nz-date-picker>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">行銷代碼</span><input style="display: block;"
+            [(ngModel)]="marketingCode" name="marketingCode">
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">產品名稱</span>
+          <mat-select [(ngModel)]="prodCode" name="prodCode">
+            <mat-option *ngFor="let code of prodCodeCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">專案名稱</span>
+          <mat-select [(ngModel)]="prjCode" name="prjCode">
+            <mat-option *ngFor="let code of prjCodeCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1.5">
+        <div style="padding:10px"><span class="form-title">進件日期</span>
+          <nz-range-picker [(ngModel)]="applyendTime" name="applyendTime"
+            (ngModelChange)="dateNull(applyendTime,'applyendTime')">
+          </nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzFlex="1.5">
+        <div style="padding:10px"><span class="form-title">上傳財力日期</span>
+          <nz-range-picker [(ngModel)]="proofDocumentTime" name="proofDocumentTime"
+            (ngModelChange)="dateNull(proofDocumentTime,'proofDocumentTime')">
+          </nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzFlex="1.5">
+        <div style="padding:10px"><span class="form-title">簽約完成日期</span>
+          <nz-range-picker [(ngModel)]="signUpTime" name="signUpTime"
+            (ngModelChange)="dateNull(signUpTime,'signUpTime')">
+          </nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzFlex="0.5"></div>
+    </div>
+    <div style="padding:10px;text-align:center">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>&nbsp;
+    </div>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{total}}件)</div>
+    <nz-table id="box" #scrollToTop nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true"
+      [nzData]="showData" [nzSimple]="true" [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false"
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+      <thead>
+        <tr>
+          <th nzLeft nzWidth="60px">序號</th>
+          <th nzLeft nzWidth="150px" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="false" [nzSortDirections]="['ascend', 'descend']">案件編號</th>
+          <th nzWidth="130px">身分證字號</th>
+          <th nzWidth="150px">客戶ID</th>
+          <th nzWidth="120px">客戶姓名</th>
+          <th nzWidth="120px">公司名稱</th>
+          <th nzWidth="150px">Outbound員編姓名</th>
+          <th nzWidth="150px">累計進件數</th>
+          <th nzWidth="150px">系統狀態</th>
+          <th nzWidth="130px">進件日期</th>
+          <th nzWidth="130px">上傳財力日期</th>
+          <th nzWidth="130px">簽約日期</th>
+          <th nzWidth="160px">申請金額/額度</th>
+          <th nzWidth="160px">核准金額/額度</th>
+          <th nzWidth="160px">產品名稱</th>
+          <th nzWidth="160px">專案名稱</th>
+          <th nzWidth="160px">結清日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template nz-virtual-scroll let-showData let-index="index">
+        <tr>
+          <td nzLeft>{{index+1}}</td>
+          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link" [disabled]="disabled"
+              (click)="detail(showData.APPLNO, showData.NATIONAL_ID, showData.CUST_ID, showData.CU_CNAME)">{{
+              showData.APPLNO }}</button></td>
+          <td>{{ showData.NATIONAL_ID }}</td>
+          <td>{{ showData.CUST_ID }}</td>
+          <td>{{ showData.CU_CNAME }}</td>
+          <td>{{ showData.CU_CP_NAME }}</td>
+          <td>{{ showData.B1EMPNO }}</td>
+          <td>{{ showData.HISTORY_NUM }}</td>
+          <td>{{ showData.STATUS_DESC }}</td>
+          <td>{{ showData.APPLYEND_TIME | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ showData.PROOF_DOCUMENT_TIME | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ showData.SIGN_UP_TIME | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ showData.APPLICATION_AMOUNT }}</td>
+          <td>{{ showData.APPROVE_AMT }}</td>
+          <td>{{ showData.PROD_NAME }}</td>
+          <td>{{ showData.PRJ_CODE }}</td>
+          <td>{{ showData.SETTLE_DATE }}</td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

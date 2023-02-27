@@ -1,0 +1,305 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">派案</span>
+          <mat-select [(ngModel)]="dispatch" name="dispatch">
+            <mat-option *ngFor="let item of dispatchList" [value]="item.value">
+              {{item.value=='no'?item.viewValue:item.value+item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">案件類型</span>
+          <mat-select (ngModelChange)="changeOption($event)" [(ngModel)]="outboundTypeValue" name="outboundTypeValue">
+            <mat-option *ngFor="let item of outboundTypeCode" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">案件狀態</span>
+          <div style="border: 1px solid #c9c9c9;height:30px;padding-top:3px;border-radius: 5px;">
+            <nz-checkbox-group [(ngModel)]="checkOptionsOne">
+            </nz-checkbox-group>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">是否需要再次聯繫</span>
+          <mat-select name="applyProcess" style="width:95%" [(ngModel)]="YNValue" name="YNValue">
+            <mat-option *ngFor="let item of YNCode" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px">
+          <span class="form-title-actions">客戶查詢</span>
+          <mat-select [(ngModel)]="client" name="client" (ngModelChange)="clientMethod(client)" style="width:43%">
+            <mat-option *ngFor="let item of clientList" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+          &nbsp;&nbsp;
+          &nbsp;&nbsp;
+          <ng-container>
+            <input type="text" [(ngModel)]="inputCustIdValue" placeholder={{this.s}} maxlength={{this.limit}}
+              style="width:43%;background-color: white;" [disabled]="client =='' ? true:false">
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">客群</span>
+          <div style="border:1px solid #c9c9c9;height:30px;padding:3px;border-radius: 5px;">
+            <nz-checkbox-group [(ngModel)]="checkOptionsTwo">
+            </nz-checkbox-group>
+          </div>
+
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">產品類型</span>
+          <mat-select name="applyProcess" [(ngModel)]="prodCode" name="prodCode">
+            <mat-option *ngFor="let item of elProductInfoCode" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">最後一次聯繫日</span>
+          <nz-range-picker style="width: 100%;" [(ngModel)]="recordTime" name="proof_DOCUMENT_TIME"
+            (ngModelChange)="dateRecordTimeNull()"></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">案件編號</span>
+          <input type="text" style="width: 95%;" [(ngModel)]="applNo" placeholder="請輸入案件編號">
+        </div>
+      </div>
+
+      <div nz-col nzFlex="1">
+        <div style="padding:10px" [hidden]="outboundTypeValue=='O1'">
+          <span class="form-title-actions">指定結清日</span>
+          <nz-range-picker style="width: 95%;" [(ngModel)]="settleDate" name="settleDate"
+            (ngModelChange)="dateSettleDateNull()"></nz-range-picker>
+        </div>
+      </div>
+
+    </div>
+    <div nz-row [hidden]="outboundTypeValue=='O1'">
+      <div nz-col nzFlex="1">
+        <div style="padding:10px" [hidden]="outboundTypeValue=='O1'"><span class="form-title-actions">核准利率</span>
+          <input type="text" [(ngModel)]="approveInterestUp" placeholder="請輸入最低利率" style="width:35%" maxlength="6"
+            (keyup)="toprofit(approveInterestUp,'approveInterestUp')">
+          <span>%以上~</span>
+          <input type="text" [(ngModel)]="approveInterestDown" placeholder="請輸入最高利率" style="width:35%" maxlength="6"
+            (keyup)="toprofit(approveInterestDown,'approveInterestDown')">
+          <span>%以下</span>
+        </div>
+      </div>
+
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">是否有轉貸方案</span>
+          <mat-select name="applicationDebtStrgy" [(ngModel)]="applicationDebtStrgy" name="applicationDebtStrgyValue">
+            <mat-option *ngFor="let item of applicationDebtStrgyValueCode" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">是否退匯</span>
+          <mat-select name="applyProcess" style="width:100%" [(ngModel)]="remitResult" name="YNValue">
+            <mat-option *ngFor="let item of remitResultCode" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title-actions">申請金額</span>
+          <input type="text" [(ngModel)]="Minmoney" (keyup)="toCurrency(Minmoney,'Minmoney')" placeholder="請輸入最低金額"
+            style="width:34%" maxlength="5">
+          <span> 萬以上~ </span>
+          <input type="text" [(ngModel)]="Maxmoney" (keyup)="toCurrency(Maxmoney,'Maxmoney')" placeholder="請輸入最高金額"
+            style="width:34%" maxlength="5">
+          <span> 萬以下 </span>
+        </div>
+      </div>
+     
+      <div nz-col nzFlex="1"></div>
+    </div>
+    <div style="margin:10px 0;z-index:90;text-align: center">
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="select()">查詢資料</button>
+      <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="Clear()">清除資料</button>
+    </div>
+
+    <nz-divider style="margin: 0px;"></nz-divider>
+    <div nz-row *ngIf="total>0">
+      <div nz-col nzSpan="10">
+        <div style="width:80%;padding:10px;display: inline-block;">
+          <span class="form-title-actions">選擇轉件人員</span>
+          <mat-select [(ngModel)]="transfer" name="transfer" placeholder="請選擇" style="width:70%">
+            <mat-option *ngFor="let code of transferList" [value]="code.value">
+              {{code.value+code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <div style="padding:10px;display: inline-block;">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="change()">轉件</button>
+          </div>
+
+        </div>
+
+        <!-- <div class="line_bank_card_no_padding">
+          <div class="line_bank_form_header_title">
+            <div nz-row >
+              <div nz-col nzSpan="20">
+                <div style="padding:10px"><span class="ttitle">選擇轉件人員</span>
+                  <mat-select [(ngModel)]="transfer" name="transfer" placeholder="請選擇">
+                    <mat-option *ngFor="let code of transferList" [value]="code.value">
+                      {{code.value+code.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <br>
+              <div nz-col nzSpan="4">
+                <div style="padding-left: 5px; margin-top: 30px;">
+                  <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="change()" >轉件</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div nz-col nzSpan="2">
+        <!-- <div>
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="change()">轉件</button>
+        </div> -->
+      </div>
+      <div nz-col nzSpan="12">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">Outbound案件轉派-結果:(案件數：{{total}} 件)</div>
+    <nz-table nzShowSizeChanger #basicTable [nzData]="newOutboundTable" [nzSimple]="true" [nzFrontPagination]="false"
+      [nzPageSizeOptions]="true" [nzLoading]="false" [nzPageSize]="pageSize" [nzTotal]="total" [nzPageIndex]="pageIndex"
+      [nzScroll]="{ x: '3000px', y: '400px' }" (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading">
+      <thead>
+        <tr>
+          <th nzLeft nzWidth="80px">
+            <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+          <th nzLeft nzWidth="180px" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">案件編號</th>
+          <th (nzSortOrderChange)="sortChange($event,'prodCode')" [nzSortFn]="false" [nzSortDirections]="sortArry"
+            nzWidth="120px">申請產品</th>
+          <th nzWidth="180px" *ngIf="dispatch!=''" (nzSortOrderChange)="sortChange($event,'EMP_NAME')"
+            [nzSortFn]="false" [nzSortDirections]="sortArry">負責人</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'tableTypeValue')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">案件類型</th>
+          <th nzWidth="120px" (nzSortOrderChange)="sortChange($event,'CUST_FLAG')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">客群
+          </th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'O1_NEXT_CONTACT_TIME')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">預計下次聯繫時間</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'STATUS_CODE')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">案件狀態</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'OP_TIME')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">進入案件狀態時間</th>
+          <th nzWidth="120px" (nzSortOrderChange)="sortChange($event,'CONNECTCOUNT')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">已聯繫次數</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'APPLICATIONAMOUNT')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">申請金額</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'CREDIT_TIME')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">授信通過日期</th>
+          <th nzWidth="120px" (nzSortOrderChange)="sortChange($event,'INTEREST')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">核准利率</th>
+          <th nzWidth="120px" (nzSortOrderChange)="sortChange($event,'APRV_DEBT_AMT')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">核准額度</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'MATURITYTIME')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">{{settleDateTitle}}</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'SETTLE_DATE')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">指定結清日</th>
+          <th nzWidth="160px" (nzSortOrderChange)="sortChange($event,'APPROVED_DEBT_STRGY')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">是否有轉貸方案</th>
+          <th nzWidth="180px">最近一筆outbound備註</th>
+          <th nzWidth="100px">是否退匯</th>
+          <th nzWidth="180px">最近一次匯款紀錄</th>
+          <th nzWidth="160px">客戶姓名</th>
+          <th nzWidth="160px">公司名稱</th>
+          <th nzWidth="160px">最近一次派案時間</th>
+          <th nzWidth="180px" (nzSortOrderChange)="sortChange($event,'RECORD_TIME')" [nzSortFn]="false"
+            [nzSortDirections]="sortArry">最近一次聯繫日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of newOutboundTable; let i = index ">
+          <!--序號-->
+          <td nzWidth="80px" nzLeft>
+            <mat-checkbox color="primary" [(ngModel)]="newOutboundTable[i].completed"
+              (change)="addcheckbox($event.checked,data.APPLNO)"></mat-checkbox>
+          </td>
+          <!--案件編號-->
+          <td nzLeft nzWidth="180px">{{data. APPLNO}}</td>
+          <!--申請產品-->
+          <td nzWidth="120px">{{data.PROD_NAME}}</td>
+          <!--負責人-->
+          <td nzWidth="180px" *ngIf="dispatch!=''">{{data.EMPNO}}</td>
+          <!--案件類型-->
+          <td>{{getOutboundChinese(this.tableTypeValue)}}</td>
+          <!--客群-->
+          <td>{{data.CUST_FLAG}}</td>
+          <!--預計下次聯繫時間-->
+          <td nzWidth="180px">{{data.O1_NEXT_CONTACT_TIME|date: 'yyyy-MM-dd HH:mm'}}</td>
+          <!--案件狀態-->
+          <td>{{data.STATUS_CODE}}</td>
+          <!--進入案件狀態時間-->
+          <td nzWidth="180px">{{data.OP_TIME|date: 'yyyy-MM-dd HH:mm'}}</td>
+          <!--已聯繫次數-->
+          <td>{{data.CONNECTCOUNT}}</td>
+          <!--申請金額-->
+          <td>{{data.APPLICATIONAMOUNT}}</td>
+          <!--授信通過日期-->
+          <td nzWidth="180px">{{data.CREDIT_TIME|date: 'yyyy-MM-dd'}}</td>
+          <!--利率-->
+          <td nzWidth="120px">{{data.INTEREST}}</td>
+          <!--額度-->
+          <td nzWidth="120px">{{data.APRV_DEBT_AMT!="undefined"? data_number(data.APRV_DEBT_AMT):''}}</td>
+          <!--案件到期日-->
+          <td nzWidth="180px">{{data.MATURITYTIME|date: 'yyyy-MM-dd HH:mm'}}</td>
+          <!--指定結清日-->
+          <td nzWidth="180px">{{data.SETTLE_DATE }}</td>
+          <!--是否有轉貸方案-->
+          <td nzWidth="160px" style="text-align:center">{{chiangeApplicationDebtStrgy(data.APPROVED_DEBT_STRGY)}}</td>
+          <!--最近一筆outbound備註-->
+          <td style="text-align:center">{{data.CUST_REASON_MEMO}}</td>
+          <!--是否退匯-->
+          <td style="text-align:center">{{resultChange(data.RESULT)}}</td>
+          <!--最近一次匯款紀錄-->
+          <td style="text-align:center">{{data.RECENT_RECORD_TIME}}</td>
+          <!--客戶姓名-->
+          <td style="text-align:center">{{data.CU_CNAME}}</td>
+          <!--公司名稱-->
+          <td style="text-align:center">{{data.CU_CP_NAME}}</td>
+          <!--最近一次派案時間-->
+          <td style="text-align:center">{{data.ASSIGN_RECORD | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <!-- 最近一次聯繫日  -->
+          <td nzWidth="180px">{{data.RECORD_TIME |date: 'yyyy-MM-dd HH:mm'}}</td>
+
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>

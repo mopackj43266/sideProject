@@ -1,0 +1,36 @@
+<div class="line_bank_card_no_padding" style="min-height: 25vh;">
+  <div class="line_bank_form_header_title">資料比對-案件編號 </div>
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzData]="newData" [nzSimple]="true"
+    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
+    (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+      <tr>
+
+        <th style="width:200px" class="table-header">No</th>
+        <th style="width:200px" class="table-header">系統狀態</th>
+        <th style="width:200px" class="table-header">審核結果</th>
+        <th style="width:300px" class="table-header">案件編號</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of newData; let i = index;">
+
+        <td class="table-data" style="text-align: center;">{{ i+1 }}</td>
+        <td class="table-data" style="text-align: center;">{{ row.OP_DESC }}</td>
+        <td class="table-data" style="text-align: center;">{{ row.CODE_DESC }}</td>
+        <td class="table-data" style="text-align: center;"><button nz-button nzType="link" (click)="Inquire(row.APPLNO)">{{ row.APPLNO }}</button></td>
+
+      </tr>
+
+
+    </tbody>
+      <!-- <button nz-button [nzSize]="'middle'" nzType="primary"  style="margin:0px 5px"
+        (click)="confirmAdd()">儲存</button> -->
+     
+  </nz-table>
+  <div style="margin: 5px auto;width:50px">
+    <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
+      style="margin:10px">取消</button>
+  </div>
+ 
+</div>

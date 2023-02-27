@@ -1,0 +1,151 @@
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">資料比對設定維護--新增</div>
+  <form class="mat-dialog-content" #formControl="ngForm">
+
+    <div style="margin:10px">
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">比對table</span>
+            <mat-select [(ngModel)]="selectedValue1" required name="selectedValue1" (ngModelChange)="changeSelect()">
+              <mat-option value="">請選擇</mat-option>
+              <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid && (selectedValue1=='' || selectedValue1== null)">
+              {{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">比對欄位</span>
+            <mat-select [(ngModel)]="selectedValue2" name="selectedValue2" required>
+              <mat-option value="">請選擇</mat-option>
+              <mat-option *ngFor="let code of selectedColumn" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid  && (selectedValue2=='' || selectedValue2== null)">
+              {{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">比對方式</span>
+            <mat-select [(ngModel)]="compareType" required name="compareType" (ngModelChange)="test123($event)" >
+              <mat-option value="">請選擇</mat-option>
+              <mat-option [value]=1>絕對值</mat-option>
+              <mat-option [value]=2>相對值</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid && (compareType=='' || compareType== null)">{{getErrorMessage()}}
+            </mat-error>
+            <!-- <input formControlName="compareType" matInput [(ngModel)]="compareType"> -->
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">設定最低門檻</span>
+           
+           
+
+              <input [(ngModel)]="setValueLow" [maxlength]="maxlength" placeholder="請輸入數字"
+                name="setValueLow" (keyup)="numberOnly(setValueLow)" [disabled]="low_disabled">
+            <div *ngIf="compareType=='1'||compareType=='2'">
+              <mat-error *ngIf="formControl.invalid && (setValueLow=='' || setValueLow== null)">{{getErrorMessage()}}
+              </mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">設定最高高檻</span>
+            <input type="text" placeholder="請輸入數字" maxlength="10" onkeyup="value=value.replace(/\D/g,'')"
+              (keyup)="numberhingt(setValueHight)" [(ngModel)]="setValueHight" name="setValueHight"
+              [disabled]="hight_disabled">
+            <div *ngIf="compareType=='1'">
+
+              <mat-error *ngIf="formControl.invalid && (setValueHight=='' || setValueHight== null)">
+                {{getErrorMessage()}}
+              </mat-error>
+            </div>
+          </div>
+        </div>
+
+
+        <div style="margin: 5px auto;">
+          <button nz-button nzSize="middle" nzType="primary" (click)="add()">新增</button>
+          &nbsp;&nbsp;
+          <button nz-button nzSize="middle" nzDanger (click)="clear()">取消</button>
+          
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- <th class="f03_th">資料比對設定維護--新增</th>
+<br>
+<form [formGroup]="compareTableSetForm" style="padding-left: 20px;margin:10px">
+  <div class="f03_div">
+    <button type="submit" mat-raised-button color="primary" (click)="add()">新增</button>
+    <button type="submit" mat-raised-button color="primary" (click)="clear()">清除資料</button>
+  </div>
+  <br>
+  <mat-card class="matCard">
+    <mat-card-content>
+      <tr>
+        <th>比對table:</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
+              (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <th>比對欄位:</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select formControlName="compareColumn" [(ngModel)]="selectedValue2" name="selectedColumn">
+              <mat-option *ngFor="let code of selectedColumn" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <th>比對欄位</th>
+        <td>
+          <mat-form-field color="accent">
+            <input formControlName="compareType" matInput [(ngModel)]="compareType">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <th>設定最低門檻:</th>
+        <td>
+          <mat-form-field color="accent">
+            <input formControlName="setValueLow" matInput [(ngModel)]="setValueLow">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <th>設定最高門檻:</th>
+        <td>
+          <mat-form-field color="accent">
+            <input formControlName="setValueHight" matInput [(ngModel)]="setValueHight">
+          </mat-form-field>
+        </td>
+      </tr>
+    </mat-card-content>
+  </mat-card>
+</form> -->

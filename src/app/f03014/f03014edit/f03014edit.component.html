@@ -1,0 +1,148 @@
+<div class="line_bank_card_no_padding" style="min-height:300px;min-width: 500px;">
+  <div class="line_bank_form_header_title">客戶身份名單註記-編輯</div>
+  <div class="container" style="padding:35px;height: 50vh;">
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">客戶身分證字號</span>
+              <input matInput #input class="form-control" [(ngModel)]="IdentityValue" name="IdentityValue"
+                onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"  required>
+                <mat-error *ngIf="formControl.invalid && (IdentityValue=='' || IdentityValue== null) ">{{getErrorMessage()}}</mat-error>
+              </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">客戶姓名</span>
+              <input matInput #input class="form-control" [(ngModel)]="NameValue" name="NameValue"  required>
+              <mat-error *ngIf="formControl.invalid && (NameValue=='' || NameValue== null) ">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">簡述一</span>
+              <input matInput #input class="form-control" [(ngModel)]="NarrateValue1" name="NarrateValue1"
+                maxlength="10" required>
+                <mat-error *ngIf="formControl.invalid && (NarrateValue1=='' || NarrateValue1== null) ">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">簡述二</span>
+              <input matInput #input class="form-control" [(ngModel)]="NarrateValue2" name="NarrateValue2"
+                maxlength="30">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">備註資訊</span>
+              <input matInput #input class="form-control" [(ngModel)]="remakrValue" name="remakrValue" maxlength="100">
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">生效日</span>
+              <nz-date-picker [(ngModel)]="Efficient" name="Efficient"   required></nz-date-picker>
+            </div>
+            <mat-error *ngIf="formControl.invalid && (Efficient=='' || Efficient== undefined) ">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">失效日</span>
+              <nz-date-picker [(ngModel)]="Invalidation" name="Invalidation"  required></nz-date-picker>
+            </div>
+            <mat-error *ngIf="formControl.invalid && (Invalidation=='' || Invalidation== undefined) ">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px"><span class="form-title">使用中</span>
+            <mat-select [(ngModel)]="usingValue" name="usingValue"
+            style="border-radius:5px;background-color:white; border:1px solid #c9c9c9;" required>
+              <mat-option *ngFor="let code of usingType" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid && (usingValue=='' || usingValue== null) ">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+      </div>
+<div style="text-align: center;">
+  <button nz-button [nzSize]="'middle'" nzType="primary"  [mat-dialog-close]="1" [disabled]="!formControl.valid"
+  style="margin:0px 5px" (click)="seve()">儲存</button>
+<button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
+  style="margin:0px 5px">取消</button>
+
+</div>
+</form>
+  </div>
+</div>
+<!-- <form>
+  <table>
+    <tr>
+      <td>客戶身分證字號</td>
+      <td><input type="text" [(ngModel)]="custNid" name="custNid" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"></td>
+    </tr>
+    <tr>
+      <td>客戶姓名</td>
+      <td><input type="text" maxlength="20" [(ngModel)]="custName" name="custName"></td>
+    </tr>
+    <tr>
+      <td>簡述一</td>
+      <td><input type="text" maxlength="10" [(ngModel)]="content1" name="content1"></td>
+    </tr>
+    <tr>
+      <td>簡述二</td>
+      <td><input type="text" maxlength="30" [(ngModel)]="content2" name="content2"></td>
+    </tr>
+    <tr>
+      <td>備註資訊</td>
+      <td><input type="text" maxlength="100" [(ngModel)]="remark" name="remark"></td>
+    </tr>
+    <tr>
+      <td>生效日</td>
+        <td>
+          <mat-form-field>
+            <input type="date" [(ngModel)]="Efficient" name="Efficient" matInput placeholder=""
+              (change)="InvalidationMax()" />
+          </mat-form-field>
+        </td>
+    </tr>
+    <tr>
+      <td>失效日</td>
+      <td>
+        <mat-form-field>
+          <input type="date" [(ngModel)]="Invalidation" name="Invalidation" min={{Efficient}} max={{daytest}} matInput
+            placeholder="" />
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>使用中</td>
+      <td>
+        <mat-select [(ngModel)]="usingValue" name="usingValue" placeholder="請選擇">
+          <mat-option *ngFor="let item of usingType" [value]="item.value">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+    <tr>
+      <td>異動時間</td>
+      <td><input type="text" value={{currentTimeValue}} disabled></td>
+    </tr>
+    <tr>
+      <td>
+        <button type="button" (click)="seve();" class="btn btn-primary">儲存資料</button>
+        <button type="button" (click)="onNoClick();" class="btn btn-primary">取消</button>
+      </td>
+    </tr>
+  </table>
+</form> -->

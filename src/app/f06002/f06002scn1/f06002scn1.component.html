@@ -1,0 +1,23 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
+    <nz-breadcrumb nz-page-header-breadcrumb [(ngModel)]="nowPage">
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)">
+        <a [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">Outbound紀錄頁籤</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item [hidden]="flag || applno.includes('A') || pageHidden||page=='0607'" [class.active]="nowPage === Page.Page2"
+      (click)="changePage(Page.Page2)">
+        <a [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">申請書欄位頁籤</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item  [hidden]="ststusCodeHidden" [class.active]="nowPage === Page.Page3"
+        (click)="changePage(Page.Page3)">
+        <a [ngClass]="nowPage === Page.Page3 ? 'oncloick' : 'unclock'">申請書資訊</a>
+      </nz-breadcrumb-item>
+      <!-- <nz-breadcrumb-item  *ngIf="opidCheck>=2720||opidCheck > 2920"  [class.active]="nowPage === Page.Page3"
+        (click)="changePage(Page.Page3)">
+        <a [ngClass]="nowPage === Page.Page3 ? 'oncloick' : 'unclock'">申請書資訊</a>
+      </nz-breadcrumb-item> -->
+    </nz-breadcrumb>
+  </nz-page-header>
+  <ng-container appDynamic></ng-container>
+</div>

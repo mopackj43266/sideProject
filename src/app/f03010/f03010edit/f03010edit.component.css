@@ -1,0 +1,15 @@
+/* 隔線系統強制拓寬 */
+/* ::ng-deep.ant-row{
+  display:block;
+} */
+::ng-deep.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+  /* width:560px; */
+  border:none;
+  background-color:#e6e6e6;
+  border-radius: 10px;
+
+}
+.button-group{
+  padding:10px;
+}
+

@@ -1,0 +1,45 @@
+.ant-btn-dangerous{
+  color: #f80000;;
+  background:white;
+  border-color:#f80000;
+  border-radius:5px;
+
+}
+.ant-btn-dangerous:hover{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-dangerous:active{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+}
+
+.mat-dialog-actions {
+  padding-left: 0px;
+  padding-top: 0px;
+  margin-top: -6px;
+  margin-left: 0px;
+  border-radius:5px;
+}
+input{
+  background-color:white;
+  border-radius: 5px;
+  height:25px;
+  width:100%;
+  border: 1px solid #c9c9c9;
+}
+.mat-select{
+  width:100%;
+  display:inline-block;
+  height:25px;
+  font-size:14px;
+  border-radius:5px;
+  border:1px solid #c9c9c9;
+  padding:4px;
+  background-color:#ffffff;
+}

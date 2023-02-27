@@ -1,0 +1,67 @@
+<br>
+<!-- <div style="padding:10px;text-align:center">
+  </div> -->
+<div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%" (keydown.enter)="$event.preventDefault()">
+    <div [ngClass]="!(getPage() == '1' || getPage() == '2'|| getPage() == '10') ? 'all-disable' : ''">
+        <!-- SMS功能 -->
+        <div class="line_bank_form_header_title" style="border-radius:0px;">SMS訊息</div>
+        <div nz-row>
+            <!-- <div nz-col nzSpan="5">
+                <div style="padding:10px"><span class="form-title">預計發送日期</span>
+                    <nz-date-picker style="width: 100%;" [(ngModel)]="realSmsTime" name="realSmsTime"></nz-date-picker>
+                </div>
+            </div>
+            <div nz-col nzSpan="5">
+                <div style="padding:10px"><span class="form-title">預計發送時間</span>
+                    <nz-time-picker [nzDisabledHours]="disabledHours" style="width: 100%;" [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5" [nzDisabled]="realSmsTime == null" [nzNowText]="' '"></nz-time-picker>
+                </div>
+            </div> -->
+            <div nz-col nzSpan="7">
+                <div style="padding:10px"><span class="form-title">發送手機</span>
+                    <input [(ngModel)]="mobile" (keyup)="mobile=data_number(mobile)" maxlength="10">
+                </div>
+            </div>
+            <div nz-col nzSpan="7">
+                <div style="padding:10px"><span class="form-title">SMS樣板</span>
+                    <mat-select [(ngModel)]="smsSet" name="smsSetCode" (ngModelChange)="changeSelect(smsSet)">
+                        <mat-option class="option" *ngFor="let code of smsSetCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="24">
+                <div style="padding:10px;"><span class="form-title">SMS內容</span><textarea matInput maxlength="64" style="background-color:#ffffff;border-radius:5px;border:none;width:100%;height:100px;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);" [(ngModel)]="content" name="content" disabled required></textarea></div>
+            </div>
+            <div style="text-align:center;margin:10px auto">
+                <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()" [disabled]="page=='3'||page=='7'?true:false">發送簡訊</button>
+            </div>
+        </div>
+        <!-- 簡訊發送檔 -->
+        <nz-table nzShowSizeChanger [nzData]="smsDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="簡訊發送檔">
+            <thead>
+                <tr>
+                    <th class="table-header">SMS通知手機號碼</th>
+                    <th class="table-header">簡訊內容</th>
+                    <th class="table-header">發送時間</th>
+                    <th class="table-header">簡訊狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of smsDataSource">
+                    <td class="table-data">{{ data.mobile }}</td>
+                    <td class="table-data">{{ data.messageContent }}</td>
+                    <td class="table-data">{{ data.realSmstime|date: 'yyyy-MM-dd HH:mm' }}</td>
+                    <td class="table-data">{{ data.smsStatus }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
+    </div>
+    <br>
+    <br>
+</div>

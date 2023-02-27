@@ -1,0 +1,119 @@
+<!-- 本行存款往來 -->
+<br>
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newDEPOSITSource" [nzSimple]="true"
+  [nzTotal]="totalDep" [nzPageSize]="pageSizeDep" [nzPageIndex]="pageIndexDep" nzSize="small"
+    nzTitle="產品資訊" (nzQueryParams)="onQueryParamsChange($event, 'DEPOSIT')">
+    <thead>
+      <tr>
+        <th class="table-header">帳戶類別</th>
+        <th class="table-header">帳戶狀態</th>
+        <th class="table-header">開立帳戶日期</th>
+        <!-- <th class="table-header">終止日期</th> -->
+        <th class="table-header">迄今往來天數</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of newDEPOSITSource">
+        <td class="table-data">{{ data.ACC_TYPE}}</td>
+        <td class="table-data">{{ data.ACC_STATUS }}</td>
+        <td class="table-data">{{ data.ACC_OPEN_DATE }}</td>
+        <!-- <td class="table-data">{{ data.ACC_EXP_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td> -->
+        <td class="table-data">{{ data.ACTIVATE_DAY}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<div class="line_bank_card_no_padding">
+  <ng-container *ngFor="let source of newSAVING_TRANS_DETAILSource, let i = index">
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newSAVING_TRANS_DETAILSource[i].Source" [nzSimple]="true"
+    [nzTotal]="newSAVING_TRANS_DETAILSource[i].total" [nzPageSize]="newSAVING_TRANS_DETAILSource[i].pageSize" [nzPageIndex]="newSAVING_TRANS_DETAILSource[i].pageIndex" nzSize="small"
+    [nzTitle]="newSAVING_TRANS_DETAILSource[i].Source[0].accType" (nzQueryParams)="onQueryParamsChange($event, 'SAVING_TRANS_DETAIL', i)">
+    <thead>
+      <tr>
+        <th class="table-header">帳戶類型</th>
+        <th class="table-header">交易日期時間</th>
+        <th class="table-header">帳戶名稱</th>
+        <th class="table-header">帳號</th>
+        <th class="table-header">帳戶狀態</th>
+        <th class="table-header">交易類型</th>
+        <th class="table-header">交易名稱/銀行</th>
+        <th class="table-header">交易帳戶號碼</th>
+        <th class="table-header">提款</th>
+        <th class="table-header">存款</th>
+        <th class="table-header">手續費</th>
+        <th class="table-header">餘額</th>
+        <th class="table-header">備註欄位</th>
+        <th class="table-header">定存目標金額</th>
+        <th class="table-header">定存預計期數</th>
+        <th class="table-header">定存達成期數</th>
+        <th class="table-header">定存利率</th>
+        <th class="table-header">定期存入金額</th>
+        <th class="table-header">定存累計存入金額</th>
+        <th class="table-header">定期存款達成率</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of newSAVING_TRANS_DETAILSource[i].Source">
+        <td class="table-data">{{ data.accType }}</td>
+        <td class="table-data">{{ data.transDate | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
+        <td class="table-data">{{ data.accName }}</td>
+        <td class="table-data">{{ data.accNo }}</td>
+        <td class="table-data">{{ data.accStatus}}</td>
+        <td class="table-data">{{ data.transType }}</td>
+        <td class="table-data">{{ data.transBank }}</td>
+        <td class="table-data">{{ data.transAccNo }}</td>
+        <td class="table-data text_right">{{ toCurrency(data.withdrawal) }}</td>
+        <td class="table-data text_right">{{ toCurrency(data.deposit) }}</td>
+        <td class="table-data text_right">{{ data.transFee }}</td>
+        <td class="table-data text_right">{{ toCurrency(data.balance) }}</td>
+        <td class="table-data">{{ data.remark }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.taretAmount) }}</td>
+        <td class="table-data">{{ data.targetMonths }}</td>
+        <td class="table-data">{{ data.reachMonths }}</td>
+        <td class="table-data">{{ data.rate }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.amount) }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.ttAmount) }}</td>
+        <td class="table-data">{{ data.achievement }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-container>
+</div>
+
+<div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newDEPOSIT_STATIS_DATASource" [nzSimple]="true"
+    [nzTotal]="totalDSD" [nzPageSize]="pageSizeDSD" [nzPageIndex]="pageIndexDSD" nzSize="small" (nzQueryParams)="onQueryParamsChange($event, 'DEPOSIT')"
+    nzTitle="本行存款統計數據">
+    <thead>
+      <tr>
+        <th class="table-header">帳戶類型</th>
+        <th class="table-header">帳戶名稱</th>
+        <th class="table-header">有效帳戶數</th>
+        <th class="table-header">目前餘額</th>
+        <th class="table-header">上月底餘額</th>
+        <th class="table-header">近三個月月底餘額平均</th>
+        <th class="table-header">近六個月月底餘額平均</th>
+        <!-- <th class="table-header">目前餘額較上月底變動幅度</th>
+        <th class="table-header">目前餘額較前第三個月底變動幅度</th>
+        <th class="table-header">目前餘額較前第六個月底變動幅度</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of DEPOSIT_STATIS_DATASource">
+        <td class="table-data">{{ data.ACC_TYPE }}</td>
+        <td class="table-data">{{ data.ACC_NAME }}</td>
+        <td class="table-data">{{ data.ACTIVE_ACC_NUM }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.BALANCE) }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.LAST_MON_BAL) }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.AVE_BAL_MON_3) }}</td>
+        <td class="table-data" style="text-align: right">{{ toCurrency(data.AVE_BAL_MON_6) }}</td>
+        <!-- <td class="table-data">{{ data.AMT_VARI_LAST_MONTH }}</td>
+        <td class="table-data">{{ data.AMT_VARI_3RD_MONTH }}</td>
+        <td class="table-data">{{ data.AMT_VARI_6TH_MONTH }}</td> -->
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,0 +1,53 @@
+<!-- 頁面背景 -->
+
+<div class="line_bank_bankground_color">
+  <span style="padding-left: 30px;">查詢日期時間 : {{nowDateTime| date:'yyyy-MM-dd HH:mm:ss'}}</span>
+
+  <div class="line_bank_card_no_padding">
+    <nz-table [nzData]="PERSONSource" nzSize="small" nzTitle="額度資訊">
+      <thead>
+        <tr>
+          <th class="table-header" style="text-align: center;">層級</th>
+          <th class="table-header" style="text-align: center;">額度號</th>
+          <th class="table-header" style="text-align: center;">上層額度號</th>
+          <th class="table-header" style="text-align: center;" [nzWidth]="'200px'">額度類別代碼</th>
+          <th class="table-header" style="text-align: center;">額度狀態</th>
+          <th class="table-header" style="text-align: center;">額度起日</th>
+          <th class="table-header" style="text-align: center;">額度訖日</th>
+          <th class="table-header" style="text-align: center;">核准額度</th>
+          <th class="table-header" style="text-align: center;">已動撥金額</th>
+          <th class="table-header" style="text-align: center;">預佔額度</th>
+          <th class="table-header" style="text-align: center;">目前可動額度</th>
+          <th class="table-header" style="text-align: center;">停用註記</th>
+          <th class="table-header" style="text-align: center;">停用日期</th>
+          <th class="table-header" style="text-align: center;">循環別</th>
+          <th class="table-header" style="text-align: center;">是否可撤銷</th>
+          <th class="table-header" style="text-align: center;">案件編號</th>
+          <th class="table-header" style="text-align: center;">專案代碼</th>
+        </tr>
+      </thead>
+      <tbody style="height:0px;text-align: center;">
+        <tr *ngFor="let row of PERSONSource">
+          <td class="table-data">{{ row.levelNo }}</td>
+          <td class="table-data">{{ row.limitNo }}</td>
+          <td class="table-data">{{ row.upLevel }}</td>
+          <td class="table-data">{{ row.limitTypeCode }}-{{transCode(row.limitTypeCode)}}</td>
+          <td class="table-data">{{ row.statusFlag }}</td>
+          <td class="table-data">{{ row.limitStartDate | date:"yyyy-MM-dd" }}</td>
+          <td class="table-data">{{ row.limitEndDate | date:"yyyy-MM-dd" }}</td>
+          <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.creditLimit.toString()) }}</td>
+          <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.usedLimit.toString()) }}</td>
+          <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.reserveLimit.toString()) }}</td>
+          <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.activeLimit.toString()) }}</td>
+          <td class="table-data">{{ row.stopFlag }}</td>
+          <td class="table-data">{{ row.stopDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td class="table-data">{{ row.cycleType }}</td>
+          <td class="table-data">{{ row.cancelFlag }}</td>
+          <td class="table-data" [nzWidth]="'160px'">{{ row.applnoOld }}</td>
+          <td class="table-data">{{ row.projectCode }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>

@@ -1,0 +1,15 @@
+ .table-header{
+    background-color:#ededed;
+    color:#848E9C;
+    margin-bottom: 1px;
+    font-size: 14px;
+
+}
+:host::ng-deep.ant-table-pagination.ant-pagination{
+    margin:5px 0px;
+}
+:host::ng-deep.ant-table.ant-table-small .ant-table-title{
+text-align: center;
+
+
+}

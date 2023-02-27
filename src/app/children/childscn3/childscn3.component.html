@@ -1,0 +1,44 @@
+<div class="line_bank_bankground_color">
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="偽冒通報">
+      <thead>
+        <tr>
+          <th class="table-header" style="width: 5%;">NO</th>
+          <th class="table-header" style="width: 45%;">第一層(可複選)</th>
+          <th class="table-header" >第二層(可複選)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <ng-container *ngFor="let reasonData of data;let i = index"> -->
+
+          <tr *ngFor="let item of data ;let  k= index">
+            <td style="text-align:center">{{k+1}}</td>
+            <td>
+              <input class="inpu1" type="checkbox" [(ngModel)]="item.check" name={{item.reasonDesc}} value={{item.reasonDesc}} (click)="chkArray1($event.target.checked,item.reasonDesc,item.reasonCode);"[disabled]="i == 'N' && getSearch() == 'N' && this.pag == '2'  ? false:true">{{item.reasonDesc}}
+            </td>
+            <td *ngIf="k!='4'">
+              <div *ngFor="let it of item.child"><input class="inpu1" type="checkbox" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true "  [(ngModel)]="it.check" name={{it.reasonDesc}}  class={{item.reasonCode}} >{{it.reasonDesc}}</div> <!--第二層(可複選)-->
+              <!-- <div *ngFor="let it of item.child" ><input class="inpu1" type="checkbox" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true "  [(ngModel)]="it.check" name={{it.reasonDesc}}  class={{item.reasonCode}} >{{it.reasonDesc}}</div> 第二層(可複選) -->
+            </td>
+            <td *ngIf="k=='4'">
+              <textarea style="width: 500px;height: 200px;" maxlength="100" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true " value="remark" [(ngModel)]="remark" name="remark" ></textarea>
+
+              <!-- <div><input class="inpu1" type="text" style="width: 500px;height: 200px;" maxlength="100" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true "  value="remark" [(ngModel)]="remark" name="remark"></div> -->
+            </td>
+          </tr>
+          <!-- <td class="td3">
+            <textarea [(ngModel)]="delayOtherTwo" name="delayOtherTwo" [disabled]="reasonData.checkbox ? false : true"
+              rows="10"></textarea>
+          </td> -->
+        <!-- </ng-container> -->
+      </tbody>
+    </nz-table>
+    <div style="padding-bottom:10px;text-align: center;" >
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seve()"  [disabled]="i == 'N' && getSearch() == 'N' ? false:true"  *ngIf="this.pag == '2'">儲存</button>&nbsp;
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seveFraud()"[disabled]="i == 'N'  && getSearch() == 'N' && this.level1.length > 0 ? false:true "  *ngIf="this.pag =='2'">發送Fraud Team</button>
+      <!-- <button (click)="test()">111111111</button> -->
+    </div>
+  </div>
+</div>
+

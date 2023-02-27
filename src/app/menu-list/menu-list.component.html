@@ -1,0 +1,42 @@
+
+<mat-toolbar class="line_bank_form_header_title_color" style="z-index:50;position:fixed">
+  <mat-toolbar-row *ngIf=" getWinClose() != 'Y' ">
+    <img src="assets\images\LineBank.png" width="10%" style="height:100%;object-fit: cover;" (click)="goHome()">
+    <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()" style="width:11%;text-align: center;">
+      <fa-icon *ngIf="menu.getIcon()=='person_outline'" width="13%" [icon]="['fas', 'user']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='search'" width="13%" [icon]="['fas', 'search']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='report'" width="13%" [icon]="['fas', 'chart-bar']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='autorenew'" width="13%" [icon]="['fas', 'sync-alt']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='equalizer'" width="13%" [icon]="['fas', 'user-cog']"></fa-icon>
+
+      {{menu.getTitle()}}
+      <mat-menu #aboveMenu="matMenu" yPosition="below" style="font-size:25px">
+        <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value">
+          {{map.key}}
+        </button>
+      </mat-menu>
+    </button>
+    <span class="example-spacer"></span>
+
+    <button style="padding-right: 30px; background-color: transparent; border: transparent;" [routerLink]="'./F01002'" (click)="bell()">
+      <nz-badge [(nzCount)]="total" [nzTitle]="null" [nzOffset]="[10, -1]">
+        <fa-icon [icon]="['far', 'bell']"></fa-icon>
+      </nz-badge>
+    </button>
+
+    <nz-card nzHoverable style="width:10%;height:60%;position:relative" [nzCover]="coverTemplate">
+      <nz-card-meta nzDescription="{{empNo}}" style="position:absolute;top:15px;left:30px"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <fa-icon class="ellipsisIcon_size" [matMenuTriggerFor]="menu" [icon]="['fas', 'ellipsis-h']"></fa-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onClickOut()" id="logoutBtn">
+          <fa-icon class="icon_size" [icon]="['fas', 'share-square']"></fa-icon>
+          <span>登出</span>
+        </button>
+      </mat-menu>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>
+<section [ngClass]="waterShow ? 'show' : 'noShow'" [ngxWatermark]="options"></section>
+<router-outlet (activate)="scrollToTop($event)" class="router" style="padding-top: 45px;"></router-outlet>

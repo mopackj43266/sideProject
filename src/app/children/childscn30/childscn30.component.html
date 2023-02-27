@@ -1,0 +1,69 @@
+<div class="line_bank_card_no_padding" style="margin:10px 0px;width:100%">
+    <div #rescan>
+        <!-- 補件資訊檔 -->
+        <nz-table nzShowSizeChanger [nzData]="rescanDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small" nzTitle="補件資訊" nzFooter="  " [nzScroll]="{  y:'200px'}" >
+            <thead>
+                <tr>
+                    <th class="table-header">補件實際發送日期時間</th>
+                    <th class="table-header">補件原因</th>
+                    <th class="table-header">補件項目</th>
+                    <th class="table-header" style="max-width: 100px">徵審註記</th>
+                </tr>
+            </thead>
+            <tbody style="width: 0px;">
+                <tr *ngFor="let data of rescanData">
+                    <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd-HH:mm' }}</td>
+                    <td class="table-data">{{ data.RESCAN_TYPE }}</td>
+                    <td class="table-data">{{ data.RESCAN_ITEM }}</td>
+                    <td class="table-data">{{ data.RESCAN_CONTENT }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<!-- 簡訊發送檔 -->
+<div class="line_bank_card_no_padding" style="margin:10px 0px;width:100%">
+    <nz-table nzShowSizeChanger [nzData]="smsDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+        nzTitle="簡訊發送檔" nzFooter="  " [nzScroll]="{  y:'200px'}" >
+        <thead>
+            <tr>
+                <th class="table-header">SMS通知手機號碼</th>
+                <th class="table-header">簡訊內容</th>
+                <th class="table-header">發送時間</th>
+                <th class="table-header">簡訊狀態</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of smsDataSource">
+                <td   class="table-data">{{ data.mobile }}</td>
+                <td   class="table-data">{{ data.messageContent }}</td>
+                <td   class="table-data">{{ data.realSmstime|date: 'yyyy-MM-dd HH:mm' }}</td>
+                <td   class="table-data">{{ data.smsStatus }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+<!-- 簡訊發送檔 -->
+<div class="line_bank_card_no_padding" style="margin:10px 0px;width:100%">
+    <nz-table nzShowSizeChanger [nzData]="emailDataSource" [nzScroll]="{  y:'200px'}"
+        [nzFrontPagination]="false "  nzFooter="    " [nzSimple]="true" nzSize="small" nzTitle="Email發送檔">
+        <thead>
+            <tr>
+                <th class="table-header">Email</th>
+                <th class="table-header" style="width:200px">主旨</th>
+                <th class="table-header">內容</th>
+                <th class="table-header" style="width:100px">發送時間</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of emailDataSource">
+                <td class="table-data">{{ data.email }}</td>
+                <td class="table-data">{{ data.emailTitle }}</td>
+                <td class="table-data">{{ data.messageContent }}</td>
+                <td class="table-data">{{ data.daytime|date: 'yyyy-MM-dd HH:mm' }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

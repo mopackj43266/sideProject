@@ -1,0 +1,73 @@
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+
+<br>
+  <div class="line_bank_card_no_padding" style="margin:0px auto 10px auto">
+    <!-- <div class="line_bank_form_header_title">貸後管理異常名單維護</div> -->
+
+    <div nz-row>
+      <div nz-col nzSpan="3">
+        <div style="padding:8px"><span class="form-title">身分證字號：</span>
+          <input style="display: block;" [(ngModel)]="ABNORMAL_NID" name="ABNORMAL_NID" >
+        </div>
+      </div>
+      <div nz-col nzSpan="4">
+        <div style="padding-left: 20px; margin-top: 25px;">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadNew()">上傳</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="dataSource.data" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="貸後管理異常名單">
+      <thead>
+        <tr>
+          <th class="table-header-black">身分證字號</th>
+          <th class="table-header-black">客戶ID</th>
+          <th class="table-header-black">行動電話</th>
+          <th class="table-header-black">市內電話</th>
+          <th class="table-header-black">地址</th>
+          <th class="table-header-black">數據源說明1</th>
+          <th class="table-header-black">數據源說明2</th>
+          <th class="table-header-black">數據源說明3</th>
+          <th class="table-header-black">是否比對</th>
+          <th class="table-header-black">上傳員編</th>
+          <th class="table-header-black">上傳時間</th>
+          <th class="table-header-black">異動員編</th>
+          <th class="table-header-black">異動時間</th>
+          <th class="table-header-black">編輯</th>
+          <th class="table-header-black">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of dataSource.data">
+          <td class="table-data-black">{{ data.abnormalNid }}</td>
+          <td class="table-data-black">{{ data.custId }}</td>
+          <td class="table-data-black">{{ data.mobile }}</td>
+          <td class="table-data-black">{{ data.phone }}</td>
+          <td class="table-data-black">{{ data.address }}</td>
+          <td class="table-data-black">{{ data.dataSource1 }}</td>
+          <td class="table-data-black">{{ data.dataSource2 }}</td>
+          <td class="table-data-black">{{ data.dataSource3 }}</td>
+          <td class="table-data-black">{{ data.onCheck }}</td>
+          <td class="table-data-black">{{ data.transferEmpno }}</td>
+          <td class="table-data-black">{{ data.transferDate| date:"yyyy-MM-dd" }}</td>
+          <td class="table-data-black">{{ data.changeEmpno }}</td>
+          <td class="table-data-black">{{ data.changeDate | date:"yyyy-MM-dd" }}</td>
+          <td class="table-data-black"style="text-align: center;">
+            <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
+              data.abnormalNid,data.custId,data.mobile,data.phone,data.address,data.dataSource1,data.dataSource2, data.dataSource3,data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">編輯</button>
+          </td>
+          <td class="table-data" style="text-align: center;">
+            <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
+              data.abnormalNid,data.custId,data.mobile,data.phone,data.address,data.dataSource1,data.dataSource2, data.dataSource3,data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

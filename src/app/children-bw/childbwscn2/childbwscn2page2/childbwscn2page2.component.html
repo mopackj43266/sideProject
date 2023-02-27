@@ -1,0 +1,80 @@
+
+ <div class="line_bank_bankground_color" style="margin-top: -20px;">
+  <div class="line_bank_card_no_padding_child">
+    <form [formGroup]="DSS4DataForm">
+      <div class="EL_DSS_form_header_title2" style="border-radius: 10px 10px 0 0;color:black">覆審風險模型資訊</div>
+      <div nz-row>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title" style="color:black">與上次等級差距(策略調整後)</span>
+            <input style="display: block;color:black" formControlName="RISKMDGRAD_DIFF" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title" style="color:black">子模型</span>
+            <input style="display: block;color:black" formControlName="RV_RISKMDSUB" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title" style="color:black">分數</span>
+            <input style="display: block;color:black" formControlName="RV_RISKMDSCORE" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title" style="color:black">等級</span>
+            <input style="display: block;color:black" formControlName="RV_RISKMDGRADE" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title" style="color:black">等級(策略調整後)</span>
+            <input style="display: block;color:black" formControlName="RV_RISKMDGRADE_ADJ" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title" style="color:black">分群</span>
+            <input style="display: block;color:black" formControlName="RV_RISKMDGRADE_GP" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title" style="color:black">分群(策略調整後)</span>
+            <input style="display: block;color:black" formControlName="RV_RISKMDGRADE_GP_ADJ" disabled>
+          </div>
+        </div>
+      </div>
+
+      <div class="EL_DSS_form_header_title3">風險模型變數資訊</div>
+      <nz-table nzShowSizeChanger [nzData]="BW_DSS4_RISKDSUB.data" [nzFrontPagination]="false" [nzSimple]="true"
+        nzSize="small">
+        <thead>
+          <tr>
+            <th class="table-header" style="color:black">Type</th>
+            <th class="table-header" style="color:black">AdvResnCd</th>
+            <th class="table-header" style="color:black">Element</th>
+            <th class="table-header" style="color:black">Outcome</th>
+            <th class="table-header" style="color:black">ScoreValue</th>
+            <th class="table-header" style="color:black">DeviationScore</th>
+            <th class="table-header" style="color:black">Value1andValue2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of BW_DSS4_RISKDSUB.data">
+            <td class="table-data-black">{{ row.TYPE }}</td>
+            <td class="table-data-black">{{ row.ADV_RESN_CD }}</td>
+            <td class="table-data-black">{{ row.ELEMENT }}</td>
+            <td class="table-data-black">{{ row.OUT_COME }}</td>
+            <td class="table-data-black" nzAlign="right">{{ row.SCORE_VALUE }}</td>
+            <td class="table-data-black" nzAlign="right">{{ row.DEVIATION_SCORE }}</td>
+            <td class="table-data-black">{{ row.VALUE1_AND_VALUE2 }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </form>
+  </div>
+</div>
+

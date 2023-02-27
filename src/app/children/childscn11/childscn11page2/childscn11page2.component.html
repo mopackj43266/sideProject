@@ -1,0 +1,464 @@
+<!-- 頁面背景 -->
+
+<div style="padding-left:40px;display: inline-block" *ngIf="loading">
+  <span class="form-title">比對案件總數:</span>
+  <input style="width: 65%;height: 25px;" matInput #input
+      [(ngModel)]="compare[26].count" readonly disabled>
+
+</div>
+  <div style="padding-left:40px;display: inline-block;" *ngIf="loading">
+    <span class="form-title">查詢日期時間:</span><input style="width: 80%;height: 25px;" matInput #input
+      [(ngModel)]="time" readonly disabled>
+  </div>
+  <!-- loading畫面時使用 -->
+  <div style="padding-left:40px;display: inline-block" *ngIf="!loading">
+    <span class="form-title">比對案件總數:</span>
+    <input style="width: 65%;height: 25px;" matInput #input
+       readonly disabled>
+
+  </div>
+    <div style="padding-left:40px;display: inline-block;" *ngIf="!loading">
+      <span class="form-title">查詢日期時間:</span><input style="width: 80%;height: 25px;" matInput #input
+       readonly disabled>
+    </div>
+
+
+
+<div class="line_bank_card_no_padding" *ngIf="loading">
+  <nz-table nzSize="small" nzTitle="歷史申請書比對 (不同NID)-近180天內申請" [nzData]="compare" [nzFrontPagination]="false">
+    <ng-container ngif="compare[59].count">
+      <tr>
+        <th class="table-header-y" style="width:30%;">區塊</th>
+        <th class="table-header-y" style="width:30%;">比對欄位</th>
+        <th class="table-header-y" style="width:10%;">比對相同之件數</th>
+        <th class="table-header-y" style="width:10%;">比對方式</th>
+        <th class="table-header-y" style="width:10%;">最低門檻</th>
+        <th class="table-header-y" style="width:10%;">最高門檻</th>
+      </tr>
+      <!-- Channel資訊 -->
+      <tr>
+        <th class="table-header-x" rowspan="9">Channel資訊</th>
+      </tr>
+
+      <tr >
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_GPS1')"  [disabled]="compare[25].count=='0'">{{compare[25].compareColumn}} </button></th>
+        <td [ngClass]="{'table-data-text':compare[25].result === 'G', 'table-data-text-y' : compare[25].result === 'Y',  'height' : compare[25].result === 'R',  'table-data-z' : compare[25].result === ''}">{{compare[25].count}}</td>
+        <td class="table-data-text-compare">{{test(compare[25].compareType)}}</td>
+        <td class="table-data-text-compare">{{compare[25].setValueLow}} </td>
+        <td [ngClass]="compare[25].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[25].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_GPS2')"  [disabled]="compare[27].count=='0'">{{compare[27].compareColumn}}</button></th>
+        <td  [ngClass]="{'table-data-text':compare[27].result === 'G', 'table-data-text-y' : compare[27].result === 'Y',  'height' : compare[27].result === 'R',  'table-data-z' : compare[27].result === ''}">{{compare[27].count}}</td>
+        <td class="table-data-text-compare">{{test(compare[27].compareType)}}</td>
+        <td class="table-data-text-compare">{{compare[27].setValueLow}} </td>
+        <td [ngClass]="compare[27].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[27].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_IP_ADDR1')"  [disabled]="compare[39].count=='0'">{{compare[39].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[39].result === 'G', 'table-data-text-y' : compare[39].result === 'Y',  'height' : compare[39].result === 'R',  'table-data-z' : compare[39].result === ''}">{{compare[39].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[39].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[39].setValueLow}} </td>
+        <td [ngClass]="compare[39].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[39].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_IP_ADDR2')"  [disabled]="compare[41].count=='0'">{{compare[41].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[41].result === 'G', 'table-data-text-y' : compare[41].result === 'Y',  'height' : compare[41].result === 'R',  'table-data-z' : compare[41].result === ''}">{{compare[41].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[41].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[41].setValueLow}} </td>
+        <td [ngClass]="compare[41].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[41].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_DEVICE_NAME1')"  [disabled]="compare[45].count=='0'">{{compare[45].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[45].result === 'G', 'table-data-text-y' : compare[45].result === 'Y',  'height' : compare[45].result === 'R',  'table-data-z' : compare[45].result === ''}">{{compare[45].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[45].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[45].setValueLow}} </td>
+        <td [ngClass]="compare[45].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[45].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_DEVICE_NAME2')"  [disabled]="compare[47].count=='0'">{{compare[47].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[47].result === 'G', 'table-data-text-y' : compare[47].result === 'Y',  'height' : compare[47].result === 'R',  'table-data-z' : compare[47].result === ''}">{{compare[47].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[47].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[47].setValueLow}} </td>
+        <td [ngClass]="compare[47].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[47].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_DEVICE_ID1')"  [disabled]="compare[19].count=='0'">{{compare[19].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[19].result === 'G', 'table-data-text-y' : compare[19].result === 'Y',  'height' : compare[19].result === 'R',  'table-data-z' : compare[19].result === ''}">{{compare[19].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[19].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[19].setValueLow}} </td>
+        <td [ngClass]="compare[19].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[19].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_DEVICE_ID2')"  [disabled]="compare[21].count=='0'">{{compare[21].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[21].result === 'G', 'table-data-text-y' : compare[21].result === 'Y',  'height' : compare[21].result === 'R',  'table-data-z' : compare[21].result === ''}">{{compare[21].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[21].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[21].setValueLow}} </td>
+        <td [ngClass]="compare[21].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[21].setValueHight}} </td>
+      </tr>
+
+    </ng-container>
+    <!-- 聯絡資訊 -->
+    <ng-container>
+
+
+      <tr>
+        <th class="table-header-x" rowspan="8">聯絡資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_EMAIL')"  [disabled]="compare[23].count=='0'">{{compare[23].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[23].result === 'G', 'table-data-text-y' : compare[23].result === 'Y',  'height' : compare[23].result === 'R',  'table-data-z' : compare[23].result === ''}">{{compare[23].count}} </td>
+        <td class="table-data-text-compare">
+          {{test(compare[23].compareType)}}
+
+        </td>
+        <td class="table-data-text-compare">{{compare[23].setValueLow}} </td>
+        <td [ngClass]="compare[23].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[23].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_M_TEL')"  [disabled]="compare[43].count=='0'">{{compare[43].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[43].result === 'G', 'table-data-text-y' : compare[43].result === 'Y',  'height' : compare[43].result === 'R',  'table-data-z' : compare[43].result === ''}">{{compare[43].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[43].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[43].setValueLow}} </td>
+        <td [ngClass]="compare[43].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[43].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('aaa')"  [disabled]="compare[57].count=='0'">{{compare[57].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[57].result === 'G', 'table-data-text-y' : compare[57].result === 'Y',  'height' : compare[57].result === 'R',  'table-data-z' : compare[57].result === ''}">{{compare[57].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[57].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[57].setValueLow}} </td>
+        <td [ngClass]="compare[57].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[57].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_H_TEL_INO||CU_H_TEL')"  [disabled]="compare[37].count=='0'">{{compare[37].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[37].result === 'G', 'table-data-text-y' : compare[37].result === 'Y',  'height' : compare[37].result === 'R',  'table-data-z' : compare[37].result === ''}">{{compare[37].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[37].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[37].setValueLow}} </td>
+        <td [ngClass]="{'table-data-text':compare[37].result === 'G', 'table-data-text-y' : compare[37].result === 'Y',  'height' : compare[37].result === 'R'}">
+          {{compare[37].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_P_ADDR1')"  [disabled]="compare[49].count=='0'">{{compare[49].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[49].result === 'G', 'table-data-text-y' : compare[49].result === 'Y',  'height' : compare[49].result === 'R',  'table-data-z' : compare[49].result === ''}">{{compare[49].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[49].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[49].setValueLow}} </td>
+        <td [ngClass]="compare[49].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[49].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_H_ADDR_CODE||CU_H_ADDR1||CU_H_ADDR2')"  [disabled]="compare[29].count=='0'">{{compare[29].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[29].result === 'G', 'table-data-text-y' : compare[29].result === 'Y',  'height' : compare[29].result === 'R',  'table-data-z' : compare[29].result === ''}">{{compare[29].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[29].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[29].setValueLow}} </td>
+        <td [ngClass]="compare[29].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[29].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_CARD_ADDR_CODE||CU_CARD_ADDR1||CU_CARD_ADDR2')"  [disabled]="compare[0].count=='0'">{{compare[0].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[0].result === 'G', 'table-data-text-y' : compare[0].result === 'Y',  'height' : compare[0].result === 'R',  'table-data-z' : compare[0].result === ''}">{{compare[0].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[0].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[0].setValueLow}} </td>
+        <td [ngClass]="compare[0].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[0].setValueHight}} </td>
+      </tr>
+
+    </ng-container>
+    <!-- 任職資訊比對 -->
+    <ng-container>
+
+      <tr>
+        <th class="table-header-x" rowspan="4">任職資訊比對</th>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_CP_NAME')"  [disabled]="compare[16].count=='0'">{{compare[16].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[16].result === 'G', 'table-data-text-y' : compare[16].result === 'Y',  'height' : compare[16].result === 'R',  'table-data-z' : compare[16].result === ''}"> {{compare[16].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[16].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[16].setValueLow}} </td>
+        <td [ngClass]="compare[16].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[16].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_CP_TEL_INO||CU_CP_TEL')"  [disabled]="compare[17].count=='0'">{{compare[17].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[17].result === 'G', 'table-data-text-y' : compare[17].result === 'Y',  'height' : compare[17].result === 'R',  'table-data-z' : compare[17].result === ''}">{{compare[17].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[17].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[17].setValueLow}} </td>
+        <td [ngClass]="compare[17].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[17].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_CP_ADDR_CODE||CU_CP_ADDR1||CU_CP_ADDR2')"  [disabled]="compare[8].count=='0'">{{compare[8].compareColumn}}</button></th>
+        <td [ngClass]="{'table-data-text':compare[8].result === 'G', 'table-data-text-y' : compare[8].result === 'Y',  'height' : compare[8].result === 'R',  'table-data-z' : compare[8].result === ''}">{{compare[8].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[8].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[8].setValueLow}} </td>
+        <td [ngClass]="compare[8].compareType === '2' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[8].setValueHight}} </td>
+      </tr>
+
+    </ng-container>
+
+  </nz-table>
+
+</div>
+
+<br>
+
+
+
+
+
+
+
+
+<!-- loading畫面時使用 -->
+<div class="line_bank_card_no_padding" *ngIf="!loading">
+  <nz-table nzSize="small" nzTitle="歷史申請書比對 (不同NID)" [nzData]="compare" nzFrontPagination="false">
+    <ng-container ngif="compare[59].count">
+      <tr>
+        <th class="table-header-y" style="width:30%;">區塊 </th>
+        <th class="table-header-y" style="width:30%;">比對欄位</th>
+        <th class="table-header-y" style="width:10%;">比對結果</th>
+        <th class="table-header-y" style="width:10%;">比對方式</th>
+        <th class="table-header-y" style="width:10%;">最低門檻</th>
+        <th class="table-header-y" style="width:10%;">最高門檻</th>
+      </tr>
+      <!-- Channel資訊 -->
+      <tr>
+        <th class="table-header-x" rowspan="9">Channel資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時GPS</th>
+        <td class="table-data-text"> </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">上傳收入文件後GPS</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時IP Address</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">上傳收入文件後IP Address</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時手機型號</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">上傳收入文件後手機型號</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時Device ID</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">上傳收入文件後Device ID</th>
+        <td class="table-data-text"></td>
+      </tr>
+
+    </ng-container>
+    <!-- 聯絡資訊 -->
+    <ng-container>
+
+
+      <tr>
+        <th class="table-header-x" rowspan="8">聯絡資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">Email</th>
+        <td class="table-data-text"> </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">行動電話</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">戶籍電話</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">通訊電話</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">戶籍地址</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">通訊地址</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">寄卡地址</th>
+        <td class="table-data-text"></td>
+      </tr>
+
+    </ng-container>
+    <!-- 任職資訊比對 -->
+    <ng-container>
+
+      <tr>
+        <th class="table-header-x" rowspan="4">任職資訊比對</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">公司名稱</th>
+        <td class="table-data-text"> </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">公司電話</th>
+        <td class="table-data-text"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">公司地址</th>
+        <td class="table-data-text"></td>
+      </tr>
+
+    </ng-container>
+
+  </nz-table>
+</div>
+<!-- <div class="line_bank_form_header_title">歷史申請書比對 (不同NID)</div>
+    <ng-container *ngFor="let compareRow of compare;let i = index">
+      <div nz-row *ngIf="i==0">
+        <div nz-col nzFlex="1" *ngIf="compare[i] !=null && compare[i].result == 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i].compareColumn}}：</span><input
+              style="color: red;display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
+        </div>
+        <div nz-col nzFlex="1" *ngIf="compare[i] !=null && compare[i].result != 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i].compareColumn}}：</span><input
+              style="display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
+        </div>
+
+        <div nz-col nzFlex="1" *ngIf="compare[i+1] !=null && compare[i+1].result == 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i+1].compareColumn}}：</span><input
+              style="color: red;display: block;" [(ngModel)]="compare[i+1].count" name="count" disabled></div>
+        </div>
+        <div nz-col nzFlex="1" *ngIf="compare[i+1] !=null && compare[i+1].result != 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i+1].compareColumn}}：</span><input
+              style="display: block;" [(ngModel)]="compare[i+1].count" name="count" disabled></div>
+        </div>
+
+        <div nz-col nzFlex="1" *ngIf="compare[i+2] !=null && compare[i+2].result == 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i+2].compareColumn}}：</span><input
+              style="color: red;display: block;" [(ngModel)]="compare[i+2].count" name="count" disabled></div>
+        </div>
+        <div nz-col nzFlex="1" *ngIf="compare[i+2] !=null && compare[i+2].result != 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i+2].compareColumn}}：</span><input
+              style="display: block;" [(ngModel)]="compare[i+2].count" name="count" disabled></div>
+        </div>
+
+      </div>
+
+      <div nz-row *ngIf="i>0">
+        <div nz-col nzFlex="1" *ngIf="compare[i*3] !=null && compare[i*3].result == 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i*3].compareColumn}}：</span><input
+              style="color: red;display: block;" [(ngModel)]="compare[i*3].count" name="count" disabled></div>
+        </div>
+        <div nz-col nzFlex="1" *ngIf="compare[i*3] !=null && compare[i*3].result != 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i*3].compareColumn}}：</span><input
+              style="display: block;" [(ngModel)]="compare[i*3].count" name="count" disabled></div>
+        </div>
+
+        <div nz-col nzFlex="1" *ngIf="compare[i*3+1] !=null && compare[i*3+1].result == 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i*3+1].compareColumn}}：</span><input
+              style="color: red;display: block;" [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
+        </div>
+        <div nz-col nzFlex="1" *ngIf="compare[i*3+1] !=null && compare[i*3+1].result != 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i*3+1].compareColumn}}：</span><input
+              style="display: block;" [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
+        </div>
+
+        <div nz-col nzFlex="1" *ngIf="compare[i*3+2] !=null && compare[i*3+2].result == 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i*3+2].compareColumn}}：</span><input
+              style="color: red;display: block;" [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
+        </div>
+        <div nz-col nzFlex="1" *ngIf="compare[i*3+2] !=null && compare[i*3+2].result != 'Y'; ">
+          <div style="padding:10px"><span class="form-title">{{compare[i*3+2].compareColumn}}：</span><input
+              style="display: block;" [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
+        </div>
+
+      </div>
+
+    </ng-container>
+  </div> -->
+
+<!-- <th class="f01_th">COMPARE_UNID 歷史申請書比對 (不同NID)</th>
+<ng-container *ngIf="compare.length == 0; else elseTemplate">
+  <br><br>
+  <th style="padding-left: 20px;color: red;">查無比對資料</th>
+</ng-container>
+<ng-template #elseTemplate>
+  <form [formGroup]="compare_UNIDForm" style="padding-left: 20px;">
+    <table>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <ng-container *ngFor="let compare of compare;let i = index">
+            <ng-container *ngIf="i%3==0">
+              <tr>
+            </ng-container>
+            <ng-container *ngIf="compare.result == 'Y'; else elseTemplate">
+              <th nowrap="nowrap">{{compare.compareColumn)}}：</th>
+              <td style="color: red;">
+                {{compare.count}}
+              </td>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <th nowrap="nowrap">{{getOptionDesc(compare.compareColumn)}}：</th>
+              <td>
+                {{compare.count}}
+              </td>
+            </ng-template>
+          </ng-container>
+        </mat-card-content>
+
+
+      </mat-card>
+    </table>
+  </form>
+</ng-template>
+ -->

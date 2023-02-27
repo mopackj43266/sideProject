@@ -1,0 +1,122 @@
+<div class="line_bank_bankground_color">
+  <br>
+  <div nz-row class="search_row">
+    <th style="padding-left: 30px;">產生合約前覆核清單 共{{sum}}件</th>
+    <div class="search_row_header">
+      <div nz-col>
+        <div nz-row>
+          <div nz-col nzSpan="4">
+            <span class="form-title line_bank_h4"> 案件編號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
+                  placeholder="請輸入案件編號" >
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <span class="form-title line_bank_h4">身分證號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId"
+                  placeholder="請輸入身分證編號" >
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <span class="form-title line_bank_h4">客戶ID</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcCustId" name="swcCustId"
+                  placeholder="請輸入客戶ID" >
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <span class="form-title line_bank_h4">代理人別</span>
+            <div class="form" style="width:90%;height:25px;margin:0 auto">
+              <div>
+                <mat-select [(ngModel)]="agentEmpNo" name="agentEmpNoCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of agentEmpNoCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <span class="form-title line_bank_h4">產品名稱</span>
+            <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
+              <div style="color:gray">
+                <mat-select [(ngModel)]="product_NAME" name="caseTypeCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of productList" [value]="code.value">
+                    {{code.value+code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+
+          </div>
+          <div nz-col nzSpan="2" style="margin-top:12px;">
+            <div>
+              <button nz-button [nzSize]="'middle'" (click)="select()" nzType="primary">查詢案件</button>
+            </div>
+          </div>
+          <div nz-col nzSpan="2" style="margin-top:12px;">
+            <div>
+              <button nz-button [nzSize]="'middle'" (click)="clear()" nzDanger >清除資料</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div #absBox class="abs-box">
+      <div nz-col nzSpan="24">
+        <div class="line_bank_card_no_padding">
+          <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
+          [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
+          [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)" id="matTable">
+          <thead style="max-height: 100vh;">
+            <tr>
+              <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'F_StartTime')" [nzSortFn]="true"
+                [nzSortOrder]="'ascend'" nzLeft>進件日期時間</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcCustTag')" [nzSortFn]="false"nzLeft>客群標籤</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplno')" [nzSortFn]="true" nzLeft>案件編號</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcRiskGrade')" [nzSortFn]="false">等級gp</th>
+              <th class="table-header">身分證號</th>
+              <th class="table-header">客戶ID</th>
+              <th class="table-header">姓名</th>
+              <th class="table-header" [nzWidth]="'140px'">公司名稱</th>
+              <th class="table-header">產品名稱</th>
+              <th class="table-header">申請金額</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr *ngFor="let data of newData; let i =index">
+                <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
+                <td class="table-data">{{ data.F_StartTime | date: 'yyyy-MM-dd HH:mm:ss' : "-0600" }}</td>
+                <td class="table-data">{{ data.swcCustTag }}</td>
+                <td class="table-data">
+                  <button nz-button [nzSize]="'middle'" nzType="link"
+                    (click)="getLockCase(data.swcApplno, data.swcNationalId, data.swcCustId)">
+                    {{data.swcApplno}}
+                  </button>
+                </td>
+                <td class="table-data">{{ data.swcRiskGrade }}</td>
+                <td class="table-data">{{ data.swcNationalId }}</td>
+                <td class="table-data">{{ data.swcCustId }}</td>
+                <td class="table-data" style="text-align:left;" >{{ data.swcName }}</td>
+                <td class="table-data" style="text-align:left;" >{{ data.swcCompany }}</td>
+                <td class="table-data">{{data.swcProdCode==''?'':product(data.swcProdCode)}}</td>
+                <td class="table-data">{{data.swcApplyAmount != undefined ? data_number( data.swcApplyAmount) :
+                  data.swcApplyAmount }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

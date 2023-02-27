@@ -1,0 +1,12 @@
+<div class="line_bank_card_no_padding" style="min-height:100px;">
+    <div class="line_bank_form_header_title">確定要取消此項照會提醒?</div>
+    <div class="container" style="padding:20px;width:100%;text-align: center;">
+        <form class="mat-dialog-content" #formControl="ngForm">
+                <button nz-button [nzSize]="'middle'" nzType="primary"
+                    style="margin:0px 5px" (click)="cancelCallout()">確定</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+                    style="margin:0px 5px">離開</button>
+            <br><br>
+        </form>
+    </div>
+</div>

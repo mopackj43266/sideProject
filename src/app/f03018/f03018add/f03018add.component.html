@@ -1,0 +1,104 @@
+<div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title">千大企業名單-新增</div>
+    <div class="container" style="padding:20px">
+        <form class="mat-dialog-content" #formControl="ngForm">
+
+            <div nz-row>
+                <div nz-col nzSpan="8">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">公司統編:</span>
+                            <input matInput #input class="form-control" [(ngModel)]="cuCpNo" name="cuCpNo" maxlength="8"
+                            oninput="value=value.replace(/[^\d]/g,'')" placeholder="請輸入公司統編">
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="8">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">公司名稱</span>
+                            <input matInput #input class="form-control" [(ngModel)]="cuCpName" placeholder="請輸入公司名稱" name="cuCpName" maxlength="20" required>
+                            <mat-error *ngIf="formControl.invalid  && (cuCpName=='' || cuCpName== null) ">
+                                {{getErrorMessage()}}</mat-error>
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="8">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">公司簡稱</span>
+                            <input matInput #input class="form-control" [(ngModel)]="cuCpSname" placeholder="請輸入公司簡稱" name="cuCpSname" maxlength="20"
+                                >
+                            <!-- <mat-error *ngIf="formControl.invalid&& (cuCpNo=='' || cuCpNo== null)&& (cuCpName=='' || cuCpName== null)&& (cuCpSname=='' || cuCpSname== null) ">
+                                {{getErrorMessage()}}</mat-error> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="8">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">分類1</span>
+                            <mat-select [(ngModel)]="cuCpType1Value" name="cuCpType1Value" required>
+                                <mat-option *ngFor="let code of cuCpType1Code" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formControl.invalid && (cuCpType1Value=='' || cuCpType1Value== null) ">
+                                {{getErrorMessage()}}</mat-error>
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="8">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">分類2</span>
+                            <mat-select [(ngModel)]="cuCpType2Value" name="cuCpType2Value">
+                                <mat-option *ngFor="let code of cuCpType2Code" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="formControl.invalid && (data.codeFlag=='' || data.codeFlag== null) ">
+                                {{getErrorMessage()}}</mat-error> -->
+                        </div>
+                    </div>
+                </div>
+                <div nz-col nzSpan="8">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">使用中</span>
+                            <mat-select [(ngModel)]="useFlagValue" name="useFlagValue" required>
+                                <mat-option *ngFor="let code of useFlagCode"  [value]="code.value">{{code.viewValue}}</mat-option>
+                              </mat-select>
+                            <mat-error *ngIf="formControl.invalid && (useFlagValue=='' || useFlagValue== null) ">
+                                {{getErrorMessage()}}</mat-error>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">分類3</span>
+                            <textarea matInput class="input-textarea"  [(ngModel)]="cuCpType3Value" name="cuCpType3Value"  id="textarea"style="height: 74px;"
+                                maxlength="30" placeholder="請輸入文字"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                    <div class="form" style="padding:20px">
+                        <div><span class="form-title-actions">備註</span>
+                            <textarea matInput class="input-textarea"[(ngModel)]="content"  name="content"  id="textarea" style="height: 74px;"
+                                maxlength="100" placeholder="請輸入文字"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </form>
+
+        <div mat-dialog-actions style="margin:0 auto;width:12vw;text-align: center;">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+                (click)="onesave()" [disabled]="!formControl.valid">儲存</button>
+            <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
+                style="margin:0px 5px">取消</button>
+        </div>
+    </div>

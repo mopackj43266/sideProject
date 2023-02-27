@@ -1,0 +1,59 @@
+<div class="line_bank_bankground_color">
+  <div class="content">
+    <th style="padding-left: 30px;">案件數 共{{this.total}}件</th>
+      <div nz-col nzSpan="24">
+          <div class="line_bank_card_no_padding">
+              <nz-table nzShowSizeChanger [nzData]="callOutDataSource" [nzFrontPagination]="false"
+                  [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+                  [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="徵信通報"
+                  (nzQueryParams)="onQueryParamsChange($event)">
+                  <thead style="max-height: 100vh;">
+                      <tr>
+                          <th class="table-header" [nzLeft]="true">案件編號</th>
+                          <th class="table-header">處理FRAUD人員</th>
+                          <th class="table-header">身分證字號</th>
+                          <th class="table-header">姓名</th>
+                          <th class="table-header">公司名稱</th>
+                          <th class="table-header">通報日期時間</th>
+                          <th class="table-header">案件狀態</th>
+                          <th class="table-header">客群標籤</th>
+                          <th class="table-header">風險等級分群</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let data of callOutDataSource">
+                          <td class="table-data">
+                              <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage(data.APPLNO,data.NATIONAL_ID )">
+                                  {{data.APPLNO}}
+                              </button>
+                          </td>
+                          <td class="table-data">{{ data.FRAUD_EMPNO }}</td>
+                          <td class="table-data">{{ data.NATIONAL_ID }}</td>
+                          <td class="table-data">{{ data.CU_CNAME }}</td>
+                          <td class="table-data">{{ data.CU_CP_NAME }}</td>
+                          <td class="table-data">{{ data.ANNOUNCE_DATE| date: 'yyyy-MM-dd.hh:mm'  }}</td>
+
+                          <td class="table-data">
+                            {{ data.OP_ID }}
+                              <!-- <nz-radio-group [(ngModel)]="data.CALLOUT_RDO"
+                                  (ngModelChange)="extendTime(data.ROWID, data.CALLOUT_RDO)" name="extendTimeValue">
+                                  <label nz-radio *ngFor="let code of extendTimeCode"
+                                      [nzValue]="code.value">{{code.label}}</label>
+                              </nz-radio-group> -->
+                          </td>
+                          <td class="table-data">
+                            {{ data.CUST_FLAG }}
+                              <!-- <button nz-button id="test" nzType="primary" [nzSize]="'middle'"
+                                  (click)="cancelCallout(data.ROWID)">取消</button> -->
+                          </td>
+                          <td class="table-data">{{ data.RISK_GRADE }}</td>
+                      </tr>
+                  </tbody>
+              </nz-table>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+

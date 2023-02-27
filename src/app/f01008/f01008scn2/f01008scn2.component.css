@@ -1,0 +1,66 @@
+/* :host::ng-deep.mat-select-value{
+  width: 90%;
+  color:gray;
+} */
+.table-header-sub{
+  background-color:#BFECD0;
+  /* border: 1px solid #e8e8e8; */
+  color:#2E4765;
+  margin-bottom: 1px;
+  font-size: 16px;
+  font-weight: 500;
+}
+textarea{
+  width: 95%;
+  height:150px;
+  background-color:#ffffff;
+  border-radius:10px;
+  border:1px solid #E6E6E6;
+}
+:host::ng-deep.ant-picker.ant-picker-disabled{
+  height:25px;
+  width:90%;
+  border: 1px solid #E6E6E6;
+  background-color:#E6E6E6;
+  border-radius: 5px;
+}
+:host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
+  font-size: 12px;
+}
+input{
+  background-color:#ffffff;
+  border-radius: 5px;
+  height:25px;
+  width:90%;
+  border: 1px solid #E6E6E6;
+}
+.ant-btn-dangerous{
+  color: #f80000;;
+  background:white;
+  border-color:#f80000;
+  border-radius:5px;
+
+}
+.ant-btn-dangerous:hover{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-dangerous:active{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+}
+.EL_DSS_form_header_title33{
+  text-align: left;
+  padding:5px 5px 5px 10px;
+  margin:5px 0;
+  font-weight:500;
+  font-size: 16px;
+  color:#2E4765;
+  background-color: #bfecd0;
+
+  }

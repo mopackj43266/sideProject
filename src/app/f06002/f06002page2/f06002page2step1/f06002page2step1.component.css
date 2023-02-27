@@ -1,0 +1,102 @@
+input{
+    background-color:#E6E6E6;
+    border-radius: 5px;
+    height:30px;
+    width:100%;
+    border: 1px solid #E6E6E6;
+  }
+  .form-title{
+    color:#2E4765;
+    font-weight: 500;
+    display:block;
+  }
+  ::ng-deep.ant-table.ant-table-small .ant-table-title{
+    color:#2E4765;
+    font-size:18px;
+    border-radius:5px 5px 0 0;
+    background-color:#BFECD0;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid #DBDBDB;
+
+  }
+  .ant-btn-primary{
+    color:#24C875;
+    background:white;
+    border-color:#24C875;
+    border-radius:5px;
+
+  }
+  .ant-btn-primary:hover{
+    color:#ffffff;
+    background:#24C875;
+    border-color:#24C875;
+    border-radius:5px;
+    box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+  }
+  .ant-btn-primary:active{
+    color:#ffffff;
+    background:#24C875;
+    border-color:#24C875;
+    border-radius:5px;
+  }
+  .mat-dialog-actions{
+    padding-left:20px;
+  }
+
+  .line_bank_form_header_title{
+    text-align: center;
+    font-weight:500;
+    font-size: 18px;
+    color:#2E4765;
+    background-color: #BFECD0;
+    padding:10px 0;
+    border-radius: 10px 10px 0 0;
+  }
+
+
+  .card-container {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .select-card {
+    padding: 10px 20px;
+    width: 35%;
+    min-height: 250px;
+    border: solid 1px #ebebeb;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .select-card:hover {
+    border: solid 1px #00d812;
+  }
+  .radio-label {
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .black-line {
+    margin: 5px 0 20px 0;
+    display: flex;
+    border: solid 1px #ebebeb;
+    width: 100%;
+  }
+  .highlight-green {
+    border: solid 2px #00d812;
+  }
+  .bold-label {
+    font-size: 16px !important;
+    padding: 0 0 10px 0;
+    color: black !important;
+  }
+  .card-detail {
+    font-size: 14px;
+    display: flex;
+    padding: 5px 0;
+    flex-flow: row;
+    justify-content: space-between;
+    color: #ababab;
+  }

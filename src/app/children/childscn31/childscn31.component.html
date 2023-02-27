@@ -1,0 +1,76 @@
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+  <!-- 最外層卡片包覆 -->
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="integrate" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="可債整明細">
+      <thead>
+        <tr>
+          <th class="table-header">銀行代碼</th>
+          <th class="table-header">銀行名稱</th>
+          <th class="table-header">債整產品</th>
+          <th class="table-header">可債整-科目別</th>
+          <th class="table-header">可債整-科目別註記</th>
+          <th class="table-header">可債整-用途</th>
+          <th class="table-header" style="width:15%">可債整-金額</th>
+          <th class="table-header" style="width:15%" *ngIf="this.page!='2'">調整後金額</th>
+          <th class="table-header">預留註記</th>
+          <th class="table-header" style="width:30px;" *ngIf="this.pag==false"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of Newintegrate">
+          <td class="table-data">{{data.BANK_CODE}}</td>
+          <td class="table-data">{{data.BANK_NAME}}</td>
+          <td class="table-data">{{data.MERG_DEBT_PROD}}</td>
+          <td class="table-data">{{data.ACCOUNT_CODE}}</td>
+          <td class="table-data">{{data.ACCOUNT_CODE2}}</td>
+          <td class="table-data">{{data.PURPOSE_CODE}}</td>
+          <td class="table-data" style="text-align: right;">{{data.MERG_DEBT_AMT}}</td>
+          <td class="table-data" style="text-align:right;" *ngIf="this.page!='2'"><input [disabled]="this.pag || data.BANK_CODE.includes('824')"
+              style="text-align:right;width:60%;" maxlength="14" type="test" [(ngModel)]="data.MERG_DEBT_AMT_DETAIL"
+              name="MERG_DEBT_AMT_DETAIL" (keyup)="limit(data.MERG_DEBT_AMT_DETAIL,data.GUID)"></td>
+          <td class="table-data" style="text-align: right;">{{data.MERG_DEBT_FLAG}}</td>
+          <td class="table-data" *ngIf="!this.pag"><button nz-button [nzSize]="'middle'" nzDanger
+              (click)="delTable(data.GUID)" [disabled]=" !this.pag && Newintegrate.length>1? false:true ">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div style="text-align: center;">
+      <button *ngIf="!this.pag && Newintegrate.length>0" nz-button [nzSize]="'middle'" nzType="primary"
+        (click)="editTable()" [disabled]="this.pag">儲存</button>
+    </div>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="compensationData" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="Outbound拆分後代償明細">
+      <thead>
+        <tr>
+          <th class="table-header">銀行代碼</th>
+          <th class="table-header">銀行名稱</th>
+          <th class="table-header">結清金額</th>
+          <th class="table-header">匯款帳號</th>
+          <th class="table-header">結清卡號</th>
+          <th class="table-header" >匯款戶名</th>
+          <th class="table-header" >匯款分行別</th>
+          <th class="table-header">匯款附言</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of compensationData">
+          <td>{{data.BANK_CODE}}</td>
+          <td>{{data.BANK_NAME}}</td>
+          <td>{{data.SETTLE_AMT}}</td>
+          <td>{{data.ACCOUNT_NO}}</td>
+          <td>{{data.SETTLE_CARD_NO}}</td>
+          <td>{{data.ACCOUNT_NM}}</td>
+          <td>{{data.BRANCH_CD}}</td>
+          <td>{{data.TRANS_MEMO}}</td>
+         </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

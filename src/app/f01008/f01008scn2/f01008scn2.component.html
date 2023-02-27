@@ -1,0 +1,458 @@
+<span style="position: fixed;z-index: 1;width: 100%;top:90px;background-color: #fff7e9;">
+  <br>
+  <br>
+  <div class="line_bank_card_no_padding_child" style="margin: 0 auto;">
+    <div class="line_bank_form_header_title">申請資訊</div>
+    <div nz-row style="padding:5px">
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">案件編號</span><input matInput #input class="form-control"
+            [(ngModel)]="applno" [ngStyle]="getStyle(applno)" readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">姓名</span><input matInput #input class="form-control"
+            [(ngModel)]="cuCName" [ngStyle]="getStyle(cuCName)" readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">客戶ID</span><input matInput #input class="form-control"
+            [(ngModel)]="custId" [ngStyle]="getStyle(custId)" readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
+            [(ngModel)]="nationalId" [ngStyle]="getStyle(nationalId)" readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">客戶身分名單註記</span><input matInput #input class="form-control"
+            value="待確認" readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">申請產品</span><input matInput #input class="form-control"
+            [(ngModel)]="prodCode" [ngStyle]="getStyle(prodCode)" readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">申請金額</span><input matInput #input class="form-control"
+            [(ngModel)]="applicationAmount" name="applicationAmount" [ngStyle]="getStyle(applicationAmount)" readonly
+            disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">徵信修改申請金額</span><input matInput #input class="form-control"
+            [(ngModel)]="caApplicationAmount" name="caApplicationAmount" [ngStyle]="getStyle(caApplicationAmount)"
+            readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"
+            [(ngModel)]="purposeCode" [ngStyle]="getStyle(purposeCode)" readonly disabled></div>
+      </div>
+      <!-- <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">專案名稱</span><input matInput #input class="form-control"
+            value="待確認" readonly disabled></div>
+      </div> -->
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">行銷代碼</span><input matInput #input class="form-control"
+            value="待確認" readonly disabled></div>
+      </div>
+    </div>
+  </div>
+</span>
+<div style="padding-top: 10px;"></div>
+<div class="line_bank_card_no_padding_child" style=" margin:110px auto 0 auto;">
+  <div class="line_bank_form_header_title">聯絡資訊</div>
+  <div nz-row style="padding:5px">
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">行動電話</span><input matInput #input class="form-control"
+          [(ngModel)]="cuMTel" name="cuMTel" [ngStyle]="getStyle(cuMTel)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">住宅電話區碼</span><input matInput #input class="form-control"
+          [(ngModel)]="cuHTelIno" name="cuHTelIno" [ngStyle]="getStyle(cuHTelIno)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">住宅電話</span><input matInput #input class="form-control"
+          [(ngModel)]="cuHTel" name="cuHTel" [ngStyle]="getStyle(cuHTel)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">公司電話區碼</span><input matInput #input class="form-control"
+          [(ngModel)]="cuCpTelIno" name="cuCpTelIno" [ngStyle]="getStyle(cuCpTelIno)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">公司電話</span><input matInput #input class="form-control"
+          [(ngModel)]="cuCpTel" name="cuCpTel" [ngStyle]="getStyle(cuCpTel)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">其他-手機(非本行主要)</span><input matInput #input class="form-control"
+          [(ngModel)]="cuMTelOther" name="cuMTelOther" [ngStyle]="getStyle(cuMTelOther)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">其他-聯絡資訊</span><input matInput #input class="form-control"
+          [(ngModel)]="contactOther" name="contactOther" [ngStyle]="getStyle(contactOther)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">其他-公司電話分機</span><input matInput #input class="form-control"
+          [(ngModel)]="cuCpTelExt" name="cuCpTelExt" [ngStyle]="getStyle(cuCpTelExt)" readonly disabled></div>
+    </div>
+  </div>
+</div>
+<br>
+<button style="margin-left: 50px;" nz-button [nzSize]="'middle'" nzType="primary" (click)="add()"
+  [disabled]="getSearch() == 'Y'">新增照會</button>
+
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">照會資訊</div>
+  <nz-table nzSize="small" [nzData]="dataSource" (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+      <tr>
+        <th class="table-header" style="width:5%">NO</th>
+        <th class="table-header" style="width:12.5%">聯絡方式</th>
+        <th class="table-header" style="width:10%">手機/市話</th>
+        <th class="table-header" style="width:12.5%">電話狀況</th>
+        <th class="table-header" style="width:10%">備註</th>
+        <th class="table-header" style="width:10%;z-index: 0;" (nzSortOrderChange)="Serial($event)" [nzSortFn]="true"
+          [nzSortDirections]="sortArry">確認時間</th>
+        <th class="table-header" style="width:10%">設定下次聯絡時間</th>
+        <th class="table-header" style="width:10%">確認人員</th>
+        <th class="table-header">編輯</th>
+        <th class="table-header">刪除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of dataSource;let i =index ">
+        <td class="table-data">{{ i+1 }}</td>
+        <td class="table-data">{{getOptionDesc(tYPE,data.CON_TYPE)}}</td>
+        <td class="table-data">{{data.PHONE}}</td>
+        <td class="table-data">{{getOptionDesc(cONDITION,data.TEL_CONDITION)}}</td>
+        <td class="table-data">{{data.CON_MEMO}}</td>
+        <td class="table-data">{{data.CALLOUT_SETTIME|date:"yyyy-MM-dd HH:mm"}}</td>
+        <td class="table-data">{{data.CALLOUT_DATE|date:"yyyy-MM-dd HH:mm"}}</td>
+        <td class="table-data">{{data.CALLOUT_EMPNO}}</td>
+        <td class="table-data" style="text-align: center;">
+          <button *ngIf="lv == 'D2'" nz-button [nzSize]="'middle'" nzType="primary"
+            (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">編輯</button>
+
+          <button *ngIf="lv != 'D2' || getSearch() == 'Y'" nz-button [nzSize]="'middle'" nzType="primary" disabled
+            (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">編輯</button>
+        </td>
+        <td class="table-data" style="text-align: center;">
+          <button *ngIf="lv == 'D2'" nz-button [nzSize]="'middle'" nzDanger
+            (click)="deleteItem(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">刪除</button>
+          <button *ngIf="lv != 'D2' || getSearch() == 'Y'" nz-button nz-button [nzSize]="'middle'" nzDanger
+            (click)="deleteItem(ddata.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)"
+            disabled>刪除</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="line_bank_card_no_padding">
+  <nz-table nzSize="small" [nzData]="jaicSource" [nzFrontPagination]="false" [nzSimple]="false" nzTemplateMode>
+    <thead>
+      <th class="table-header-sub" style="width:15%;border-radius: 0px 5px 0px 0px;" *ngIf="lv=='D2'">
+        選擇合約覆核人員
+      </th>
+      <br>
+      <th class="table-header-sub" style="width:15%;border-radius: 0px 5px 0px 0px;">
+        徵審後處理審核結果
+      </th>
+      <th class="table-header-sub" style="width:10%;border-radius: 0px 5px 0px 0px;">
+        重新發查日期時間
+      </th>
+      <th class="table-header-sub" style="width:20%;border-radius: 0px 5px 0px 0px;">
+        目前已發查次數(最大可發查3次)
+      </th>
+      <th class="table-header-sub" style="width:60%;border-radius: 0px 5px 0px 0px;"></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of jaicSource;">
+        <td style="padding: 5px;" *ngIf="lv=='D2'">
+          <mat-select [(ngModel)]="choose" name="choose" (ngModelChange)="storageSeve()">
+            <mat-option *ngFor="let code of chooseList" [value]="code.value">
+              {{code.value+code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </td>
+        <br>
+        <td style="padding: 5px;">
+          <mat-select [(ngModel)]="resulet" name="resulet" (ngModelChange)="storageSeve()"
+            [disabled]="getSearch() == 'Y'|| lv=='D1'">
+            <mat-option *ngFor="let code of ResultCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </td>
+        <td style="padding: 5px;">
+          <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" (ngModelChange)="dataSeve(data.researchDate)"
+            [disabled]="lv=='D1' || getSearch() == 'Y'" [nzDisabledDate]="disabledDate">
+          </nz-date-picker>
+        </td>
+        <td style="padding: 5px;">
+          <input type="text" value="{{data.researchNum != null? data.researchNum:0}}" disabled>
+        </td>
+        <td style="padding: 5px;"></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">本次簽約內容</div>
+  <form class="mat-dialog-content">
+    <div style="width:100%;text-align: center;">
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <div>
+            <div nz-row>
+              <div nz-col nzSpan="2">
+                <div style="padding:2px"><span class="form-title">核決結果</span>
+                  <mat-select [(ngModel)]="creditResult1" name="creditResult1" style="height:25px" disabled="true">
+                    <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
+                      {{code.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px"><span class="form-title">循環信貸額度</span><input matInput #input
+                    class="form-control" [(ngModel)]="resultApproveAmt" name="resultApproveAmt" maxlength="15" disabled>
+                </div>
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px">
+                  <span class="form-title">期數</span>
+                  <input type="number" style="display: block;" [(ngModel)]="installmentA" name="installmentA" disabled>
+                </div>
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px"><span class="form-title">每月最低還款比率(%)</span><input matInput #input
+                    class="form-control" [(ngModel)]="resultLowestPayRate" name="resultLowestPayRate"
+                    placeholder="限循環信貸" style="text-align: right;" maxlength="10" disabled></div>
+              </div>
+              <div nz-col nzSpan="3">
+
+                <div style="padding:3px">
+                  <span class="form-title">開辦費(首次簽約用)</span>
+                  <input type="number" class="data_right" style="display: block;" [(ngModel)]="start1" name="start1"
+                    disabled>
+                </div>
+
+              </div>
+              <div nz-col nzSpan="3">
+
+                <div style="padding:3px">
+                  <span class="form-title">帳戶管理費(續約用)</span>
+                  <input type="number" class="data_right" style="display: block;" [(ngModel)]="strgy1AprvLoanextfee"
+                    name="strgy1AprvLoanextfee" disabled>
+                </div>
+
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input
+                    [(ngModel)]="caPmcus" name="caPmcus" disabled></div>
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input
+                    class="form-control" [(ngModel)]="caRisk" name="caRisk" disabled></div>
+              </div>
+            </div>
+            <div nz-row>
+              <div nz-col nzSpan="2">
+
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px">
+                  <span class="form-title">分期信貸金額</span>
+                  <input style="text-align: left;" class="form-control" [(ngModel)]="strgy1CashAprvAmt1"
+                    name="strgy1CashAprvAmt1" disabled>
+                </div>
+              </div>
+              <span style="padding-top: 25px;padding-left:0px;padding-right:0px;">=</span>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px"><span class="form-title">分期信貸-現金額度</span><input matInput #input
+                    style="text-align: left;" class="form-control" [(ngModel)]="strgy1CashAprvAmt"
+                    name="strgy1CashAprvAmt" maxlength="15" disabled></div>
+              </div>
+              <span style="padding-top: 25px;padding-left:0px;padding-right:0px;">+</span>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px">
+                  <span class="form-title">分期信貸-債整額度(他行)</span>
+                  <input style="display: block;text-align: left;" [(ngModel)]="STRGY_LIMIT_CASH" name="STRGY_LIMIT_CASH"
+                    disabled>
+                </div>
+              </div>
+              <span style="padding-top: 25px;padding-left:0px;padding-right:0px;">+</span>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px">
+                  <span class="form-title">分期信貸-債整額度(本行)</span>
+                  <input style="display: block;text-align: left;" [(ngModel)]="STRGY_LIMIT_MERG" name="STRGY_LIMIT_MERG"
+                    disabled>
+                </div>
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px">
+                  <span class="form-title">期數</span>
+                  <input type="number" style="display: block;text-align: left;" [(ngModel)]="installment"
+                    name="installment" disabled>
+                </div>
+              </div>
+              <div nz-col nzSpan="3">
+                <div style="padding:3px">
+                  <span class="form-title">開辦費(首次簽約用)</span>
+                  <input type="number" style="display: block;text-align: left;" [(ngModel)]="start2" name="start2"
+                    disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <!-- 表格 -->
+          <nz-table nzShowSizeChanger [nzData]="CreditInterestPeriodSource" [nzFrontPagination]="false"
+            [nzSimple]="true" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
+            nzTitle="多階利率">
+            <thead style="max-height: 100vh;">
+              <tr>
+                <th class="table-header">序號</th>
+                <th class="table-header">分段起始期數</th>
+                <th class="table-header">期別</th>
+                <th class="table-header">利率型態</th>
+                <th class="table-header">當時的指數,基放,郵儲利率(%)</th>
+                <th class="table-header">利率(%)</th>
+                <th class="table-header">核准利率(%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of CreditInterestPeriodSource; let i = index">
+                <td class="table-data">
+                  {{data.seq}}
+                </td>
+                <td class="table-data">
+                  {{data.period}}
+                </td>
+                <td class="table-data">
+                  {{getType(data.periodType,'periodType')}}
+                </td>
+                <td class="table-data">
+                  {{getType(data.interestType,'interestType')}}
+                </td>
+                <td class="table-data">
+                  {{replace(data.interestBase)}}
+                </td>
+                <td class="table-data">
+                  {{data.interest}}
+                </td>
+                <td class="table-data">
+                  {{replace(data.approveInterest)}}
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <div class="EL_DSS_form_header_title33">綁約期違約金比例(多階)</div>
+          <nz-table nzShowSizeChanger [nzData]="elCreditRepayrates" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">生效期數</th>
+                <th class="table-header">提前清償違約金比例(%)</th>
+                <th class="table-header">預留欄位</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of elCreditRepayrates; let i = index">
+                <td class="table-data">
+                  {{row.activePeriod}}
+                  <!-- <input type="number" matInput #input class="form-control" [(ngModel)]=""
+                    name="activePeriod2" style="text-align: right;" [disabled]="true"> -->
+                </td>
+                <td class="table-data">
+                  {{row.earlyRepayRt}}
+                  <!-- <input type="number" matInput #input class="form-control" [(ngModel)]=""
+                    name="earlyRepayRt2" style="text-align: right;" [disabled]="true"> -->
+                </td>
+                <td class="table-data" nzDisabled="true">
+                  {{row.strgyReserved}}
+                  <!-- <input matInput #input class="form-control" [(ngModel)]="" name="strgyReserved2"
+                    style="text-align: left;" disabled> -->
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div class="EL_DSS_form_header_title33">債整明細(多筆)</div>
+          <nz-table nzShowSizeChanger [nzData]="debtBankDetail" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">銀行名稱</th>
+                <th class="table-header">結清金額</th>
+                <th class="table-header">匯款帳號</th>
+                <th class="table-header">結清卡號</th>
+                <th class="table-header">匯款戶名</th>
+                <th class="table-header">匯款分行別</th>
+                <th class="table-header">匯款附言</th>
+                <th class="table-header">預留註記</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of debtBankDetail">
+                <td class="table-data">{{ data.BANK_CODE }}&nbsp;{{ data.BANK_NAME }}</td>
+                <td class="table-data">{{ data.SETTLE_AMT ? f01008Service.toCurrency(data.SETTLE_AMT.toString()) : "" }}</td>
+                <td class="table-data">{{ data.ACCOUNT_NO }}</td>
+                <td class="table-data">{{ data.SETTLE_CARD_NO }}</td>
+                <td class="table-data">{{ data.ACCOUNT_NM }}</td>
+                <td class="table-data">{{ data.BRANCH_CD + '-' + data.BRANCH_NM }}</td>
+                <td class="table-data">{{ data.TRANS_MEMO }}</td>
+                <td class="table-data">{{ data.MERG_DEBT_FLAG ? f01008Service.toCurrency(data.MERG_DEBT_FLAG.toString()) : "" }}</td>
+              </tr>
+            </tbody>
+            <br>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+<div class="line_bank_card_no_padding">
+  <nz-table nzSize="small" [nzNoResult]="'  '">
+    <thead>
+      <th class="table-header-sub" style="width:50%;padding-left:10px;border-radius: 5px 5px 0px 0px;">
+        審核註記
+      </th>
+    </thead>
+    <tbody>
+      <br>
+      <tr style="text-align: center;">
+        <td>
+          <textarea [(ngModel)]="ma" name="ma" maxlength="300" [disabled]="getSearch() == 'Y'"></textarea>
+          <br>
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="macr()" [disabled]="getSearch() == 'Y'"
+            (keydown.enter)="$event.preventDefault()">儲存</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="macrSource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="審核意見">
+    <thead>
+      <tr>
+        <th class="table-header">Date</th>
+        <th class="table-header">User</th>
+        <th class="table-header" style="max-width: 200px;">Action</th>
+        <th class="table-header">Level</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of macrSource">
+        <td class="table-data">{{ data.CREDITDATE | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td class="table-data">{{ data.CREDITUSER }}</td>
+        <td class="table-data" style="max-width: 200px;">{{ data.CREDITACTION }}</td>
+        <td class="table-data">{{ changeLevel(data.CREDITLEVEL) }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

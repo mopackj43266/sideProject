@@ -1,0 +1,135 @@
+<span style="position: fixed;z-index: 1;width: 100%;top:90px;background-color: #fff7e9;">
+  <br>
+  <br>
+  <br>
+  <button nz-button [nzSize]="'middle'" nzType="primary" (click)="macr()" [disabled]="getSearch() =='Y'">紓困貸回饋檔</button>
+  <br>
+</span>
+<br>
+<br>
+  <div class="line_bank_card_no_padding">
+    <nz-table [nzData]="wlfeedback" nzSize="small" nzTitle="勞工紓困申請書回饋檔">
+      <thead>
+        <tr>
+          <th class="table-header" style="text-align: center;">案件編號</th>
+          <th class="table-header" style="text-align: center;">銀行代碼</th>
+          <th class="table-header" style="text-align: center;">借款人身分證號</th>
+          <th class="table-header" style="text-align: center;">借款人姓名</th>
+          <th class="table-header" style="text-align: center;">排程處理日</th>
+          <th class="table-header" style="text-align: center;">排程處理時間</th>
+          <th class="table-header" style="text-align: center;">處理狀態</th>
+          <th class="table-header" style="text-align: center;">處理說明</th>
+        </tr>
+      </thead>
+      <tbody style="height:0px;text-align: center;">
+        <tr *ngFor="let data of wlfeedback">
+          <td class="table-data">{{data.applno}}</td>
+          <td class="table-data">{{data.bankno}}</td>
+          <td class="table-data">{{data.nationalId}}</td>
+          <td class="table-data">{{data.borrower}}</td>
+          <td class="table-data">{{data.receivedate | date: 'yyyy-MM-dd '}}</td>
+          <td class="table-data">{{data.receivedate | date: 'HH:mm:ss'}}</td>
+          <td class="table-data">{{data.datastatus}}</td>
+          <td class="table-data">{{data.description}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table [nzData]="wlfbrslt" nzSize="small" nzTitle="勞工紓困申請書核保情形回饋檔">
+      <thead>
+        <tr>
+          <th class="table-header" style="text-align: center;">案件編號</th>
+          <th class="table-header" style="text-align: center;">銀行代碼</th>
+          <th class="table-header" style="text-align: center;">借款人身分證號</th>
+          <th class="table-header" style="text-align: center;">借款人姓名</th>
+          <th class="table-header" style="text-align: center;">回覆日</th>
+          <th class="table-header" style="text-align: center;">回覆時間</th>
+          <th class="table-header" style="text-align: center;">回覆結果</th>
+          <th class="table-header" style="text-align: center;">保證案號</th>
+        </tr>
+      </thead>
+      <tbody style="height:0px;text-align: center;">
+        <tr *ngFor="let data of wlfbrslt">
+          <td class="table-data">{{data.applno}}</td>
+          <td class="table-data">{{data.bankno}}</td>
+          <td class="table-data">{{data.nationalId}}</td>
+          <td class="table-data">{{data.borrower}}</td>
+          <td class="table-data">{{data.receivedate | date: 'yyyy-MM-dd '}}</td>
+          <td class="table-data">{{data.receivedate | date: 'HH:mm:ss'}}</td>
+          <td class="table-data">{{data.datastatus}}</td>
+          <td class="table-data">{{data.grntpaper}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table [nzData]="nt145feedback" nzSize="small" nzTitle="勞工紓困通知單回饋檔">
+      <thead>
+        <tr>
+          <th class="table-header" style="text-align: center;">案件編號</th>
+          <th class="table-header" style="text-align: center;">銀行代碼</th>
+          <th class="table-header" style="text-align: center;">借款人身分證號</th>
+          <th class="table-header" style="text-align: center;">保證案號</th>
+          <th class="table-header" style="text-align: center;">通知單號</th>
+          <th class="table-header" style="text-align: center;">排程處理日期</th>
+          <th class="table-header" style="text-align: center;">排程處理時間</th>
+          <th class="table-header" style="text-align: center;">處理狀態</th>
+          <th class="table-header" style="text-align: center;">處理說明</th>
+        </tr>
+      </thead>
+      <tbody style="height:0px;text-align: center;">
+        <tr *ngFor="let data of nt145feedback">
+          <td class="table-data">{{data.applno}}</td>
+          <td class="table-data">{{data.bankno}}</td>
+          <td class="table-data">{{data.nationalId}}</td>
+          <td class="table-data">{{data.grntpaper}}</td>
+          <td class="table-data">{{data.srlno}}</td>
+          <td class="table-data">{{data.receivedate | date: 'yyyy-MM-dd '}}</td>
+          <td class="table-data">{{data.receivedate | date: 'HH:mm:ss'}}</td>          <td class="table-data">{{data.applno}}</td>
+          <td class="table-data">{{data.datastatus}}</td>
+          <td class="table-data">{{data.description}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table nzSize="small" [nzNoResult]="'  '">
+      <thead>
+        <th class="table-header-sub" style="width:50%;padding-left:10px;border-radius: 5px 5px 0px 0px;">
+          審核註記
+        </th>
+      </thead>
+      <tbody>
+        <br>
+        <tr style="text-align: center;">
+          <td>
+            <textarea [(ngModel)]="ma" name="ma" maxlength="300"></textarea>
+            <br>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="macr()"
+              (keydown.enter)="$event.preventDefault()">儲存</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="bailoutmemo" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="審核意見">
+      <thead>
+        <tr>
+          <th class="table-header">Date</th>
+          <th class="table-header">User</th>
+          <th class="table-header" style="max-width: 200px;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of bailoutmemo">
+          <td class="table-data">{{ data.bailoutdate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td class="table-data">{{ data.bailoutuser }}</td>
+          <td class="table-data" style="max-width: 200px;">{{ data.bailoutaction }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+

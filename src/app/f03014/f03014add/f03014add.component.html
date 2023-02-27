@@ -1,0 +1,85 @@
+<div class="line_bank_card_no_padding" style="min-height:300px;min-width: 500px;">
+  <div class="line_bank_form_header_title">客戶身份名單註記-新增</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">客戶身分證字號</span>
+              <input matInput #input class="form-control" [(ngModel)]="custNid" name="custNid"
+                onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"  required>
+              <mat-error *ngIf="formControl.invalid && (custNid=='' || custNid== null) ">{{getErrorMessage()}}</mat-error>
+              </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">客戶姓名</span>
+              <input matInput #input class="form-control" [(ngModel)]="custName" name="custName" required >
+              <mat-error *ngIf="formControl.invalid && (custName=='' || custName== null) ">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">簡述一</span>
+              <input matInput #input class="form-control" [(ngModel)]="content1" name="content1" maxlength="10" required>
+              <mat-error *ngIf="formControl.invalid && (content1=='' || content1== null) ">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">簡述二</span>
+              <input matInput #input class="form-control" [(ngModel)]="content2" name="content2" maxlength="30">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">備註資訊</span>
+              <input matInput #input class="form-control" [(ngModel)]="remark" name="remark" maxlength="100">
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">生效日</span>
+              <nz-date-picker  [(ngModel)]="Efficient" name="Efficient" required></nz-date-picker>
+            </div>
+            <mat-error *ngIf="formControl.invalid && (Efficient=='' || Efficient== undefined) ">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">失效日</span>
+              <nz-date-picker  [(ngModel)]="Invalidation"   name="Invalidation" required></nz-date-picker>
+            </div>
+            <mat-error *ngIf="formControl.invalid && (Invalidation=='' || Invalidation== undefined) ">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:20px"><span class="form-title">使用中</span>
+            <mat-select [(ngModel)]="usingValue" name="usingValue"
+            style="border-radius:5px;background-color:white; border:1px solid #c9c9c9;" required>
+            <mat-option *ngFor="let code of usingType" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formControl.invalid && (usingValue=='' || usingValue== null) ">{{getErrorMessage()}}</mat-error>
+            </div>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+          style="margin:0px 5px" (click)="seve()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
+          style="margin:0px 5px">取消</button>
+          <!-- <button nz-button [nzSize]="'middle'" nzType="primary" (click)="test()" tabindex="-1"
+          style="margin:0px 5px">測試</button> -->
+      </div>
+    </form>
+  </div>
+</div>

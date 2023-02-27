@@ -1,0 +1,87 @@
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">上傳Excel</div>
+  <form [formGroup]="uploadForm" class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm"
+    style="height: 250px">
+    <div style="padding: 10px">
+      <span class="form-title">上傳檔案</span>
+      <div mat-dialog-actions style="padding-left:0px">
+        <input type="file" (change)="onChange($event)" style="height:40px;padding:5px 0 0 5px">
+      </div>
+      <br>
+    </div>
+    <div style="padding: 10px">
+      <span class="form-title">上傳異常訊息</span>
+      <textarea matInput class="input-textarea" formControlName="ERROR_MESSAGE" readonly style="color:red"></textarea>
+    </div>
+    <!-- <td>
+                        <textarea matInput formControlName="ERROR_MESSAGE" readonly style="color:red"></textarea>
+                    </td> -->
+    <div style="margin:10px auto;width:10vw">
+      <button nz-button [nzSize]="'middle'" nzType="primary" [type]="submit" color="primary" (click)="confirmAdd()">儲存</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" nzType="primary" [type]="submit"  nzType="default" (click)="onNoClick()" tabindex="-1" nzDanger>取消</button>
+      <!-- <button mat-raised-button [type]="submit" color="primary" (click)="confirmAdd()">儲存</button>
+      <button mat-raised-button (click)="onNoClick()" color="warn" tabindex="-1">取消</button> -->
+    </div>
+  </form>
+</div>
+<!-- <form >
+  <table >
+    <tr>
+      <td>上傳檔案</td>
+      <input type="file" name="file" id="file" (change)="openup($event.target.files)" style="display: none;">
+      <input type="text" disabled="disable"  [(ngModel)]="Filename" name="Filename" >
+      <td><input type="button" value="開啟檔案" onclick="file.click()" ></td>
+      <td><input type="button" value="上傳" (click)="seve()" ></td>
+    </tr>
+    <tr>
+      <td>上傳異常訊息</td>
+      <td colspan="2">
+        <input type="text" style="height:200px;width:250px;" [(ngModel)]="rspMsg" name="rspMsg" value={{rspMsg}} disabled>
+      </td>
+    </tr>
+  </table>
+</form>
+<script>
+  openup($event)
+  {
+    const file = $event.target.files[0];
+    if(!file)
+    {
+      return;
+    }
+  }
+</script> -->
+<!-- <div class="container">
+  <h2 mat-dialog-title>上傳Excel</h2>
+
+  <form [formGroup]="uploadForm" class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm" style = "height: 250px">
+      <table>
+          <mat-card class="matCard">
+              <mat-card-content>
+                  <tr>
+                      <th>上傳檔案</th>
+                      <td>
+                          <div mat-dialog-actions>
+                              <input type="file" (change)="onChange($event)" />
+                          </div>
+                      </td>
+                  </tr>
+                  <br>
+                  <tr>
+                      <th>上傳異常訊息</th>
+                      <td>
+                          <textarea matInput formControlName="ERROR_MESSAGE" readonly style="color:red"></textarea>
+                      </td>
+                  </tr>
+              </mat-card-content>
+          </mat-card>
+      </table>
+
+
+      <div mat-dialog-actions>
+          <button mat-raised-button [type]="submit" color="primary" (click)="confirmAdd()">儲存</button>
+          <button mat-raised-button (click)="onNoClick()" color="warn" tabindex="-1">取消</button>
+      </div>
+  </form>
+</div> -->

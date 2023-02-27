@@ -1,0 +1,340 @@
+ <div class="line_bank_bankground_color_test" style="margin-top: -15px;">
+  <div class="line_bank_card_no_padding_child" style="width:90%;">
+      <div class="EL_DSS_form_header_title2" style="border-radius: 10px 10px 0 0;">系統決策</div>
+      <div nz-row>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">DSS交易日期時間</span>
+            <input [(ngModel)]="QUERY_DATE" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">系統流程</span>
+            <input [(ngModel)]="SYSFLOWCD" disabled>
+          </div>
+        </div>
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
+            <span class="form-title">決策結果</span>
+            <input style="display: block;" [(ngModel)]="RESLTCD" disabled>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div style="margin:0;" class="EL_DSS_form_header_title3">徵審代碼</div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用異常資訊</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS3_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data">{{row.REASON_DESC}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">整體往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST2.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS3_UNDW_LIST2.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用卡往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST3.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS3_UNDW_LIST3.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">授信往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST4.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS3_UNDW_LIST4.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0;" class="EL_DSS_form_header_title4">其他</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST5.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS3_UNDW_LIST5.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+      </div>
+  </div>
+
+
+  <div style="padding-left:25%;;">
+    <button nz-button [hidden]="closeButton" [nzSize]="'large'" nzType="primary" (click)="save_M()" [disabled]="getSearch() == 'Y'">產生合約前回查儲存</button>
+  </div>
+  <div class="line_bank_card_no_padding" [ngStyle]="{'width':closeButton==true?'90%':'50%'}">
+    <nz-table nzShowSizeChanger [nzData]="fmData_M.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="產生合約前回查DBR計算">
+      <thead>
+        <tr *ngIf="fmData_M.data.length>0">
+          <th style="width:26%" class="table-header" colspan="2">項目</th>
+          <th style="width:15%" class="table-header">DSS計算結果</th>
+          <th style="width:10%" class="table-header">產生合約前回查手動調整</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td>(DBR分子)無擔保負債金錢</td>
+          <td id="td_height">(A)無擔保負債(不含本行)_BAM501月報</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_AMT_501EX}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMT_501EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMT_501EX_B=data_number1(fmData_M.data[0].unsdebt_AMT_501EX_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMT_501EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMT_501EX_B=data_number1(fmData_M.data[0].unsdebt_AMT_501EX_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(B)無擔保負債(不含本行)_BAM504扣除鑑價值</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_AMT_504EX}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMT_504EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMT_504EX_B=data_number1(fmData_M.data[0].unsdebt_AMT_504EX_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMT_504EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMT_504EX_B=data_number1(fmData_M.data[0].unsdebt_AMT_504EX_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(C)無擔保負債(不含本行)_BAM505新增核准額度</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_AMTNEW_505EX}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMTNEW_505EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMTNEW_505EX_B=data_number1(fmData_M.data[0].unsdebt_AMTNEW_505EX_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMTNEW_505EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMTNEW_505EX_B=data_number1(fmData_M.data[0].unsdebt_AMTNEW_505EX_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(D)無擔保負債(不含本行)_BAM029新增核准額度</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_AMTNEW_029EX}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMTNEW_029EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMTNEW_029EX_B=data_number1(fmData_M.data[0].unsdebt_AMTNEW_029EX_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_AMTNEW_029EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_AMTNEW_029EX_B=data_number1(fmData_M.data[0].unsdebt_AMTNEW_029EX_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(E)本行無擔保負債_循環信貸額度</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_824_RLLIMIT}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_RLLIMIT_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_RLLIMIT_B=data_number1(fmData_M.data[0].unsdebt_824_RLLIMIT_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_RLLIMIT_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_RLLIMIT_B=data_number1(fmData_M.data[0].unsdebt_824_RLLIMIT_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(E_1)本行無擔保負債_循環信貸餘額</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_824_RLBAL}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_RLBAL_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_RLBAL_B=data_number1(fmData_M.data[0].unsdebt_824_RLBAL_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_RLBAL_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_RLBAL_B=data_number1(fmData_M.data[0].unsdebt_824_RLBAL_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(F)本行無擔保負債_分期信貸放款餘額</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_824_ILBAL}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_ILBAL_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_ILBAL_B=data_number1(fmData_M.data[0].unsdebt_824_ILBAL_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_ILBAL_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_ILBAL_B=data_number1(fmData_M.data[0].unsdebt_824_ILBAL_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(G)本行無擔保負債_信用卡循環預借未到期</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_824_CCRBAL}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_CCRBAL_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_CCRBAL_B=data_number1(fmData_M.data[0].unsdebt_824_CCRBAL_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_824_CCRBAL_B"
+                (keyup)="fmData_M.data[0].unsdebt_824_CCRBAL_B=data_number1(fmData_M.data[0].unsdebt_824_CCRBAL_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(H)其他無擔保負債_其他非JCIC</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_NONJCIC}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_NONJCIC_B"
+                (keyup)="fmData_M.data[0].unsdebt_NONJCIC_B=data_number2(fmData_M.data[0].unsdebt_NONJCIC_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_NONJCIC_B"
+                (keyup)="fmData_M.data[0].unsdebt_NONJCIC_B=data_number2(fmData_M.data[0].unsdebt_NONJCIC_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(I)(減項)無擔保負債(不含本行)_BAM029清償全額</td>
+          <td class="data_right">
+            {{fmData_M.data[0].unsdebt_PAYAMT_029EX}}
+          </td>
+          <td>
+            <div *ngIf="getSearch()=='N'" style="padding:0px"> <input class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_PAYAMT_029EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_PAYAMT_029EX_B=data_number1(fmData_M.data[0].unsdebt_PAYAMT_029EX_B)"
+                maxlength="15" /></div>
+            <div *ngIf="getSearch()!='N'" style="padding:0px"> <input disabled class="data_right"
+                [(ngModel)]="fmData_M.data[0].unsdebt_PAYAMT_029EX_B"
+                (keyup)="fmData_M.data[0].unsdebt_PAYAMT_029EX_B=data_number1(fmData_M.data[0].unsdebt_PAYAMT_029EX_B)"
+                maxlength="15" /></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td></td>
+          <td id="td_height">(J)無擔保負債(不含本筆核准)合計</td>
+          <td class="data_right">{{fmData_M.data[0].unsdebt_SUM_0}}</td>
+          <td class="data_right">{{fmData_M.data[0].unsdebt_SUM_0CK}}</td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td id="td_height" colspan="2">(DBR分母)客戶填寫年收入</td>
+          <td>{{fmData_M.data[0].annual_INCOME}}</td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td id="td_height" colspan="2">(DBR分母)徵審確認後年收入</td>
+          <td>{{fmData_M.data[0].income}}</td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td id="td_height" colspan="2">本筆建議核准金額/額度</td>
+          <td class="data_right" >{{fmData_M.data[0].approve_AMT}}</td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td id="td_height" colspan="2">無擔保倍數(不含本筆合約金額&使用徵審確認收入值)</td>
+          <td class="data_right" [ngClass]="{data_color:fmData_M.data[0].dbr_0>=15}">{{fmData_M.data[0].dbr_0}}</td>
+          <td class="data_right">{{fmData_M.data[0].dbr_0CK}}</td>
+        </tr>
+        <tr *ngIf="fmData_M.data.length>0">
+          <td id="td_height" colspan="2">無擔保倍數(含本筆合約金額&使用徵審確認收入值)</td>
+          <td class="data_right" [ngClass]="{data_color:fmData_M.data[0].dbr_2>=15}">{{fmData_M.data[0].dbr_2}}</td>
+          <td class="data_right">{{fmData_M.data[0].dbr_2CK}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+  </div>

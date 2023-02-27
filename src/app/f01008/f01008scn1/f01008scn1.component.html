@@ -1,0 +1,60 @@
+<app-block *ngIf="block"></app-block>
+<div class="line_bank_bankground_color">
+  <br>
+  <div  style="position:fixed;top:48px;width:100%;z-index:100" *ngIf="level !='D1' ">
+    <ng-container *ngIf="getSearch() == 'N'">
+      <div style="padding:0 10px;background-color:white">
+        <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
+          <mat-grid-tile><span style="font-size: 10px;" (click)="save('是否案件完成')">案件完成</span></mat-grid-tile>
+          <mat-grid-tile *ngIf="jcicNumb < 3 && level =='D2' "><span style="font-size: 10px;"
+              (click)="reSearch('是否立即重查JCIC')">立即重查JCIC</span></mat-grid-tile>
+          <mat-grid-tile *ngIf="level =='D2'"><span style="font-size: 10px;" (click)="reScan('是否重算')">重算</span></mat-grid-tile>
+          <mat-grid-tile *ngIf="level =='D2'"><span style="font-size: 10px;" (click)="temporarily()">暫存</span></mat-grid-tile>
+
+        </mat-grid-list>
+      </div>
+    </ng-container>
+  </div>
+  <div  style="position:fixed;top:48px;width:100%;z-index:100" *ngIf="level =='D1'">
+    <ng-container *ngIf="getSearch() == 'N'">
+      <div style="padding:0 10px;background-color:white" >
+        <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
+          <mat-grid-tile><span style="font-size: 10px;" (click)="save('是否案件完成')">案件完成</span></mat-grid-tile>
+          <mat-grid-tile><span style="font-size: 10px;" (click)="return()">退件</span></mat-grid-tile>
+
+        </mat-grid-list>
+      </div>
+    </ng-container>
+  </div>
+  <br>
+
+  <div class="classA">
+    <br>
+    <nz-tabset nzLinkRouter>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN2']">
+          <button nz-button nzType="primary" id="firstBtn" nzSize="small">審核資料</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN3']">
+          <button nz-button nzType="primary" id="secondBtn" nzSize="small">行外資料</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN4']">
+          <button nz-button nzType="primary" id="secondBtn" nzSize="small">決策結果</button>
+        </a>
+      </nz-tab>
+      <nz-tab >
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN14']">
+          <button nz-button nzType="primary" id="secondBtn" nzSize="small" >本案影像</button>
+        </a>
+      </nz-tab  >
+    </nz-tabset>
+  </div>
+  <router-outlet (activate)="scrollToTop($event)" style="padding-top: 35px;display: block;"></router-outlet>
+</div>
+<app-f01008add style="padding-left: 5%;;z-index: 2" *ngIf="isShowAdd" cdkDrag [data]="addData"></app-f01008add>
+<app-f01008edit style="padding-left: 5%;;z-index: 2" *ngIf="isShowEdit" cdkDrag [data]="editData"></app-f01008edit>
+<app-f01008delete style="padding-left: 5%;;z-index: 2" *ngIf="isShowdel" cdkDrag></app-f01008delete>
